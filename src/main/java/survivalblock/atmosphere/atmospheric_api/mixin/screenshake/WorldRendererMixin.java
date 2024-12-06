@@ -19,10 +19,10 @@ public class WorldRendererMixin {
             return original;
         }
         Random random = ScreenShaker.getRandom();
-        int intensity = ScreenShaker.getActiveInstance().getIntensity();
+        float intensity = ScreenShaker.getActiveInstance().getIntensity();
         return original.add(
-                MathHelper.nextBetween(random, (float) -intensity, intensity),
-                MathHelper.nextBetween(random, (float) -intensity, intensity),
-                MathHelper.nextBetween(random, (float) -intensity, intensity));
+                MathHelper.nextBetween(random, -intensity, intensity),
+                MathHelper.nextBetween(random, -intensity, intensity),
+                MathHelper.nextBetween(random, -intensity, intensity));
     }
 }

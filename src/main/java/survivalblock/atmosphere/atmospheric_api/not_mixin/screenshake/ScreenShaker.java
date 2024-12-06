@@ -13,11 +13,11 @@ public class ScreenShaker {
 
     protected static ScreenShaker active = null;
     protected static Random random = Random.createLocal();
-    protected int intensity;
+    protected float intensity;
     protected int duration;
     protected boolean ended;
 
-    public ScreenShaker(int intensity, int duration) {
+    public ScreenShaker(float intensity, int duration) {
         this.intensity = intensity;
         this.duration = duration;
         if (intensity <= 0 || duration <= 0) {
@@ -25,7 +25,7 @@ public class ScreenShaker {
         }
     }
 
-    public int getIntensity() {
+    public float getIntensity() {
         return this.intensity;
     }
 
