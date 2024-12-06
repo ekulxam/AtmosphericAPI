@@ -29,7 +29,7 @@ public final class AtmosphericEntityUtil {
         return false;
     }
 
-    public static void getEntities(ServerWorld serverWorld, Predicate<Entity> predicate, Collection<Entity> entities) {
+    public static void getAndAddEntitiesToCollection(ServerWorld serverWorld, Predicate<Entity> predicate, Collection<Entity> entities) {
         AtomicInteger entityCount = new AtomicInteger(0);
         ((ServerWorldAccessor) serverWorld).atmospheric_api$invokeGetEntityLookup().forEach(TypeFilter.instanceOf(Entity.class), (entity) -> {
             if (entityCount.get() >= Integer.MAX_VALUE - 1) { // yes this is a conscious decision
