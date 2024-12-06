@@ -6,6 +6,7 @@
     "damage_type.PlayerEntityMixin",
     "entity.EntityTrackerEntryMixin",
     "item.client.scrolling.PlayerInventoryMixin",
+    "screenshake.AtmosphericAPIClientMixin",
     "util.ServerWorldAccessor"
   ],
   "injectors": {
@@ -23,6 +24,7 @@
     "item.client.two_handed.BipedEntityModelMixin",
     "item.client.two_handed.CrossbowPosingMixin",
     "item.client.two_handed.HeldItemRendererMixin",
-    "item.client.two_handed.PlayerEntityRendererMixin"
+    "item.client.two_handed.PlayerEntityRendererMixin",
+    "screenshake.WorldRendererMixin"
   ]
 }
