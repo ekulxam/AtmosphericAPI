@@ -6,7 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import io.netty.util.internal.UnstableApi;
 import net.minecraft.entity.damage.DamageType;
-import survivalblock.atmosphere.atmospheric_api.funny.ThisIsAnExtremelyBadIdea;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsAnExtremelyBadIdea;
 
 import java.util.ArrayList;
 import java.util.Collection;
