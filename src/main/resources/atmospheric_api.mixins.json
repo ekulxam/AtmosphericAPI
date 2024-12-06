@@ -7,7 +7,6 @@
     "entity.EntityTrackerEntryMixin",
     "item.client.scrolling.PlayerInventoryMixin",
     "screenshake.AtmosphericAPIMixin",
-    "screenshake.client.AtmosphericAPIClientMixin",
     "util.ServerWorldAccessor"
   ],
   "injectors": {
@@ -26,6 +25,7 @@
     "item.client.two_handed.CrossbowPosingMixin",
     "item.client.two_handed.HeldItemRendererMixin",
     "item.client.two_handed.PlayerEntityRendererMixin",
+    "screenshake.client.AtmosphericAPIClientMixin",
     "screenshake.client.WorldRendererMixin"
   ]
 }
