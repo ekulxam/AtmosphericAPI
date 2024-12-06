@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "atmospheric_api",
+	"version": "${version}",
+	"name": "Atmospheric API",
+	"description": "Sky, what have you done?",
+	"authors": [
+		"Survivalblock"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": "",
+		"issues": ""
+	},
+	"license": "ARR",
+	"icon": "moon_blend.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI"
+		],
+		"fabric-datagen": [
+          "survivalblock.atmosphere.atmospheric_api.not_mixin.self_datagen.AtmosphericAPIDataGenerator"
+		]
+	},
+	"mixins": [
+		"atmospheric_api.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

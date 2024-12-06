@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "package": "survivalblock.atmosphere.atmospheric_api.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "damage_type.PlayerEntityMixin",
+    "entity.EntityTrackerEntryMixin",
+    "item.client.scrolling.PlayerInventoryMixin",
+    "util.ServerWorldAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "entity.client.ClientPlayNetworkHandlerMixin",
+    "item.client.ItemRendererMixin",
+    "item.client.ModelLoaderMixin",
+    "item.client.spyglass.AbstractClientPlayerEntityMixin",
+    "item.client.spyglass.InGameHudAccessor",
+    "item.client.spyglass.InGameHudMixin",
+    "item.client.spyglass.MouseMixin",
+    "item.client.spyglass.PlayerHeldItemFeatureRendererMixin",
+    "item.client.two_handed.BipedEntityModelMixin",
+    "item.client.two_handed.CrossbowPosingMixin",
+    "item.client.two_handed.HeldItemRendererMixin",
+    "item.client.two_handed.PlayerEntityRendererMixin"
+  ]
+}
