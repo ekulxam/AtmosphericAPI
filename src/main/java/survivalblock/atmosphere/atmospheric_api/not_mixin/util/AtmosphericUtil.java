@@ -7,6 +7,8 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.item.AnimalArmorItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
@@ -21,6 +23,24 @@ import java.util.Set;
 
 @SuppressWarnings("unused")
 public final class AtmosphericUtil {
+
+    public static final double CONFIG_FLOATING_POINT_PRECISION = 0.001;
+
+    public static boolean isBasicallyEqual(double value, double original, double goodEnough) {
+        return Math.abs(value - original) <= goodEnough;
+    }
+
+    public static boolean isBasicallyEqual(float value, float original, float goodEnough) {
+        return Math.abs(value - original) <= goodEnough;
+    }
+
+    public static boolean isBasicallyEqual(double value, double original) {
+        return isBasicallyEqual(value, original, CONFIG_FLOATING_POINT_PRECISION);
+    }
+
+    public static boolean isBasicallyEqual(float value, float original) {
+        return isBasicallyEqual(value, original, (float) CONFIG_FLOATING_POINT_PRECISION);
+    }
 
     public static void grantAdvancement(ServerPlayerEntity serverPlayer, Identifier advancementId) {
         grantAdvancement(serverPlayer, advancementId, false);
@@ -59,5 +79,13 @@ public final class AtmosphericUtil {
             }
         }
         return level;
+    }
+
+    public static boolean isHorseArmor(ItemStack stack) {
+        return isHorseArmor(stack.getItem());
+    }
+
+    public static boolean isHorseArmor(Item item) {
+        return item instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType().equals(AnimalArmorItem.Type.EQUESTRIAN);
     }
 }

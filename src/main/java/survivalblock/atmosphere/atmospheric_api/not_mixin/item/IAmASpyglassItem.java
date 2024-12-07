@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
-import survivalblock.atmosphere.atmospheric_api.mixin.item.client.spyglass.InGameHudAccessor;
+import survivalblock.atmosphere.atmospheric_api.mixin.item.render.client.spyglass.InGameHudAccessor;
 
 @SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted"})
 public interface IAmASpyglassItem extends AlternateModelItem {
