@@ -8,9 +8,9 @@
 		"Survivalblock"
 	],
 	"contact": {
-		"homepage": "",
-		"sources": "",
-		"issues": ""
+		"homepage": "https://github.com/ekulxam/AtmosphericAPI",
+		"sources": "https://github.com/ekulxam/AtmosphericAPI",
+		"issues": "https://github.com/ekulxam/AtmosphericAPI/issues"
 	},
 	"license": "ARR",
 	"icon": "assets/atmospheric_api/moon_blend.png",
