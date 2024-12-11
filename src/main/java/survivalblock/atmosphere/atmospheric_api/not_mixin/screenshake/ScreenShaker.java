@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.util.math.random.Random;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.AtmosphericUtil;
@@ -141,6 +142,7 @@ public class ScreenShaker {
      * Initializes the events and other logic in {@link survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPIClient#onInitializeClient()}.<p>
      * This should not be called anywhere else. (However, this method is actually called by {@link survivalblock.atmosphere.atmospheric_api.mixin.screenshake.client.AtmosphericAPIClientMixin#invokeInitializeScreenShakers(CallbackInfo)} in possible preparation for turning this into a modular API.)
      */
+    @ApiStatus.Internal
     @SuppressWarnings("JavadocReference")
     public static void initialize() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

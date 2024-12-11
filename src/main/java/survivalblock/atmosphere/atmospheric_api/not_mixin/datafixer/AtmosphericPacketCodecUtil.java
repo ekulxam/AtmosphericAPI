@@ -4,12 +4,25 @@ import com.mojang.datafixers.util.Function10;
 import com.mojang.datafixers.util.Function7;
 import com.mojang.datafixers.util.Function8;
 import com.mojang.datafixers.util.Function9;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.registry.Registries;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public final class AtmosphericPacketCodecUtil {
+
+    public static final PacketCodec<ByteBuf, SoundEvent> SOUND_EVENT = new PacketCodec<>() {
+        public SoundEvent decode(ByteBuf buf) {
+            return Registries.SOUND_EVENT.get(Identifier.PACKET_CODEC.decode(buf));
+        }
+        public void encode(ByteBuf buf, SoundEvent soundEvent) {
+            Identifier.PACKET_CODEC.encode(buf, soundEvent.getId());
+        }
+    };
 
     public static <B, C, T1, T2, T3, T4, T5, T6, T7> PacketCodec<B, C> tuple(
             PacketCodec<? super B, T1> codec1,

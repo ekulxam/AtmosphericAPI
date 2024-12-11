@@ -32,10 +32,12 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
         nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().toNbt());
     }
 
+    @Override
     public AttributeContainer getAttributes() {
         return this.attributes;
     }
 
+    @Override
     public boolean setAttributesFrom(AttributeContainer attributes) {
         if (attributes != null) {
             this.attributes.setFrom(attributes);

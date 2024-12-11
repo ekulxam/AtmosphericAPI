@@ -1,6 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,6 +11,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsProbablyAB
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemStackOfUndyingS2CPayload;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.screenshake.ScreenShakeS2CPayload;
 
+@ApiStatus.Internal
 @ThisIsProbablyABadIdea
 @Mixin(value = AtmosphericAPI.class, remap = false)
 public class AtmosphericAPIMixin {

@@ -2,6 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.screenshake.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -10,6 +11,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPIClient;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsProbablyABadIdea;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.screenshake.ScreenShaker;
 
+@ApiStatus.Internal
 @ThisIsProbablyABadIdea
 @Environment(EnvType.CLIENT)
 @Mixin(value = AtmosphericAPIClient.class, remap = false)

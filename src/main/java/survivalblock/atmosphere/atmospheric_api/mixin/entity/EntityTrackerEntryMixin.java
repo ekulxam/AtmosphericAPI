@@ -31,7 +31,7 @@ public class EntityTrackerEntryMixin {
 	@Shadow @Final private Entity entity;
 
 	@Inject(method = "sendPackets", at = @At("HEAD"))
-	private void renderCustomThing(ServerPlayerEntity player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
+	private void captureSender(ServerPlayerEntity player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
 		senderRef.set(sender);
 	}
 

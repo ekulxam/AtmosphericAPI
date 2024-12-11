@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,6 +17,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemStackOfUndyin
 
 import java.util.Objects;
 
+@ApiStatus.Internal
 @ThisIsProbablyABadIdea
 @Environment(EnvType.CLIENT)
 @Mixin(value = AtmosphericAPIClient.class, remap = false)

@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import io.netty.util.internal.UnstableApi;
 import net.minecraft.entity.damage.DamageType;
+import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsAnExtremelyBadIdea;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.function.Consumer;
  * A container for damage types, backed by a list {@link #backing}
  * @author Survivalblock
  */
+@ApiStatus.Internal
 @SuppressWarnings("unused")
 public class FabricDamageTypesContainer {
 
@@ -27,7 +29,7 @@ public class FabricDamageTypesContainer {
      * Creates a new instance of {@link FabricDamageTypesContainer} with an {@link ArrayList} as backing
      */
     public FabricDamageTypesContainer() {
-        this(new ArrayList<>());
+        this.backing = new ArrayList<>();
     }
 
     @UnstableApi
