@@ -10,5 +10,7 @@ import java.util.Optional;
 @SuppressWarnings({"unused", "UnusedReturnValue", "OptionalUsedAsFieldOrParameterType"})
 public interface AtmosphericItemStackDamager {
 
-    boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, int damage, int cooldownTicks, Optional<StatType<Item>> stat);
+    default boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, int damage, int cooldownTicks, Optional<StatType<Item>> stat) {
+        return false;
+    }
 }

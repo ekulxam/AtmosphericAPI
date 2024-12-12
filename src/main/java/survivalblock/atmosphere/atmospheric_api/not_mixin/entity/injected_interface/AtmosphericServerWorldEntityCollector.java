@@ -8,5 +8,7 @@ import java.util.function.Predicate;
 @SuppressWarnings("unused")
 public interface AtmosphericServerWorldEntityCollector {
 
-    void atmospheric_api$getAndAddEntitiesToCollection(Predicate<Entity> predicate, Collection<Entity> entities);
+    default void atmospheric_api$getAndAddEntitiesToCollection(Predicate<Entity> predicate, Collection<Entity> entities) {
+
+    }
 }

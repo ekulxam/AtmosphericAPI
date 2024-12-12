@@ -6,5 +6,7 @@ import net.minecraft.registry.tag.TagKey;
 @SuppressWarnings("unused")
 public interface AtmosphericEnchantmentLevelObtainer {
 
-    int atmospheric_api$getAbsoluteLevel(TagKey<Enchantment> tag);
+    default int atmospheric_api$getAbsoluteLevel(TagKey<Enchantment> tag) {
+        return 0;
+    }
 }

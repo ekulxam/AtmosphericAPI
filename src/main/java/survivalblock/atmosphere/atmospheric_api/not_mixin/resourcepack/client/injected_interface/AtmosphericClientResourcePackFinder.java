@@ -9,17 +9,29 @@ import org.jetbrains.annotations.Nullable;
 @Environment(EnvType.CLIENT)
 public interface AtmosphericClientResourcePackFinder {
 
-    boolean atmospheric_api$isResourcePackLoaded(String name);
+    default boolean atmospheric_api$isResourcePackLoaded(String name) {
+        return false;
+    }
 
-    boolean atmospheric_api$doesResourcePackExist(String name);
+    default boolean atmospheric_api$doesResourcePackExist(String name) {
+        return false;
+    }
 
     @Nullable
-    ResourcePackProfile atmospheric_api$getResourcePack(String name);
+    default ResourcePackProfile atmospheric_api$getResourcePack(String name) {
+        return null;
+    }
 
     @Nullable
-    ResourcePackProfile atmospheric_api$getActiveResourcePack(String name);
+    default ResourcePackProfile atmospheric_api$getActiveResourcePack(String name) {
+        return null;
+    }
 
-    boolean atmospheric_api$enableResourcePack(String name);
+    default boolean atmospheric_api$enableResourcePack(String name) {
+        return false;
+    }
 
-    boolean atmospheric_api$disableResourcePack(String name);
+    default boolean atmospheric_api$disableResourcePack(String name) {
+        return false;
+    }
 }

@@ -3,5 +3,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interfa
 @SuppressWarnings("unused")
 public interface AtmosphericHorseArmorItem {
 
-    boolean atmospheric_api$isHorseArmor();
+    default boolean atmospheric_api$isHorseArmor() {
+        return false;
+    }
 }

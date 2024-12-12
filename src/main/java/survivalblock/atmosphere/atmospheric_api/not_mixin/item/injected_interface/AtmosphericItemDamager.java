@@ -16,5 +16,7 @@ public interface AtmosphericItemDamager {
     /**
      * @see Item#finishUsing(ItemStack, World, LivingEntity)
      */
-    boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat);
+    default boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
+        return false;
+    }
 }

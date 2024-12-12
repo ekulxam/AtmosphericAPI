@@ -24,6 +24,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interfac
 import java.util.Optional;
 import java.util.Set;
 
+@SuppressWarnings("RedundantCast") // makes the compiler happy
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin implements ComponentHolder, AtmosphericEnchantmentLevelObtainer, AtmosphericHorseArmorItem,  AtmosphericItemStackDamager {
 
@@ -51,12 +52,11 @@ public abstract class ItemStackMixin implements ComponentHolder, AtmosphericEnch
 
     @Override
     public boolean atmospheric_api$isHorseArmor() {
-        return ((AtmosphericHorseArmorItem) this.getItem()).atmospheric_api$isHorseArmor();
+        return this.getItem().atmospheric_api$isHorseArmor();
     }
 
-    @SuppressWarnings("RedundantCast") // makes the compiler happy
     @Override
     public boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
-        return ((AtmosphericItemDamager) this.getItem()).atmospheric_api$applyWhenDoneUsing(user, hand, (ItemStack) (Object) this, durabilityDamage, cooldownTicks, stat);
+        return this.getItem().atmospheric_api$applyWhenDoneUsing(user, hand, (ItemStack) (Object) this, durabilityDamage, cooldownTicks, stat);
     }
 }
