@@ -35,6 +35,18 @@
 	"custom": {
 		"modmenu": {
             "badges": [ "library" ]
+		},
+		"loom:injected_interfaces": {
+			"net/minecraft/class_9135": ["survivalblock/atmosphere/atmospheric_api/not_mixin/datafixer/injected_interface/AtmosphericPacketCodecs"],
+			"net/minecraft/class_1297": ["survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericEntityDaylightGetter"],
+			"net/minecraft/class_3222": ["survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericPlayerAdvancementGranter"],
+			"net/minecraft/class_3218": ["survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericServerWorldEntityCollector"],
+			"net/minecraft/class_1792": ["survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericHorseArmorItem",
+				"survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemDamager"],
+			"net/minecraft/class_1799": ["survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericEnchantmentLevelObtainer",
+				"survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericHorseArmorItem",
+				"survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemStackDamager"],
+			"net/minecraft/class_310": ["survivalblock/atmosphere/atmospheric_api/not_mixin/resourcepack/client/injected_interface/AtmosphericClientResourcePackFinder"]
 		}
 	}
 }

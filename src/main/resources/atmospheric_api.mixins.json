@@ -4,11 +4,17 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "damage_type.PlayerEntityMixin",
+    "datafixer.PacketCodecsMixin",
+    "datagen.client.ModelProviderMixin",
+    "entity.EntityMixin",
     "entity.EntityTrackerEntryMixin",
+    "entity.ServerPlayerEntityMixin",
+    "entity.ServerWorldMixin",
+    "item.ItemMixin",
+    "item.ItemStackMixin",
     "item.itemstack_of_undying.AtmosphericAPIMixin",
     "item.render.client.scrolling.PlayerInventoryMixin",
-    "screenshake.AtmosphericAPIMixin",
-    "util.ServerWorldAccessor"
+    "render.screenshake.AtmosphericAPIMixin"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -27,7 +33,8 @@
     "item.render.client.two_handed.CrossbowPosingMixin",
     "item.render.client.two_handed.HeldItemRendererMixin",
     "item.render.client.two_handed.PlayerEntityRendererMixin",
-    "screenshake.client.AtmosphericAPIClientMixin",
-    "screenshake.client.WorldRendererMixin"
+    "render.screenshake.client.AtmosphericAPIClientMixin",
+    "render.screenshake.client.WorldRendererMixin",
+    "resourcepack.client.MinecraftClientMixin"
   ]
 }
