@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
-public class AtmosphericRenderLayers {
+public final class AtmosphericRenderLayers {
 
     public static RenderLayer getEndShader(){
         return RenderLayer.getEndPortal();

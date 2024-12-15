@@ -5,16 +5,18 @@
   "mixins": [
     "damage_type.PlayerEntityMixin",
     "datafixer.PacketCodecsMixin",
-    "datagen.client.ModelProviderMixin",
+    "datagen.BlockStateModelGeneratorMixin",
     "entity.EntityMixin",
     "entity.EntityTrackerEntryMixin",
+    "entity.MobEntityMixin",
     "entity.ServerPlayerEntityMixin",
     "entity.ServerWorldMixin",
     "item.ItemMixin",
     "item.ItemStackMixin",
     "item.itemstack_of_undying.AtmosphericAPIMixin",
-    "item.render.client.scrolling.PlayerInventoryMixin",
-    "render.screenshake.AtmosphericAPIMixin"
+    "item.scrolling.PlayerInventoryMixin",
+    "render.screenshake.AtmosphericAPIMixin",
+    "world.WorldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

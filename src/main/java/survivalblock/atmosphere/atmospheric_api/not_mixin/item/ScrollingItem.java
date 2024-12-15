@@ -4,10 +4,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-/**
- * WIP<p>
- * Todo: actually make this work
- */
 @SuppressWarnings("unused")
 public interface ScrollingItem {
 

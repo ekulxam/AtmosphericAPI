@@ -10,7 +10,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.injected_interface.AtmosphericPacketCodecs;
 
 import java.util.Optional;
 

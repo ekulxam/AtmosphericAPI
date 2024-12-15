@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Objects;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-@Environment(EnvType.CLIENT)
 public class ScreenShaker {
 
     /**
