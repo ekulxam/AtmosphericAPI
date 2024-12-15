@@ -10,8 +10,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.damage_type.AtmosphericDamageTypeTags;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsProbablyABadIdea;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 
+@ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
 @Mixin(value = PlayerEntity.class, priority = 500)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
@@ -23,7 +24,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract boolean isSpectator();
 
-    @ThisIsProbablyABadIdea
     @ModifyExpressionValue(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
     private boolean bypassesCreativeMode(boolean original, DamageSource source, float amount) {
         return original ||

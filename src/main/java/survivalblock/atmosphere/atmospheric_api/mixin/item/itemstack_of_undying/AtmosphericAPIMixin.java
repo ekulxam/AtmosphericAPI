@@ -7,11 +7,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsProbablyABadIdea;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemStackOfUndyingS2CPayload;
 
 @ApiStatus.Internal
-@ThisIsProbablyABadIdea
+@ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
 @Mixin(value = AtmosphericAPI.class, remap = false)
 public class AtmosphericAPIMixin {
 
