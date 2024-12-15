@@ -6,8 +6,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import io.netty.util.internal.UnstableApi;
 import net.minecraft.entity.damage.DamageType;
-import org.jetbrains.annotations.ApiStatus;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsAnExtremelyBadIdea;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +42,7 @@ public class FabricDamageTypesContainer {
      * @throws IllegalStateException if the provided list is immutable. Do not make another class similar to {@link ImmutableList} just so you can bypass this! (It will crash or break later.)
      */
     @SuppressWarnings("rawtypes")
-    @ThisIsAnExtremelyBadIdea
+    @ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.EXTREMELY)
     @UnstableApi
     public FabricDamageTypesContainer(Class<? extends List> clazz) throws IllegalStateException {
         List<Pair<String, DamageType>> temporaryList;
