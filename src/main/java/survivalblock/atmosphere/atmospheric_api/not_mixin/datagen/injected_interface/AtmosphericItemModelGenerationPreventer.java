@@ -11,12 +11,18 @@ public interface AtmosphericItemModelGenerationPreventer {
     default void atmospheric_api$excludeFromSimpleItemModelGeneration(Item item) {
     }
 
-    default void atmospheric_api$excludeFromSimpleItemModelGeneration(ItemConvertible itemConvertible) {
+    default void atmospheric_api$excludeFromSimpleItemModelGeneration(Item... items) {
     }
 
-    default void atmospheric_api$excludeFromSimpleItemModelGeneration(ItemConvertible... itemConvertibles) {
+    default void atmospheric_api$excludeFromSimpleItemModelGeneration(Collection<Item> items) {
     }
 
-    default void atmospheric_api$excludeFromSimpleItemModelGeneration(Collection<ItemConvertible> itemConvertibles) {
+    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemConvertible itemConvertible) {
+    }
+
+    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemConvertible... itemConvertibles) {
+    }
+
+    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(Collection<ItemConvertible> itemConvertibles) {
     }
 }

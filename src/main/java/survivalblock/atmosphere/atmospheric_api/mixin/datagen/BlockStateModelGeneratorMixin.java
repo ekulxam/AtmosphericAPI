@@ -23,17 +23,27 @@ public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenera
     }
 
     @Override
-    public void atmospheric_api$excludeFromSimpleItemModelGeneration(ItemConvertible itemConvertible) {
+    public void atmospheric_api$excludeFromSimpleItemModelGeneration(Item... items) {
+        Arrays.stream(items).forEach(simpleItemModelExemptionCollector);
+    }
+
+    @Override
+    public void atmospheric_api$excludeFromSimpleItemModelGeneration(Collection<Item> items) {
+        items.forEach(simpleItemModelExemptionCollector);
+    }
+
+    @Override
+    public void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemConvertible itemConvertible) {
         this.simpleItemModelExemptionCollector.accept(itemConvertible.asItem());
     }
 
     @Override
-    public void atmospheric_api$excludeFromSimpleItemModelGeneration(ItemConvertible... itemConvertibles) {
+    public void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemConvertible... itemConvertibles) {
         Arrays.stream(itemConvertibles).forEach(itemConvertible -> this.simpleItemModelExemptionCollector.accept(itemConvertible.asItem()));
     }
 
     @Override
-    public void atmospheric_api$excludeFromSimpleItemModelGeneration(Collection<ItemConvertible> itemConvertibles) {
+    public void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(Collection<ItemConvertible> itemConvertibles) {
         itemConvertibles.forEach(itemConvertible -> this.simpleItemModelExemptionCollector.accept(itemConvertible.asItem()));
     }
 }
