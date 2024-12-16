@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPIClient;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.ScreenShaker;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.client.ClientScreenShaker;
 
 @ApiStatus.Internal
 @ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
@@ -19,6 +19,6 @@ public class AtmosphericAPIClientMixin {
 
     @Inject(method = "onInitializeClient", at = @At("HEAD"))
     private void invokeInitializeScreenShakers(CallbackInfo ci) {
-        ScreenShaker.initialize();
+        ClientScreenShaker.initialize();
     }
 }
