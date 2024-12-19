@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 @Environment(EnvType.SERVER)
 @SuppressWarnings("unused")
-public class GlobalServerScreenShaker extends BasicScreenShaker implements ActiveScreenShaker{
+public class GlobalServerScreenShaker extends BasicScreenShaker implements ActiveScreenShaker {
 
     public GlobalServerScreenShaker(float intensity, int duration) {
         super(intensity, duration);

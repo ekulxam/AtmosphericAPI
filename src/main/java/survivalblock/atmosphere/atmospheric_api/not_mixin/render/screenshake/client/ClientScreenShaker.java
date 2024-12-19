@@ -5,14 +5,12 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.ActiveScreenShaker;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.AllowsForChaining;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.BasicScreenShaker;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.QueueingScreenShaker;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.ScreenShakeS2CPayload;
@@ -44,11 +42,13 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         this.setShouldAutoOverride(shouldAutoOverride).setShouldAddToQueue(shouldAddToQueue);
     }
 
+    @AllowsForChaining
     public ClientScreenShaker setShouldAutoOverride(boolean shouldAutoOverride) {
         this.shouldAutoOverride = shouldAutoOverride;
         return this;
     }
 
+    @AllowsForChaining
     public ClientScreenShaker setShouldAddToQueue(boolean shouldAddToQueue) {
         this.shouldAddToQueue = shouldAddToQueue;
         return this;
