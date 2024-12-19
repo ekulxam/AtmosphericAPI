@@ -7,12 +7,6 @@ import survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client.InGam
 @SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted"})
 public interface IAmASpyglassItem extends AlternateModelItem {
 
-    default boolean shouldZoomIn(ItemStack stack) {
-        return true;
-    }
-    default boolean shouldRenderOverlay(ItemStack stack) {
-        return true;
-    }
     default Identifier getOverlay(ItemStack stack) {
         return InGameHudAccessor.atmospheric_api$getSpyglassOverlay();
     }

@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.SpyglassItemZoomAndRenderToggleHandlerImpl;
 
 @Mixin(value = InGameHud.class, priority = 0)
 public class InGameHudMixin {
@@ -25,7 +26,7 @@ public class InGameHudMixin {
         if (!(activeStack.getItem() instanceof IAmASpyglassItem spyglass)) {
             return;
         }
-        if (!spyglass.shouldRenderOverlay(activeStack)) {
+        if (!SpyglassItemZoomAndRenderToggleHandlerImpl.getOverlayHandler().get(spyglass).apply(activeStack)) {
             ci.cancel();
         }
     }
