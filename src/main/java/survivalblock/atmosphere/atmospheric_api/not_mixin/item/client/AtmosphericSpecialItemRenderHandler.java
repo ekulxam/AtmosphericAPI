@@ -8,20 +8,21 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 
 import java.util.function.Function;
 
+@SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
-public class SpyglassItemZoomAndRenderToggleHandler {
+public class AtmosphericSpecialItemRenderHandler {
 
     public static void handleShouldZoomIn(Item item, Function<ItemStack, Boolean> function) {
         if (!(item instanceof IAmASpyglassItem spyglass)) {
             throw new IllegalArgumentException("The item must be an instance of IAmASpyglassItem!");
         }
-        SpyglassItemZoomAndRenderToggleHandlerImpl.handleShouldZoomIn(spyglass, function);
+        AtmosphericSpecialItemRenderHandlerImpl.handleShouldZoomIn(spyglass, function);
     }
 
     public static void handleShouldRenderOverlay(Item item, Function<ItemStack, Boolean> function) {
         if (!(item instanceof IAmASpyglassItem spyglass)) {
             throw new IllegalArgumentException("The item must be an instance of IAmASpyglassItem!");
         }
-        SpyglassItemZoomAndRenderToggleHandlerImpl.handleShouldRenderOverlay(spyglass, function);
+        AtmosphericSpecialItemRenderHandlerImpl.handleShouldRenderOverlay(spyglass, function);
     }
 }

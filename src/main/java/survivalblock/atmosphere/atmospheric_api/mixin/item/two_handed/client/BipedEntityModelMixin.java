@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AtmosphericSpecialItemRenderHandlerImpl;
 
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class BipedEntityModelMixin {
                 twoHandedStack = offHandStack;
             }
         }
-        if (twoHandedItem != null && twoHandedItem.shouldRenderTwoHanded(twoHandedStack) && Objects.equals(twoHandedItem.renderAtAnAngle(twoHandedStack), TwoHandedItem.TwoHandedRenderType.LONGSWORD)) {
+        if (twoHandedItem != null && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(twoHandedStack) && Objects.equals(twoHandedItem.getTwoHandedRenderType(twoHandedStack), TwoHandedItem.TwoHandedRenderType.LONGSWORD)) {
             TwoHandedItem.TwoHandedRenderType.longswordPosing = true;
             TwoHandedItem.TwoHandedRenderType.angle = twoHandedItem.angle(twoHandedStack);
         }

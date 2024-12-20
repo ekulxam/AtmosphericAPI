@@ -5,11 +5,7 @@ import net.minecraft.item.ItemStack;
 @SuppressWarnings("unused")
 public interface TwoHandedItem {
 
-	default boolean shouldRenderTwoHanded(ItemStack stack) {
-		return true;
-	}
-
-	default TwoHandedRenderType renderAtAnAngle(ItemStack stack) {
+	default TwoHandedRenderType getTwoHandedRenderType(ItemStack stack) {
 		return TwoHandedRenderType.CROSSBOW;
 	}
 

@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.SpyglassItemZoomAndRenderToggleHandlerImpl;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AtmosphericSpecialItemRenderHandlerImpl;
 
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
@@ -25,7 +25,7 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
         if (!(activeStack.getItem() instanceof IAmASpyglassItem spyglass)) {
             return original;
         }
-        if (!SpyglassItemZoomAndRenderToggleHandlerImpl.getZoomHandler().get(spyglass).apply(activeStack)) {
+        if (!AtmosphericSpecialItemRenderHandlerImpl.getZoomHandler().get(spyglass).apply(activeStack)) {
             return false;
         }
         return original;

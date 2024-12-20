@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AtmosphericSpecialItemRenderHandlerImpl;
 
 @Mixin(PlayerEntityRenderer.class)
 public class PlayerEntityRendererMixin {
@@ -18,7 +19,7 @@ public class PlayerEntityRendererMixin {
     @SuppressWarnings("DiscouragedShift")
     @Inject(method = "getArmPose", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z", shift = At.Shift.BEFORE), cancellable = true)
     private static void crossbowLongsword(AbstractClientPlayerEntity player, Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir, @Local ItemStack stack){
-        if (stack.getItem() instanceof TwoHandedItem twoHandedItem && twoHandedItem.shouldRenderTwoHanded(stack)) {
+        if (stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }
