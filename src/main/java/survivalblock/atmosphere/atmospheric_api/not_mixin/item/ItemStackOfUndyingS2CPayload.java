@@ -21,70 +21,45 @@ import java.util.Optional;
  * @see net.minecraft.client.render.GameRenderer#showFloatingItem(ItemStack)
  * @see net.minecraft.client.render.GameRenderer#renderFloatingItem(DrawContext, float)
  */
-@SuppressWarnings({"unused", "OptionalUsedAsFieldOrParameterType", "JavadocReference"})
-public class ItemStackOfUndyingS2CPayload implements CustomPayload {
-
-    private final ItemStack stack;
-    private final boolean shouldEmitParticles;
-    private final Optional<ParticleEffect> particleEffect;
-    private final boolean shouldPlaySound;
-    private final Optional<SoundEvent> soundEvent;
+@SuppressWarnings({"unused", "JavadocReference"})
+public record ItemStackOfUndyingS2CPayload(ItemStack stack, Optional<ParticleEffect> particleEffect, Optional<SoundEvent> soundEvent) implements CustomPayload {
 
     public static final CustomPayload.Id<ItemStackOfUndyingS2CPayload> ID = new Id<>(AtmosphericAPI.id("itemstack_of_undying_s2c"));
     public static final PacketCodec<RegistryByteBuf, ItemStackOfUndyingS2CPayload> CODEC = PacketCodec.tuple(
             ItemStack.PACKET_CODEC, (payload) -> payload.stack,
-            PacketCodecs.BOOL, (payload) -> payload.shouldEmitParticles,
             ParticleTypes.PACKET_CODEC.collect(PacketCodecs::optional), (payload) -> payload.particleEffect,
-            PacketCodecs.BOOL, (payload) -> payload.shouldPlaySound,
             PacketCodecs.SOUND_EVENT.collect(PacketCodecs::optional), (payload) -> payload.soundEvent,
             ItemStackOfUndyingS2CPayload::new);
 
     public ItemStackOfUndyingS2CPayload(ItemStack stack) {
-        this(stack, false, Optional.empty(), false, Optional.empty());
+        this(stack, Optional.empty(), Optional.empty());
     }
 
-    public ItemStackOfUndyingS2CPayload(ItemStack stack, boolean shouldEmitParticles, boolean shouldPlaySound) {
-        this(stack, shouldEmitParticles, Optional.empty(), shouldPlaySound, Optional.empty());
+    public ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffect particleEffect) {
+        this(stack, Optional.of(particleEffect), Optional.empty());
     }
 
-    public ItemStackOfUndyingS2CPayload(ItemStack stack, boolean shouldEmitParticles, Optional<ParticleEffect> particleEffect, boolean shouldPlaySound, Optional<SoundEvent> soundEvent) {
-        this.stack = stack;
-        this.shouldEmitParticles = shouldEmitParticles;
-        this.particleEffect = particleEffect;
-        this.shouldPlaySound = shouldPlaySound;
-        this.soundEvent = soundEvent;
+    public ItemStackOfUndyingS2CPayload(ItemStack stack, SoundEvent soundEvent) {
+        this(stack, Optional.empty(), Optional.of(soundEvent));
     }
 
-    public ItemStack stack() {
-        return this.stack;
+    public ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffect particleEffect, SoundEvent soundEvent) {
+        this(stack, Optional.of(particleEffect), Optional.of(soundEvent));
     }
 
-    /**
-    At this point, I can probably just remove this in favor of {@link Optional#isPresent()}
-     */
-    @Deprecated
     public boolean shouldEmitParticles() {
-        return this.shouldEmitParticles;
+        return this.particleEffect.isPresent();
     }
 
-    @Deprecated
     public boolean shouldPlaySound() {
-        return this.shouldPlaySound;
+        return this.soundEvent.isPresent();
     }
 
-    public Optional<ParticleEffect> getOptionalParticleEffect() {
-        return this.particleEffect;
-    }
-
-    public ParticleEffect particleEffect() {
+    public ParticleEffect getParticleEffectValue() {
         return this.particleEffect.orElse(ParticleTypes.TOTEM_OF_UNDYING);
     }
 
-    public Optional<SoundEvent> getOptionalSoundEvent() {
-        return this.soundEvent;
-    }
-
-    public SoundEvent soundEvent() {
+    public SoundEvent getSoundEventValue() {
         return this.soundEvent.orElse(SoundEvents.ITEM_TOTEM_USE);
     }
 

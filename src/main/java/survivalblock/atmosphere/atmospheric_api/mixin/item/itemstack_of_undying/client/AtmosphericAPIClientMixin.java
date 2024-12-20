@@ -30,8 +30,8 @@ public class AtmosphericAPIClientMixin {
             MinecraftClient client = Objects.requireNonNull(context.client());
             PlayerEntity player = context.player();
             client.execute(() -> {
-                if (payload.shouldEmitParticles()) client.particleManager.addEmitter(player, payload.particleEffect(), 30);
-                if (payload.shouldPlaySound()) Objects.requireNonNull(client.world).playSound(player.getX(), player.getY(), player.getZ(), payload.soundEvent(), player.getSoundCategory(), 1.0F, 1.0F, false);
+                if (payload.shouldEmitParticles()) client.particleManager.addEmitter(player, payload.getParticleEffectValue(), 30);
+                if (payload.shouldPlaySound()) Objects.requireNonNull(client.world).playSound(player.getX(), player.getY(), player.getZ(), payload.getSoundEventValue(), player.getSoundCategory(), 1.0F, 1.0F, false);
                 client.gameRenderer.showFloatingItem(stack);
             });
         });
