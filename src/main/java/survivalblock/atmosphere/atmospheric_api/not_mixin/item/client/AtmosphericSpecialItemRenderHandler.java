@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;
 
 import java.util.function.Function;
 
@@ -24,5 +25,12 @@ public class AtmosphericSpecialItemRenderHandler {
             throw new IllegalArgumentException("The item must be an instance of IAmASpyglassItem!");
         }
         AtmosphericSpecialItemRenderHandlerImpl.handleShouldRenderOverlay(spyglass, function);
+    }
+
+    public static void handleShouldRenderTwoHanded(Item item, Function<ItemStack, Boolean> function) {
+        if (!(item instanceof TwoHandedItem twoHandedItem)) {
+            throw new IllegalArgumentException("The item must be an instance of TwohandedItem!");
+        }
+        AtmosphericSpecialItemRenderHandlerImpl.handleShouldRenderTwoHanded(twoHandedItem, function);
     }
 }
