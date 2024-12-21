@@ -22,49 +22,73 @@ import java.util.Optional;
  * @see net.minecraft.client.render.GameRenderer#renderFloatingItem(DrawContext, float)
  */
 @SuppressWarnings({"unused", "JavadocReference"})
-public record ItemStackOfUndyingS2CPayload(ItemStack stack, Optional<ParticleEffect> particleEffect, Optional<SoundEvent> soundEvent) implements CustomPayload {
+public record ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPayload {
 
     public static final CustomPayload.Id<ItemStackOfUndyingS2CPayload> ID = new Id<>(AtmosphericAPI.id("itemstack_of_undying_s2c"));
     public static final PacketCodec<RegistryByteBuf, ItemStackOfUndyingS2CPayload> CODEC = PacketCodec.tuple(
             ItemStack.PACKET_CODEC, (payload) -> payload.stack,
-            ParticleTypes.PACKET_CODEC.collect(PacketCodecs::optional), (payload) -> payload.particleEffect,
-            PacketCodecs.SOUND_EVENT.collect(PacketCodecs::optional), (payload) -> payload.soundEvent,
+            ParticleEffectHolder.PACKET_CODEC, (payload) -> payload.particleEffectHolder,
+            SoundEventHolder.PACKET_CODEC, (payload) -> payload.soundEventHolder,
             ItemStackOfUndyingS2CPayload::new);
 
     public ItemStackOfUndyingS2CPayload(ItemStack stack) {
-        this(stack, Optional.empty(), Optional.empty());
-    }
-
-    public ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffect particleEffect) {
-        this(stack, Optional.of(particleEffect), Optional.empty());
-    }
-
-    public ItemStackOfUndyingS2CPayload(ItemStack stack, SoundEvent soundEvent) {
-        this(stack, Optional.empty(), Optional.of(soundEvent));
-    }
-
-    public ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffect particleEffect, SoundEvent soundEvent) {
-        this(stack, Optional.of(particleEffect), Optional.of(soundEvent));
-    }
-
-    public boolean shouldEmitParticles() {
-        return this.particleEffect.isPresent();
-    }
-
-    public boolean shouldPlaySound() {
-        return this.soundEvent.isPresent();
-    }
-
-    public ParticleEffect getParticleEffectValue() {
-        return this.particleEffect.orElse(ParticleTypes.TOTEM_OF_UNDYING);
-    }
-
-    public SoundEvent getSoundEventValue() {
-        return this.soundEvent.orElse(SoundEvents.ITEM_TOTEM_USE);
+        this(stack, ParticleEffectHolder.INSTANCE, SoundEventHolder.INSTANCE);
     }
 
     @Override
     public Id<? extends CustomPayload> getId() {
         return ID;
+    }
+
+    public record ParticleEffectHolder(boolean shouldEmitParticles, Optional<ParticleEffect> particleEffect, int maxAge) {
+
+        public static final PacketCodec<RegistryByteBuf, ParticleEffectHolder> PACKET_CODEC = PacketCodec.tuple(
+                PacketCodecs.BOOL, (holder) -> holder.shouldEmitParticles,
+                ParticleTypes.PACKET_CODEC.collect(PacketCodecs::optional), (holder) -> holder.particleEffect,
+                PacketCodecs.VAR_INT, (holder) -> holder.maxAge,
+                ParticleEffectHolder::new);
+
+        public static final ParticleEffectHolder INSTANCE = new ParticleEffectHolder(false);
+
+        public ParticleEffectHolder(boolean shouldEmitParticles) {
+            this(shouldEmitParticles, Optional.empty(), 30);
+        }
+
+        public ParticleEffectHolder(ParticleEffect particleEffect) {
+            this(particleEffect, 30);
+        }
+
+        public ParticleEffectHolder(ParticleEffect particleEffect, int maxAge) {
+            this(true, Optional.of(particleEffect), maxAge);
+        }
+
+        public ParticleEffect getParticleEffectValue() {
+            return this.particleEffect.orElse(ParticleTypes.TOTEM_OF_UNDYING);
+        }
+    }
+
+    public record SoundEventHolder(boolean shouldPlaySound, Optional<SoundEvent> soundEvent, float volume, float pitch, boolean useDistance) {
+
+        public static final PacketCodec<RegistryByteBuf, SoundEventHolder> PACKET_CODEC = PacketCodec.tuple(
+                PacketCodecs.BOOL, (holder) -> holder.shouldPlaySound,
+                PacketCodecs.SOUND_EVENT.collect(PacketCodecs::optional), (holder) -> holder.soundEvent,
+                PacketCodecs.FLOAT, (holder) -> holder.volume,
+                PacketCodecs.FLOAT, (holder) -> holder.pitch,
+                PacketCodecs.BOOL, (holder) -> holder.useDistance,
+                SoundEventHolder::new);
+
+        public static final SoundEventHolder INSTANCE = new SoundEventHolder(false);
+
+        public SoundEventHolder(boolean shouldPlaySound) {
+            this(shouldPlaySound, Optional.empty(), 1.0F, 1.0F, false);
+        }
+
+        public SoundEventHolder(SoundEvent soundEvent) {
+            this(true, Optional.of(soundEvent), 1.0F, 1.0F, false);
+        }
+
+        public SoundEvent getSoundEventValue() {
+            return this.soundEvent.orElse(SoundEvents.ITEM_TOTEM_USE);
+        }
     }
 }

@@ -30,8 +30,23 @@ public class AtmosphericAPIClientMixin {
             MinecraftClient client = Objects.requireNonNull(context.client());
             PlayerEntity player = context.player();
             client.execute(() -> {
-                if (payload.shouldEmitParticles()) client.particleManager.addEmitter(player, payload.getParticleEffectValue(), 30);
-                if (payload.shouldPlaySound()) Objects.requireNonNull(client.world).playSound(player.getX(), player.getY(), player.getZ(), payload.getSoundEventValue(), player.getSoundCategory(), 1.0F, 1.0F, false);
+                ItemStackOfUndyingS2CPayload.ParticleEffectHolder particleEffectHolder = payload.particleEffectHolder();
+                if (particleEffectHolder.shouldEmitParticles()) {
+                    client.particleManager.addEmitter(player,
+                            particleEffectHolder.getParticleEffectValue(),
+                            particleEffectHolder.maxAge());
+                }
+                ItemStackOfUndyingS2CPayload.SoundEventHolder soundEventHolder = payload.soundEventHolder();
+                if (soundEventHolder.shouldPlaySound()) {
+                    Objects.requireNonNull(client.world).playSound(player.getX(),
+                            player.getY(),
+                            player.getZ(),
+                            soundEventHolder.getSoundEventValue(),
+                            player.getSoundCategory(),
+                            soundEventHolder.volume(),
+                            soundEventHolder.pitch(),
+                            soundEventHolder.useDistance());
+                }
                 client.gameRenderer.showFloatingItem(stack);
             });
         });
