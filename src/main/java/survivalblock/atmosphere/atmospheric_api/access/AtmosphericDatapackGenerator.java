@@ -10,4 +10,8 @@ public interface AtmosphericDatapackGenerator {
     default FabricDataGenerator.Pack atmospheric_api$createBuiltinDataPack(Identifier id) {
         throw new UnsupportedOperationException();
     }
+
+    default FabricDataGenerator.Pack atmospheric_api$generateSomethingUnderAlternatePath(String path, Identifier id) {
+        throw new UnsupportedOperationException();
+    }
 }

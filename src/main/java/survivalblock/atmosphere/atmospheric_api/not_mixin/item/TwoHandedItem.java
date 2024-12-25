@@ -1,6 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.ApiStatus;
 
 @SuppressWarnings("unused")
 public interface TwoHandedItem {
@@ -18,6 +19,7 @@ public interface TwoHandedItem {
 		LONGSWORD,
 		CROSSBOW;
 
+		@ApiStatus.Internal
 		public static boolean longswordPosing = false;
 		public static float angle = 0f;
 	}
