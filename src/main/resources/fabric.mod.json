@@ -21,9 +21,6 @@
 		],
 		"client": [
 			"survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPIClient"
-		],
-		"fabric-datagen": [
-			"survivalblock.atmosphere.atmospheric_api.not_mixin.self_datagen.AtmosphericAPIDataGenerator"
 		]
 	},
 	"mixins": [

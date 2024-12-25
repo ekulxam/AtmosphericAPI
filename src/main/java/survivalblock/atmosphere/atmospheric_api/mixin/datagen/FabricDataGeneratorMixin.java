@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.GameVersion;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,7 +14,6 @@ import survivalblock.atmosphere.atmospheric_api.access.AtmosphericDatapackGenera
 
 import java.nio.file.Path;
 
-@Debug(export = true)
 @Mixin(value = FabricDataGenerator.class, remap = false)
 public abstract class FabricDataGeneratorMixin extends DataGenerator implements AtmosphericDatapackGenerator {
 
