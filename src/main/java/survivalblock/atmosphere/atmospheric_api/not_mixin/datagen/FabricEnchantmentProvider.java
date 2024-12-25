@@ -18,11 +18,7 @@ public abstract class FabricEnchantmentProvider extends AtmosphericDynamicRegist
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup, Entries entries) {
-        RegistryEntryLookup<DamageType> registryEntryLookup = wrapperLookup.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE);
-        RegistryEntryLookup<Enchantment> registryEntryLookup2 = wrapperLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
-        RegistryEntryLookup<Item> registryEntryLookup3 = wrapperLookup.getWrapperOrThrow(RegistryKeys.ITEM);
-        RegistryEntryLookup<Block> registryEntryLookup4 = wrapperLookup.getWrapperOrThrow(RegistryKeys.BLOCK);
-        this.addEnchantmentsToEntries(wrapperLookup, new EnchantmentRegistryEntryLookupContainer(registryEntryLookup, registryEntryLookup2, registryEntryLookup3, registryEntryLookup4), entries);
+        this.addEnchantmentsToEntries(wrapperLookup, new EnchantmentRegistryEntryLookupContainer(wrapperLookup), entries);
     }
 
     public abstract void addEnchantmentsToEntries(RegistryWrapper.WrapperLookup wrapperLookup,
@@ -33,5 +29,12 @@ public abstract class FabricEnchantmentProvider extends AtmosphericDynamicRegist
                                                                   RegistryEntryLookup<Enchantment> enchantmentRegistryEntryLookup,
                                                                   RegistryEntryLookup<Item> itemRegistryEntryLookup,
                                                                   RegistryEntryLookup<Block> blockRegistryEntryLookup) {
+        public EnchantmentRegistryEntryLookupContainer(Registerable<Enchantment> registerable) {
+            this(registerable.getRegistryLookup(RegistryKeys.DAMAGE_TYPE), registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT), registerable.getRegistryLookup(RegistryKeys.ITEM), registerable.getRegistryLookup(RegistryKeys.BLOCK));
+        }
+
+        public EnchantmentRegistryEntryLookupContainer(RegistryWrapper.WrapperLookup wrapperLookup) {
+            this(wrapperLookup.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE), wrapperLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT), wrapperLookup.getWrapperOrThrow(RegistryKeys.ITEM), wrapperLookup.getWrapperOrThrow(RegistryKeys.BLOCK));
+        }
     }
 }
