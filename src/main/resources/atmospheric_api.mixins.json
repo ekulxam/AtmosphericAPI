@@ -7,6 +7,7 @@
     "damage_type.PlayerEntityMixin",
     "datafixer.PacketCodecsMixin",
     "datagen.BlockStateModelGeneratorMixin",
+    "datagen.FabricDataGeneratorMixin",
     "entity.EntityMixin",
     "entity.EntityTrackerEntryMixin",
     "entity.MobEntityMixin",
