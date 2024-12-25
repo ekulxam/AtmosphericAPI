@@ -3,16 +3,14 @@ package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.GameVersion;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Identifier;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.datagen.injected_interface.AtmosphericDatapackGenerator;
+import survivalblock.atmosphere.atmospheric_api.access.AtmosphericDatapackGenerator;
 
 import java.nio.file.Path;
 
