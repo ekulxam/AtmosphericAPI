@@ -23,7 +23,6 @@ import java.util.Optional;
  */
 @SuppressWarnings({"unused", "JavadocReference"})
 public record ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPayload {
-
     public static final CustomPayload.Id<ItemStackOfUndyingS2CPayload> ID = new Id<>(AtmosphericAPI.id("itemstack_of_undying_s2c"));
     public static final PacketCodec<RegistryByteBuf, ItemStackOfUndyingS2CPayload> CODEC = PacketCodec.tuple(
             ItemStack.PACKET_CODEC, (payload) -> payload.stack,
