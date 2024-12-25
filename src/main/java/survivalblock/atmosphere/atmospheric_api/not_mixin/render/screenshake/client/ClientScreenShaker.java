@@ -130,6 +130,7 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         });
         ClientLoginConnectionEvents.DISCONNECT.register((handler, client) -> {
             if (!QUEUE.isEmpty()) QUEUE.clear();
+            active = null;
         });
         ClientPlayNetworking.registerGlobalReceiver(ScreenShakeS2CPayload.ID, (payload, context) -> {
             ClientScreenShaker clientScreenShaker = new ClientScreenShaker(
