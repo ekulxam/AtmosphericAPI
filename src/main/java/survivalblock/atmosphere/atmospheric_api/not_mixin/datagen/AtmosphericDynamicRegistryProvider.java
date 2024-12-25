@@ -17,6 +17,6 @@ public abstract class AtmosphericDynamicRegistryProvider<T> extends FabricDynami
 
     @Override
     public String getName() {
-        return registryRef.getValue().toString();
+        return "Dynamic Registry for " + registryRef.getValue();
     }
 }
