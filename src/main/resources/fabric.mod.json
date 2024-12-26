@@ -48,7 +48,7 @@
 				"survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericHorseArmorItem",
 				"survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemStackComponentCreator",
 				"survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemStackDamager"],
-			"net/minecraft/class_310": ["survivalblock/atmosphere/atmospheric_api/not_mixin/resourcepack/client/injected_interface/AtmosphericClientResourcePackFinder"],
+			"net/minecraft/class_310": ["survivalblock/atmosphere/atmospheric_api/not_mixin/resource/client/injected_interface/AtmosphericClientResourcePackFinder"],
 			"net/minecraft/class_1937": ["survivalblock/atmosphere/atmospheric_api/not_mixin/world/injected_interface/AtmosphericWorldRegistryShenanigans"]
 		}
 	}

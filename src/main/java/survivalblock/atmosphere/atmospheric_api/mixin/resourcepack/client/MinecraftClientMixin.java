@@ -6,7 +6,7 @@ import net.minecraft.resource.ResourcePackProfile;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.resourcepack.client.injected_interface.AtmosphericClientResourcePackFinder;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.resource.client.injected_interface.AtmosphericClientResourcePackFinder;
 
 import java.util.stream.Collectors;
 
