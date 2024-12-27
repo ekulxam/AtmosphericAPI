@@ -28,4 +28,9 @@ public interface ScreenShaker {
     default String getReason() {
         return "";
     }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    default boolean isShakingAllowed() {
+        return ScreenShakePreventerRegistry.allowScreenShaking(this.getModId(), this.getReason());
+    }
 }

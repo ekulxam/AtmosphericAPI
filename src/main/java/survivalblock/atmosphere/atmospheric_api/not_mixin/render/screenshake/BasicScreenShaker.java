@@ -1,6 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 public abstract class BasicScreenShaker implements ScreenShaker {
@@ -17,7 +18,11 @@ public abstract class BasicScreenShaker implements ScreenShaker {
      * @throws IllegalStateException if the intensity or duration are less than or equal to 0
      */
     public BasicScreenShaker(float intensity, int duration) {
-        this(intensity, duration, AtmosphericAPI.MOD_ID, "");
+        this(intensity, duration, AtmosphericAPI.MOD_ID);
+    }
+
+    public BasicScreenShaker(float intensity, int duration, String modId) {
+        this(intensity, duration, modId, "");
     }
 
     public BasicScreenShaker(float intensity, int duration, String modId, String reason) {
@@ -41,7 +46,10 @@ public abstract class BasicScreenShaker implements ScreenShaker {
         return this.duration;
     }
 
-    public void tick(World world) {
+    public void tick(@Nullable World world) {
+        if (!this.isShakingAllowed()) {
+            this.duration = Short.MIN_VALUE;
+        }
         if (this.duration <= 0) {
             return;
         }

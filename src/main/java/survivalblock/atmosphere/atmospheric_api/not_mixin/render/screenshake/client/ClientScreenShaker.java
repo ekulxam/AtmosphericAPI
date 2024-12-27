@@ -103,8 +103,11 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
      */
     @Override
     public void tick(World world) {
-        if (!Objects.equals(active, this)) {
+        if (world == null || !Objects.equals(active, this)) {
             return;
+        }
+        if (!this.isShakingAllowed()) {
+            this.duration = Short.MIN_VALUE;
         }
         this.duration--;
         if (this.duration <= 0) {
