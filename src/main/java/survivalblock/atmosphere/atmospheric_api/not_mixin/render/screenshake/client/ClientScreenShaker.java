@@ -96,6 +96,9 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         if (!(world instanceof ClientWorld clientWorld)) {
             throw new IllegalStateException("Cannot activate a ClientScreenShaker when not on the client! How did we even get here?");
         }
+        if (!this.isShakingAllowed()) {
+            this.duration = Short.MIN_VALUE;
+        }
         if (active == null) {
             active = this;
             return;
@@ -110,9 +113,6 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
     public void tick(World world) {
         if (world == null || !Objects.equals(active, this)) {
             return;
-        }
-        if (!this.isShakingAllowed()) {
-            this.duration = Short.MIN_VALUE;
         }
         this.duration--;
         if (this.duration <= 0) {
