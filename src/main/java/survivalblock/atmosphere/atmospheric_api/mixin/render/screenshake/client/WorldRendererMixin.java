@@ -15,7 +15,7 @@ public class WorldRendererMixin {
     @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;getPos()Lnet/minecraft/util/math/Vec3d;"))
     private Vec3d shakeCamera(Vec3d original) {
         ClientScreenShaker clientScreenShaker = ClientScreenShaker.getActiveInstance();
-        if (clientScreenShaker == null || clientScreenShaker.hasEnded()) {
+        if (clientScreenShaker == null || clientScreenShaker.getDuration() <= 0 || clientScreenShaker.hasEnded()) {
             return original;
         }
         Random random = ClientScreenShaker.RANDOM;
