@@ -3,7 +3,6 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 
-@SuppressWarnings("unused")
 public final class ScreenShakePreventerRegistry {
 
     public static final Event<AllowShaking> ALLOW_SHAKING = EventFactory.createArrayBacked(AllowShaking.class, listeners -> (modId, reason) -> {

@@ -1,5 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
@@ -7,6 +8,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 @SuppressWarnings("unused")
 public interface ScreenShaker {
 
+    Identifier DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK = AtmosphericAPI.id("disableallscreenshakers");
     Random RANDOM = Random.createLocal();
 
     float getIntensity();
