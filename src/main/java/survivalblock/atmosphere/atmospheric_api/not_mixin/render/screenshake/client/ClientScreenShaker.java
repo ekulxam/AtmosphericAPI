@@ -42,6 +42,11 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         this.setShouldAutoOverride(shouldAutoOverride).setShouldAddToQueue(shouldAddToQueue);
     }
 
+    public ClientScreenShaker(float intensity, int duration, String modId, String reason, boolean shouldAutoOverride, boolean shouldAddToQueue) {
+        super(intensity, duration, modId, reason);
+        this.setShouldAutoOverride(shouldAutoOverride).setShouldAddToQueue(shouldAddToQueue);
+    }
+
     @AllowsForChaining
     public ClientScreenShaker setShouldAutoOverride(boolean shouldAutoOverride) {
         this.shouldAutoOverride = shouldAutoOverride;
@@ -138,6 +143,7 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         ClientPlayNetworking.registerGlobalReceiver(ScreenShakeS2CPayload.ID, (payload, context) -> {
             ClientScreenShaker clientScreenShaker = new ClientScreenShaker(
                     payload.intensity(), payload.duration(),
+                    payload.modId(), payload.reason(),
                     payload.shouldAutoOverride(), payload.shouldAddToQueue());
             //noinspection resource
             ClientWorld clientWorld = context.client().world;
