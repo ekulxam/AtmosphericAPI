@@ -2,6 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 @SuppressWarnings("unused")
 public interface ScreenShaker {
@@ -18,5 +19,13 @@ public interface ScreenShaker {
 
     default void tick(World world) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
+    }
+
+    default String getModId() {
+        return AtmosphericAPI.MOD_ID;
+    }
+
+    default String getReason() {
+        return "";
     }
 }
