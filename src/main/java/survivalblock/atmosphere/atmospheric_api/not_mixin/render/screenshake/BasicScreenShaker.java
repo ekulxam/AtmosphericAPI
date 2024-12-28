@@ -47,9 +47,6 @@ public abstract class BasicScreenShaker implements ScreenShaker {
     }
 
     public void tick(@Nullable World world) {
-        if (!this.isShakingAllowed()) {
-            this.duration = Short.MIN_VALUE;
-        }
         if (this.duration <= 0) {
             return;
         }

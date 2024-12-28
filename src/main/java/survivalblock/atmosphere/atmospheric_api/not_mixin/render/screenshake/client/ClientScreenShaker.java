@@ -96,9 +96,6 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         if (!(world instanceof ClientWorld clientWorld)) {
             throw new IllegalStateException("Cannot activate a ClientScreenShaker when not on the client! How did we even get here?");
         }
-        if (!this.isShakingAllowed()) {
-            this.duration = Short.MIN_VALUE;
-        }
         if (active == null) {
             active = this;
             return;
@@ -133,9 +130,6 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
     @ApiStatus.Internal
     @SuppressWarnings("JavadocReference")
     public static void initialize() {
-        ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (active != null && !active.hasEnded()) active.tick(client.world);
-        });
         ClientLoginConnectionEvents.DISCONNECT.register((handler, client) -> {
             if (!QUEUE.isEmpty()) QUEUE.clear();
             active = null;
