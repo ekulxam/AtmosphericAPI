@@ -35,4 +35,8 @@ public interface ScreenShaker {
     default boolean isShakingAllowed() {
         return ScreenShakePreventerRegistry.allowScreenShaking(this.getModId(), this.getReason());
     }
+
+    default boolean shouldShake() {
+        return this.isShakingAllowed() && this.getDuration() > 0;
+    }
 }

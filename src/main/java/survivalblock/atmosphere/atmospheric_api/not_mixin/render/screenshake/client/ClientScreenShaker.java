@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus;
@@ -160,5 +161,10 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
                 clientScreenShaker.addToQueue();
             }
         });
+    }
+
+    @Override
+    public boolean shouldShake() {
+        return super.shouldShake() && !this.hasEnded() && !MinecraftClient.getInstance().isPaused();
     }
 }

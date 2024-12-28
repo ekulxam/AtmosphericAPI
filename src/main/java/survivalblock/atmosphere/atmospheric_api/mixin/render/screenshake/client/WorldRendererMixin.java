@@ -22,12 +22,8 @@ public class WorldRendererMixin {
 
     @ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;getPos()Lnet/minecraft/util/math/Vec3d;"))
     private Vec3d shakeCamera(Vec3d original, RenderTickCounter tickCounter, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, Matrix4f matrix4f2) {
-        float tickDelta = tickCounter.getTickDelta(false);
-        if (AtmosphericUtil.isBasicallyEqual(tickDelta, 0.0F)) {
-            return original;
-        }
         ClientScreenShaker clientScreenShaker = ClientScreenShaker.getActiveInstance();
-        if (clientScreenShaker == null || !clientScreenShaker.isShakingAllowed() || clientScreenShaker.hasEnded()) {
+        if (clientScreenShaker == null || !clientScreenShaker.shouldShake()) {
             return original;
         }
         clientScreenShaker.tick(this.world);
