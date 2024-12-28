@@ -26,7 +26,6 @@ public class WorldRendererMixin {
         if (clientScreenShaker == null || !clientScreenShaker.shouldShake()) {
             return original;
         }
-        clientScreenShaker.tick(this.world);
         Random random = ClientScreenShaker.RANDOM;
         float intensity = clientScreenShaker.getIntensity();
         return original.add(

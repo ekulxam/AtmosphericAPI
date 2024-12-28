@@ -112,6 +112,9 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
         if (world == null || !Objects.equals(active, this)) {
             return;
         }
+        if (!this.shouldShake()) {
+            return;
+        }
         this.duration--;
         if (this.duration <= 0) {
             this.ended = true;
@@ -131,6 +134,9 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
     @ApiStatus.Internal
     @SuppressWarnings("JavadocReference")
     public static void initialize() {
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (active != null && !active.hasEnded()) active.tick(client.world);
+        });
         ClientLoginConnectionEvents.DISCONNECT.register((handler, client) -> {
             if (!QUEUE.isEmpty()) QUEUE.clear();
             active = null;
