@@ -36,7 +36,7 @@ public class EntityTrackerEntryMixin {
 	}
 
 	@WrapOperation(method = "sendPackets", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
-	private boolean updateTungstenRodAttributes(Object object, Operation<Boolean> original, @Share("sender") LocalRef<Object> senderRef) {
+	private boolean updateEntityWithAttributesAttributes(Object object, Operation<Boolean> original, @Share("sender") LocalRef<Object> senderRef) {
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
 			Collection<EntityAttributeInstance> collection = entityWithAttributes.getAttributes().getAttributesToSend();
 			if (!collection.isEmpty()) {
@@ -44,10 +44,10 @@ public class EntityTrackerEntryMixin {
 					Object sender = senderRef.get();
 					Class<?> clazz = sender.getClass();
 					String methodName = "accept";
-					Method acceptMethod = clazz.getMethod(methodName, AtmosphericAPI.isConnectorLoaded ? Packet.class : Object.class);
+					Method acceptMethod = clazz.getMethod(methodName, AtmosphericAPI.isConnectorLoaded ? Packet.class : Object.class); // neoforge changes the type of the sender parameter
 					acceptMethod.invoke(sender, new EntityAttributesS2CPacket(this.entity.getId(), collection));
 				} catch (Throwable throwable) {
-					AtmosphericAPI.LOGGER.error("Error while doing reflection to get a non-living entity's attributes!", throwable);
+					AtmosphericAPI.LOGGER.error("Error while doing reflection to get a EntityWithAttributes's attributes!", throwable);
 				}
 			}
 		}

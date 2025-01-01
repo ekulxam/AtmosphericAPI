@@ -22,7 +22,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     @Shadow @Final private static Logger LOGGER;
 
     @Inject(method = "onEntityAttributes", at = @At(value = "INVOKE", target = "Ljava/lang/IllegalStateException;<init>(Ljava/lang/String;)V", shift = At.Shift.BEFORE), cancellable = true)
-    private void doNotCrashIfTungstenRod(EntityAttributesS2CPacket packet, CallbackInfo ci, @Local Entity entity) {
+    private void doNotCrashIfEntityWithAttributes(EntityAttributesS2CPacket packet, CallbackInfo ci, @Local Entity entity) {
         if (!(entity instanceof EntityWithAttributes entityWithAttributes)) {
             return;
         }

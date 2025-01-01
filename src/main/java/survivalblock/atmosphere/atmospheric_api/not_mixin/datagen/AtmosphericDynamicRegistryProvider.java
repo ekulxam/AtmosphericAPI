@@ -6,6 +6,7 @@ import net.minecraft.registry.*;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("unused")
 public abstract class AtmosphericDynamicRegistryProvider<T> extends FabricDynamicRegistryProvider {
 
     protected final RegistryKey<? extends Registry<T>> registryRef;
@@ -14,6 +15,13 @@ public abstract class AtmosphericDynamicRegistryProvider<T> extends FabricDynami
         super(output, registriesFuture);
         this.registryRef = registryRef;
     }
+
+    @Override
+    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup, Entries entries) {
+        this.configure(wrapperLookup, entries, new RegistryEntryLookupContainer(wrapperLookup));
+    }
+
+    protected abstract void configure(RegistryWrapper.WrapperLookup wrapperLookup, Entries entries, RegistryEntryLookupContainer container);
 
     @Override
     public String getName() {

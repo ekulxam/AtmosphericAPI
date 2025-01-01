@@ -1,25 +1,35 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datagen;
 
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.damage.DamageType;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.IsThisEvenNecessary;
 
+@IsThisEvenNecessary(IsThisEvenNecessary.LevelsOfUnnecessity.PROBABLY_NOT)
 @SuppressWarnings("unused")
-public record EnchantmentRegistryEntryLookupContainer(RegistryEntryLookup<DamageType> damageTypeRegistryEntryLookup,
-                                                      RegistryEntryLookup<Enchantment> enchantmentRegistryEntryLookup,
-                                                      RegistryEntryLookup<Item> itemRegistryEntryLookup,
-                                                      RegistryEntryLookup<Block> blockRegistryEntryLookup) {
+public class RegistryEntryLookupContainer {
 
-    public EnchantmentRegistryEntryLookupContainer(Registerable<Enchantment> registerable) {
-        this(registerable.getRegistryLookup(RegistryKeys.DAMAGE_TYPE), registerable.getRegistryLookup(RegistryKeys.ENCHANTMENT), registerable.getRegistryLookup(RegistryKeys.ITEM), registerable.getRegistryLookup(RegistryKeys.BLOCK));
+    @Nullable
+    private Registerable<?> registerable = null;
+
+    @Nullable
+    private RegistryWrapper.WrapperLookup wrapperLookup = null;
+
+    public RegistryEntryLookupContainer(@NotNull Registerable<?> registerable) {
+        this.registerable = registerable;
     }
 
-    public EnchantmentRegistryEntryLookupContainer(RegistryWrapper.WrapperLookup wrapperLookup) {
-        this(wrapperLookup.getWrapperOrThrow(RegistryKeys.DAMAGE_TYPE), wrapperLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT), wrapperLookup.getWrapperOrThrow(RegistryKeys.ITEM), wrapperLookup.getWrapperOrThrow(RegistryKeys.BLOCK));
+    public RegistryEntryLookupContainer(@NotNull RegistryWrapper.WrapperLookup wrapperLookup) {
+        this.wrapperLookup = wrapperLookup;
+    }
+
+    public <T> RegistryEntryLookup<T> get(RegistryKey<? extends Registry<? extends T>> registryKey) {
+        if (this.registerable != null) {
+            return registerable.getRegistryLookup(registryKey);
+        }
+        if (this.wrapperLookup != null) {
+            return wrapperLookup.getWrapperOrThrow(registryKey);
+        }
+        throw new IllegalStateException("A RegistryEntryLookupContainer cannot have both its fields be null!");
     }
 }
