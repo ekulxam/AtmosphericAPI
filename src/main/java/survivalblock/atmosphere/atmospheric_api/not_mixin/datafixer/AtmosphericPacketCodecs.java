@@ -671,14 +671,15 @@ public interface AtmosphericPacketCodecs {
     }
 
     // you really need to know what you are doing
+    // this should be unlimited in theory, but there are always realistic constraints
     @DangerousAndOrUnstable
-    static <B, C> PacketCodec<B, C> setOfObjs(FunctionUnlimited<C> operation, PacketCodecAndValueGetterContainer<B, C, Object>... containers) {
+    static <B, C> PacketCodec<B, C> unlimitedTuple(FunctionUnlimited<C> operation, PacketCodecAndValueGetterContainer<B, C, ?>... containers) {
         return new PacketCodec<>() {
             @Override
             public C decode(B object) {
                 List<Object> objects = new ArrayList<>();
                 for (var container : containers) {
-                    objects.add(container.packetCodec().decode(object));
+                    objects.add(container.decode(object));
                 }
                 return operation.apply(objects.toArray());
             }
@@ -686,16 +687,25 @@ public interface AtmosphericPacketCodecs {
             @Override
             public void encode(B object, C object2) {
                 for (var container : containers) {
-                    container.packetCodec().encode(object, container.function().apply(object2));
+                    container.encode(object, object2);
                 }
             }
         };
     }
 
     record PacketCodecAndValueGetterContainer<B, C, V>(PacketCodec<? super B, V> packetCodec, Function<C, V> function) {
+
+        public void encode(B object, C object2) {
+            this.packetCodec.encode(object, this.function.apply(object2));
+        }
+
+        public V decode(B object) {
+            return this.packetCodec.decode(object);
+        }
+
         // what is this class name lol
-        public List<PacketCodecAndValueGetterContainer<B, C, V>> createList() {
-            List<PacketCodecAndValueGetterContainer<B, C, V>> list = new ArrayList<>();
+        public ArrayList<PacketCodecAndValueGetterContainer<B, C, V>> createList() {
+            ArrayList<PacketCodecAndValueGetterContainer<B, C, V>> list = new ArrayList<>();
             list.add(this);
             return list;
         }
