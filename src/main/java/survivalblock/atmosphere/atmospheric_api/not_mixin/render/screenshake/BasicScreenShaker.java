@@ -63,6 +63,7 @@ public class BasicScreenShaker implements ScreenShaker {
         return this.reason;
     }
 
+    @SuppressWarnings("unused")
     public BasicScreenShaker createBasicFromThis() {
         return new BasicScreenShaker(this.intensity, this.duration, this.modId, this.reason);
     }
