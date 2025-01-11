@@ -2,10 +2,10 @@
   "required": true,
   "package": "survivalblock.atmosphere.atmospheric_api.mixin",
   "compatibilityLevel": "JAVA_21",
+  "plugin": "survivalblock.atmosphere.atmospheric_api.not_mixin.compat.AtmosphericAPIMixinPlugin",
   "mixins": [
     "damage_type.AtmosphericAPIMixin",
     "damage_type.PlayerEntityMixin",
-    "datafixer.PacketCodecsMixin",
     "datagen.BlockStateModelGeneratorMixin",
     "datagen.FabricDataGeneratorMixin",
     "entity.EntityMixin",
@@ -26,6 +26,8 @@
     "defaultRequire": 1
   },
   "client": [
+    "compat.modmenu.client.AtmosphericAPIClientMixin",
+    "compat.modmenu.client.FabricIconHandlerMixin",
     "entity.client.ClientPlayNetworkHandlerMixin",
     "item.itemstack_of_undying.client.AtmosphericAPIClientMixin",
     "item.render.client.ItemRendererMixin",

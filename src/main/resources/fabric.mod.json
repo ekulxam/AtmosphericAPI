@@ -21,6 +21,9 @@
 		],
 		"client": [
 			"survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPIClient"
+		],
+		"modmenu": [
+			"survivalblock.atmosphere.atmospheric_api.not_mixin.compat.config.AtmosphericAPIModMenuCompat"
 		]
 	},
 	"mixins": [
@@ -37,7 +40,6 @@
             "badges": [ "library" ]
 		},
 		"loom:injected_interfaces": {
-			"net/minecraft/class_9135": ["survivalblock/atmosphere/atmospheric_api/not_mixin/datafixer/injected_interface/AtmosphericPacketCodecs"],
 			"net/minecraft/class_4910": ["survivalblock/atmosphere/atmospheric_api/not_mixin/datagen/injected_interface/AtmosphericItemModelGenerationPreventer"],
 			"net/minecraft/class_1297": ["survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericEntityDaylightGetter"],
 			"net/minecraft/class_3222": ["survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericPlayerAdvancementGranter"],
