@@ -4,7 +4,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
-public abstract class BasicScreenShaker implements ScreenShaker {
+public class BasicScreenShaker implements ScreenShaker {
 
     protected final String modId;
     protected final String reason;
@@ -61,5 +61,9 @@ public abstract class BasicScreenShaker implements ScreenShaker {
     @Override
     public String getReason() {
         return this.reason;
+    }
+
+    public BasicScreenShaker createBasicFromThis() {
+        return new BasicScreenShaker(this.intensity, this.duration, this.modId, this.reason);
     }
 }

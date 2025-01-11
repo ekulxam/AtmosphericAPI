@@ -31,11 +31,11 @@ public interface ScreenShaker {
         return "";
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     default boolean isShakingAllowed() {
-        return ScreenShakePreventerRegistry.allowScreenShaking(this.getModId(), this.getReason());
+        return ScreenShakePreventerRegistry.allowScreenShaking(this);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     default boolean shouldShake() {
         return this.isShakingAllowed() && this.getDuration() > 0;
     }

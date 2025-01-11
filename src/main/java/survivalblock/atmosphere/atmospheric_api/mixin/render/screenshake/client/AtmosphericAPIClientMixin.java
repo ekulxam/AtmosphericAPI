@@ -31,7 +31,7 @@ public class AtmosphericAPIClientMixin {
         FabricLoader.getInstance().getModContainer(AtmosphericAPI.MOD_ID).ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK, modContainer, Text.translatable("resourcePack.atmospheric_api.disableallscreenshakers.name"), ResourcePackActivationType.DEFAULT_ENABLED);
         });
-        ScreenShakePreventerRegistry.ALLOW_SHAKING.register((modId, reason) -> !MinecraftClient.getInstance().atmospheric_api$isResourcePackLoaded(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK.toString()));
+        ScreenShakePreventerRegistry.ALLOW_SHAKING.register((screenShaker -> !MinecraftClient.getInstance().atmospheric_api$isResourcePackLoaded(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK)));
         ClientScreenShaker.initialize();
     }
 }

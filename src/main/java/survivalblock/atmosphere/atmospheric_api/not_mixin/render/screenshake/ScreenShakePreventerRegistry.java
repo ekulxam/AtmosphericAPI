@@ -5,21 +5,21 @@ import net.fabricmc.fabric.api.event.EventFactory;
 
 public final class ScreenShakePreventerRegistry {
 
-    public static final Event<AllowShaking> ALLOW_SHAKING = EventFactory.createArrayBacked(AllowShaking.class, listeners -> (modId, reason) -> {
+    public static final Event<AllowShaking> ALLOW_SHAKING = EventFactory.createArrayBacked(AllowShaking.class, listeners -> (screenShaker) -> {
         for (AllowShaking listener : listeners) {
-            if (!listener.allowScreenShaking(modId, reason)) {
+            if (!listener.allowScreenShaking(screenShaker)) {
                 return false;
             }
         }
         return true;
     });
 
-    public static boolean allowScreenShaking(String modId, String reason) {
-        return ScreenShakePreventerRegistry.ALLOW_SHAKING.invoker().allowScreenShaking(modId, reason);
+    public static boolean allowScreenShaking(ScreenShaker screenShaker) {
+        return ScreenShakePreventerRegistry.ALLOW_SHAKING.invoker().allowScreenShaking(screenShaker);
     }
 
     @FunctionalInterface
     public interface AllowShaking {
-        boolean allowScreenShaking(String modId, String reason);
+        boolean allowScreenShaking(ScreenShaker screenShaker);
     }
 }
