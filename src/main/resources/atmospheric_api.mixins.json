@@ -17,6 +17,7 @@
     "item.ItemMixin",
     "item.ItemStackMixin",
     "item.itemstack_of_undying.AtmosphericAPIMixin",
+    "item.itemstack_of_undying.LivingEntityMixin",
     "item.scrolling.PlayerInventoryMixin",
     "item.spyglass.PlayerEntityMixin",
     "render.screenshake.AtmosphericAPIMixin",
