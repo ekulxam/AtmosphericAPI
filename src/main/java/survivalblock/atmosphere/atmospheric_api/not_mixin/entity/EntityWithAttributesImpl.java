@@ -15,9 +15,14 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
 
     protected final AttributeContainer attributes;
 
-    public EntityWithAttributesImpl(EntityType<?> type, World world) {
+    public EntityWithAttributesImpl(EntityType<? extends Entity> type, World world) {
         super(type, world);
         this.attributes = this.getDefaultAttributeContainer();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
     }
 
     @Override

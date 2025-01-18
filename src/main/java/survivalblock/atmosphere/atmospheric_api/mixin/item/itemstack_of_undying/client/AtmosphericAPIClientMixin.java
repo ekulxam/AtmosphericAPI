@@ -4,8 +4,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,30 +27,40 @@ import java.util.Objects;
 public class AtmosphericAPIClientMixin {
 
     @Inject(method = "onInitializeClient", at = @At("HEAD"))
-    private void tickActiveScreenShaker(CallbackInfo ci) {
+    private void handleItemStackOfUndyingS2CPayloadReceiving(CallbackInfo ci) {
         ClientPlayNetworking.registerGlobalReceiver(ItemStackOfUndyingS2CPayload.ID, (payload, context) -> {
             ItemStack stack = payload.stack();
             MinecraftClient client = Objects.requireNonNull(context.client());
-            PlayerEntity player = context.player();
+            final int entityId = payload.entityId();
             client.execute(() -> {
+                ClientWorld world = client.world;
+                if (world == null) {
+                    return;
+                }
+                Entity entity = world.getEntityById(entityId);
+                if (entity == null) {
+                    return;
+                }
                 ItemStackOfUndyingS2CPayload.ParticleEffectHolder particleEffectHolder = payload.particleEffectHolder();
                 if (particleEffectHolder.shouldEmitParticles()) {
-                    client.particleManager.addEmitter(player,
+                    client.particleManager.addEmitter(entity,
                             particleEffectHolder.getParticleEffectValue(),
                             particleEffectHolder.maxAge());
                 }
                 ItemStackOfUndyingS2CPayload.SoundEventHolder soundEventHolder = payload.soundEventHolder();
                 if (soundEventHolder.shouldPlaySound()) {
-                    Objects.requireNonNull(client.world).playSound(player.getX(),
-                            player.getY(),
-                            player.getZ(),
+                    world.playSound(entity.getX(),
+                            entity.getY(),
+                            entity.getZ(),
                             soundEventHolder.getSoundEventValue(),
-                            player.getSoundCategory(),
+                            entity.getSoundCategory(),
                             soundEventHolder.volume(),
                             soundEventHolder.pitch(),
                             soundEventHolder.useDistance());
                 }
-                client.gameRenderer.showFloatingItem(stack);
+                if (entity == client.player) {
+                    client.gameRenderer.showFloatingItem(stack);
+                }
             });
         });
     }

@@ -1,5 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
@@ -8,6 +9,8 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
@@ -23,16 +26,25 @@ import java.util.Optional;
  * @see net.minecraft.client.render.GameRenderer#renderFloatingItem(DrawContext, float)
  */
 @SuppressWarnings({"unused", "JavadocReference"})
-public record ItemStackOfUndyingS2CPayload(ItemStack stack, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPayload {
+public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPayload {
     public static final CustomPayload.Id<ItemStackOfUndyingS2CPayload> ID = new Id<>(AtmosphericAPI.id("itemstack_of_undying_s2c"));
     public static final PacketCodec<RegistryByteBuf, ItemStackOfUndyingS2CPayload> CODEC = PacketCodec.tuple(
             ItemStack.PACKET_CODEC, (payload) -> payload.stack,
+            PacketCodecs.VAR_INT, (payload) -> payload.entityId,
             ParticleEffectHolder.PACKET_CODEC, (payload) -> payload.particleEffectHolder,
             SoundEventHolder.PACKET_CODEC, (payload) -> payload.soundEventHolder,
             ItemStackOfUndyingS2CPayload::new);
 
-    public ItemStackOfUndyingS2CPayload(ItemStack stack) {
-        this(stack, ParticleEffectHolder.INSTANCE, SoundEventHolder.INSTANCE);
+    public ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId) {
+        this(stack, entityId, ParticleEffectHolder.INSTANCE, SoundEventHolder.INSTANCE);
+    }
+
+    public void sendToPlayer(ServerPlayerEntity player) {
+        ServerPlayNetworking.send(player, this);
+    }
+
+    public void sendGlobal(ServerWorld serverWorld) {
+        serverWorld.getChunkManager().sendToNearbyPlayers(serverWorld.getEntityById(this.entityId), ServerPlayNetworking.createS2CPacket(this));
     }
 
     @Override
