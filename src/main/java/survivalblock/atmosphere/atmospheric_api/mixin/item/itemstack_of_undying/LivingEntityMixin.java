@@ -83,7 +83,7 @@ public abstract class LivingEntityMixin extends Entity {
         }
         return true;
     }
-    
+
     @SuppressWarnings("DiscouragedShift")
     @Inject(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setHealth(F)V", shift = At.Shift.BEFORE), cancellable = true)
     private void sendPacketAndInvokeTotemLogic(DamageSource source, CallbackInfoReturnable<Boolean> cir, @Local ItemStack stack) {
