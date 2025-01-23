@@ -1,4 +1,4 @@
-package survivalblock.atmosphere.atmospheric_api.not_mixin.render.client;
+package survivalblock.atmosphere.atmospheric_api.not_mixin.render.renderlayer.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

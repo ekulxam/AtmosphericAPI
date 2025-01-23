@@ -16,5 +16,7 @@ public class AtmosphericAPIEnUsLangGenerator extends FabricLanguageProvider {
     public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
         // packs
         translationBuilder.add("resourcePack.atmospheric_api.disableallscreenshakers.name", "Disable All ScreenShakers from Atmospheric API");
+
+        translationBuilder.add("resourcePack.atmospheric_api.configscreen", "Atmospheric API - Resource Pack Config Screen");
     }
 }
