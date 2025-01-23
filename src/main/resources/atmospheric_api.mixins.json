@@ -29,6 +29,7 @@
   "client": [
     "compat.modmenu.client.AtmosphericAPIClientMixin",
     "compat.modmenu.client.FabricIconHandlerMixin",
+    "compat.modmenu.client.PackScreenMixin",
     "entity.client.ClientPlayNetworkHandlerMixin",
     "item.itemstack_of_undying.client.AtmosphericAPIClientMixin",
     "item.render.client.ItemRendererMixin",
@@ -42,6 +43,7 @@
     "item.two_handed.client.CrossbowPosingMixin",
     "item.two_handed.client.HeldItemRendererMixin",
     "item.two_handed.client.PlayerEntityRendererMixin",
+    "render.overlay.client.InGameHudMixin",
     "render.screenshake.client.AtmosphericAPIClientMixin",
     "render.screenshake.client.WorldRendererMixin",
     "resourcepack.client.MinecraftClientMixin"
