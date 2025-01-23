@@ -35,9 +35,8 @@ public interface AtmosphericPacketCodecs {
         }
     };
 
-    @SuppressWarnings("SequencedCollectionMethodCanBeUsed")
     PacketCodec<ByteBuf, Box> BOX = VEC3D.collect(AtmosphericPacketCodecs::duo)
-            .xmap(vec3ds -> new Box(vec3ds.get(0), vec3ds.get(1)),
+            .xmap(vec3ds -> new Box(vec3ds.getFirst(), vec3ds.getSecond()),
                     box -> new Duo<>(box.getMinPos(), box.getMaxPos()));
 
     static <V> PacketCodec<ByteBuf, V> viaRegistry(Registry<V> registry) {

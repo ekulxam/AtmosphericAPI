@@ -26,6 +26,12 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public abstract class AtmosphericResourceReader<T> implements IdentifiableResourceReloadListener {
 
+    protected final String errorMessage;
+
+    protected final Codec<T> elementCodec;
+
+    protected final ResourceFinder resourceFinder;
+
     protected AtmosphericResourceReader(String errorMessage, Codec<T> elementCodec, ResourceFinder resourceFinder) {
         this.errorMessage = errorMessage;
         this.elementCodec = elementCodec;
@@ -33,12 +39,6 @@ public abstract class AtmosphericResourceReader<T> implements IdentifiableResour
     }
 
     protected abstract void upload(Map<Identifier, T> map, Profiler profiler);
-
-    protected final String errorMessage;
-
-    protected final Codec<T> elementCodec;
-
-    protected final ResourceFinder resourceFinder;
 
     @Override
     public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager, Profiler prepareProfiler, Profiler applyProfiler, Executor prepareExecutor, Executor applyExecutor) {
