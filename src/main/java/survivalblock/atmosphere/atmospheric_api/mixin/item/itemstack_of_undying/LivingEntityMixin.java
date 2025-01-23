@@ -50,8 +50,8 @@ public abstract class LivingEntityMixin extends Entity {
         return true;
     }
 
-    @WrapOperation(method = "tryUseTotem", constant = @Constant(classValue = ServerPlayerEntity.class))
-    private boolean preventStatIncrementing(Object object, Operation<Boolean> original, @Local ItemStack stack, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
+    @WrapOperation(method = "tryUseTotem", constant = @Constant(classValue = ServerPlayerEntity.class, ordinal = 0))
+    private boolean preventStatIncrementing(Object object, Operation<Boolean> original, @Local(ordinal = 0) ItemStack stack, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
         itemStackRef.set(stack);
         if (stack.getItem() instanceof ItemOfUndying itemOfUndying) {
             return original.call(object) && itemOfUndying.shouldIncrementStatAndTriggerCriteria((LivingEntity) (Object) this, stack);
