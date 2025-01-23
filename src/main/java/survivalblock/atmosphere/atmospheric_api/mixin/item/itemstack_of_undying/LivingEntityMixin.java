@@ -4,6 +4,8 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.advancement.criterion.UsedTotemCriterion;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -49,7 +51,8 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @WrapOperation(method = "tryUseTotem", constant = @Constant(classValue = ServerPlayerEntity.class))
-    private boolean preventStatIncrementing(Object object, Operation<Boolean> original, @Local ItemStack stack) {
+    private boolean preventStatIncrementing(Object object, Operation<Boolean> original, @Local ItemStack stack, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
+        itemStackRef.set(stack);
         if (stack.getItem() instanceof ItemOfUndying itemOfUndying) {
             return original.call(object) && itemOfUndying.shouldIncrementStatAndTriggerCriteria((LivingEntity) (Object) this, stack);
         }
@@ -77,7 +80,8 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @WrapWithCondition(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;emitGameEvent(Lnet/minecraft/registry/entry/RegistryEntry;)V"))
-    private boolean potentiallyPreventGameEvent(LivingEntity instance, RegistryEntry<?> registryEntry, @Local ItemStack stack) {
+    private boolean potentiallyPreventGameEvent(LivingEntity instance, RegistryEntry<?> registryEntry, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
+        ItemStack stack = itemStackRef.get();
         if (stack.getItem() instanceof ItemOfUndying itemOfUndying) {
             return itemOfUndying.shouldEmitGameEvent(instance, stack);
         }
@@ -86,7 +90,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @SuppressWarnings("DiscouragedShift")
     @Inject(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setHealth(F)V", shift = At.Shift.BEFORE), cancellable = true)
-    private void sendPacketAndInvokeTotemLogic(DamageSource source, CallbackInfoReturnable<Boolean> cir, @Local ItemStack stack) {
+    private void sendPacketAndInvokeTotemLogic(DamageSource source, CallbackInfoReturnable<Boolean> cir, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
+        ItemStack stack = itemStackRef.get();
         if (!(stack.getItem() instanceof ItemOfUndying itemOfUndying)) {
             return;
         }
