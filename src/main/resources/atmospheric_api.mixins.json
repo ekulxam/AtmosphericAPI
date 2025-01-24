@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "survivalblock.atmosphere.atmospheric_api.not_mixin.compat.AtmosphericAPIMixinPlugin",
   "mixins": [
+    "block.BlockMixin",
     "damage_type.AtmosphericAPIMixin",
     "damage_type.PlayerEntityMixin",
     "datagen.BlockStateModelGeneratorMixin",
