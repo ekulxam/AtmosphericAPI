@@ -20,6 +20,8 @@ public class AtmosphericAPI implements ModInitializer {
 	@ApiStatus.Internal
 	public static boolean isConnectorLoaded = false;
 
+	public static final boolean development = FabricLoader.getInstance().isDevelopmentEnvironment();
+
 	@Override
 	public void onInitialize() {
 		resetIsConnectorLoaded();

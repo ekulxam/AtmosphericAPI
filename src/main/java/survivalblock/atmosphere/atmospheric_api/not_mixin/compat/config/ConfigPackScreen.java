@@ -26,19 +26,19 @@ public class ConfigPackScreen extends PackScreen {
         this.allowedPacks = ImmutableSet.copyOf(allowedPacks);
     }
 
-    public static @NotNull ConfigPackScreen fromParent(Screen parent, Set<String> allowedPacks) {
+    public static @NotNull ConfigPackScreen fromParent(Screen parent, Text title, Set<String> allowedPacks) {
         MinecraftClient client = MinecraftClient.getInstance();
         return new ConfigPackScreen(
                 client.getResourcePackManager(),
                 client.options::refreshResourcePacks,
                 client.getResourcePackDir(),
-                Text.translatable("resourcePack.atmospheric_api.configscreen"),
+                title,
                 parent,
                 allowedPacks);
     }
 
-    public static @NotNull ConfigPackScreen fromParent(Screen parent, String... allowedPacks) {
-        return fromParent(parent, Arrays.stream(allowedPacks).collect(Collectors.toSet()));
+    public static @NotNull ConfigPackScreen fromParent(Screen parent, Text title, String... allowedPacks) {
+        return fromParent(parent, title, Arrays.stream(allowedPacks).collect(Collectors.toSet()));
     }
 
     @Override
