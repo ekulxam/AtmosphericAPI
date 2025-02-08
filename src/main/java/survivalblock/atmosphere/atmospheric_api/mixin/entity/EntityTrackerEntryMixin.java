@@ -24,11 +24,14 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.EntityWithAttri
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Set;
 
 @Mixin(EntityTrackerEntry.class)
-public class EntityTrackerEntryMixin {
+public abstract class EntityTrackerEntryMixin {
 
 	@Shadow @Final private Entity entity;
+
+	@Shadow protected abstract void sendSyncPacket(Packet<?> packet);
 
 	@Inject(method = "sendPackets", at = @At("HEAD"))
 	private void captureSender(ServerPlayerEntity player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
@@ -37,6 +40,9 @@ public class EntityTrackerEntryMixin {
 
 	@WrapOperation(method = "sendPackets", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
 	private boolean updateEntityWithAttributesAttributes(Object object, Operation<Boolean> original, @Share("sender") LocalRef<Object> senderRef) {
+		if (original.call(object)) {
+			return true;
+		}
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
 			Collection<EntityAttributeInstance> collection = entityWithAttributes.getAttributes().getAttributesToSend();
 			if (!collection.isEmpty()) {
@@ -51,6 +57,21 @@ public class EntityTrackerEntryMixin {
 				}
 			}
 		}
-		return original.call(object);
+		return false;
+	}
+
+	@WrapOperation(method = "syncEntityData", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
+	private boolean updateEntityWithAttributesAttributes(Object object, Operation<Boolean> original) {
+		if (original.call(object)) {
+			return true;
+		}
+		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
+			Set<EntityAttributeInstance> set = entityWithAttributes.getAttributes().getTracked();
+			if (!set.isEmpty()) {
+				this.sendSyncPacket(new EntityAttributesS2CPacket(this.entity.getId(), set));
+			}
+			set.clear();
+		}
+		return false;
 	}
 }
