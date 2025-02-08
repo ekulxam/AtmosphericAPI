@@ -10,9 +10,7 @@ import java.util.function.BiFunction;
 public class OverlayHolder {
 
     protected final Identifier texture;
-
     protected final BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider;
-
     protected final boolean bypassable;
 
     public OverlayHolder(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider, boolean bypassable) {
