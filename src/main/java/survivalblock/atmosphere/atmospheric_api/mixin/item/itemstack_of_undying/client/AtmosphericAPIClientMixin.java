@@ -29,15 +29,13 @@ public class AtmosphericAPIClientMixin {
     @Inject(method = "onInitializeClient", at = @At("HEAD"))
     private void handleItemStackOfUndyingS2CPayloadReceiving(CallbackInfo ci) {
         ClientPlayNetworking.registerGlobalReceiver(ItemStackOfUndyingS2CPayload.ID, (payload, context) -> {
-            ItemStack stack = payload.stack();
             MinecraftClient client = Objects.requireNonNull(context.client());
-            final int entityId = payload.entityId();
             client.execute(() -> {
                 ClientWorld world = client.world;
                 if (world == null) {
                     return;
                 }
-                Entity entity = world.getEntityById(entityId);
+                Entity entity = world.getEntityById(payload.entityId());
                 if (entity == null) {
                     return;
                 }
@@ -59,7 +57,7 @@ public class AtmosphericAPIClientMixin {
                             soundEventHolder.useDistance());
                 }
                 if (entity == client.player) {
-                    client.gameRenderer.showFloatingItem(stack);
+                    client.gameRenderer.showFloatingItem(payload.stack());
                 }
             });
         });

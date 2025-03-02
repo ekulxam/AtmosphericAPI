@@ -38,23 +38,23 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow public abstract boolean damage(DamageSource source, float amount);
 
     @WrapOperation(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean itemsOfUndyingAreTotemsToo(ItemStack instance, Item item, Operation<Boolean> original) {
-        return original.call(instance, item) || (instance.getItem() instanceof ItemOfUndying itemOfUndying && itemOfUndying.canUse((LivingEntity) (Object) this, instance));
+    private boolean itemsOfUndyingAreTotemsToo(ItemStack instance, Item item, Operation<Boolean> original, DamageSource source) {
+        return original.call(instance, item) || (instance.getItem() instanceof ItemOfUndying itemOfUndying && itemOfUndying.canUse((LivingEntity) (Object) this, instance, source));
     }
 
     @WrapWithCondition(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
-    private boolean potentiallyStopTotemDecrement(ItemStack instance, int amount) {
+    private boolean potentiallyStopTotemDecrement(ItemStack instance, int amount, DamageSource source) {
         if (instance.getItem() instanceof ItemOfUndying itemOfUndying) {
-            return itemOfUndying.shouldDecrementOnDeathCancel((LivingEntity) (Object) this, instance, amount);
+            return itemOfUndying.shouldDecrementOnDeathCancel((LivingEntity) (Object) this, instance, amount, source);
         }
         return true;
     }
 
     @WrapOperation(method = "tryUseTotem", constant = @Constant(classValue = ServerPlayerEntity.class, ordinal = 0))
-    private boolean preventStatIncrementing(Object object, Operation<Boolean> original, @Local(ordinal = 0) ItemStack stack, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
+    private boolean preventStatIncrementing(Object object, Operation<Boolean> original, DamageSource source, @Local(ordinal = 0) ItemStack stack, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
         itemStackRef.set(stack);
         if (stack.getItem() instanceof ItemOfUndying itemOfUndying) {
-            return original.call(object) && itemOfUndying.shouldIncrementStatAndTriggerCriteria((LivingEntity) (Object) this, stack);
+            return original.call(object) && itemOfUndying.shouldIncrementStatAndTriggerCriteria((LivingEntity) (Object) this, stack, source);
         }
         return original.call(object);
     }
@@ -71,19 +71,19 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @WrapOperation(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/criterion/UsedTotemCriterion;trigger(Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/item/ItemStack;)V"))
-    private void changeCriterion(UsedTotemCriterion instance, ServerPlayerEntity player, ItemStack stack, Operation<Void> original) {
+    private void changeCriterion(UsedTotemCriterion instance, ServerPlayerEntity player, ItemStack stack, Operation<Void> original, DamageSource source) {
         if (!(stack.getItem() instanceof ItemOfUndying itemOfUndying)) {
             original.call(instance, player, stack);
             return;
         }
-        itemOfUndying.triggerCriterion(instance, player, stack, original);
+        itemOfUndying.triggerCriterion(instance, player, stack, original, source);
     }
 
     @WrapWithCondition(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;emitGameEvent(Lnet/minecraft/registry/entry/RegistryEntry;)V"))
-    private boolean potentiallyPreventGameEvent(LivingEntity instance, RegistryEntry<?> registryEntry, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
+    private boolean potentiallyPreventGameEvent(LivingEntity instance, RegistryEntry<?> registryEntry, DamageSource source, @Share("itemStackOfUndying") LocalRef<ItemStack> itemStackRef) {
         ItemStack stack = itemStackRef.get();
         if (stack.getItem() instanceof ItemOfUndying itemOfUndying) {
-            return itemOfUndying.shouldEmitGameEvent(instance, stack);
+            return itemOfUndying.shouldEmitGameEvent(instance, stack, source);
         }
         return true;
     }
@@ -96,10 +96,10 @@ public abstract class LivingEntityMixin extends Entity {
             return;
         }
         LivingEntity living = (LivingEntity) (Object) this;
-        if (living.getWorld() instanceof ServerWorld serverWorld && itemOfUndying.shouldSendPacket(living, stack)) {
-            itemOfUndying.getPacket(living, stack).sendGlobal(serverWorld);
+        if (living.getWorld() instanceof ServerWorld serverWorld && itemOfUndying.shouldSendPacket(living, stack, source)) {
+            itemOfUndying.getPacket(living, stack, source).sendGlobal(serverWorld);
         }
-        itemOfUndying.activate(living, stack);
+        itemOfUndying.activate(living, stack, source);
         cir.setReturnValue(true);
     }
 }
