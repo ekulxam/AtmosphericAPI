@@ -11,8 +11,8 @@ import org.joml.Vector3f;
 @SuppressWarnings("unused")
 public class BoxWithNoAtmosphere extends Box {
 
-    public static BoxWithNoAtmosphere INSTANCE = new BoxWithNoAtmosphere(); // the default instance
-    public Vec3d zero = new Vec3d(0.0, 0.0, 0.0); // creates another instance of the zero vector
+    public static final BoxWithNoAtmosphere INSTANCE = new BoxWithNoAtmosphere(); // the default instance
+    public final Vec3d zero = new Vec3d(0.0, 0.0, 0.0); // creates another instance of the zero vector
 
     public BoxWithNoAtmosphere() {
         super(0, 0, 0, 0, 0, 0);

@@ -21,7 +21,7 @@ import java.util.function.Function;
 @SuppressWarnings("unused")
 public interface AtmosphericPacketCodecs {
 
-    PacketCodec<ByteBuf, SoundEvent> SOUND_EVENT_BY_ID = viaRegistry(Registries.SOUND_EVENT);
+    PacketCodec<ByteBuf, SoundEvent> SOUND_EVENT_BY_ID = viaId(Registries.SOUND_EVENT);
 
     PacketCodec<ByteBuf, Vec3d> VEC3D = new PacketCodec<>() {
         public Vec3d decode(ByteBuf byteBuf) {
@@ -39,7 +39,7 @@ public interface AtmosphericPacketCodecs {
             .xmap(vec3ds -> new Box(vec3ds.getFirst(), vec3ds.getSecond()),
                     box -> new Duo<>(box.getMinPos(), box.getMaxPos()));
 
-    static <V> PacketCodec<ByteBuf, V> viaRegistry(Registry<V> registry) {
+    static <V> PacketCodec<ByteBuf, V> viaId(Registry<V> registry) {
         return Identifier.PACKET_CODEC.xmap(registry::get, registry::getId);
     }
 

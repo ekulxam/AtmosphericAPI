@@ -83,7 +83,7 @@ public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, Partic
 
         public static final PacketCodec<RegistryByteBuf, SoundEventHolder> PACKET_CODEC = PacketCodec.tuple(
                 PacketCodecs.BOOL, (holder) -> holder.shouldPlaySound,
-                AtmosphericPacketCodecs.SOUND_EVENT_BY_ID.collect(PacketCodecs::optional), (holder) -> holder.soundEvent, // alternatively, use the PacketCodec in the SoundEvent class
+                SoundEvent.PACKET_CODEC.collect(PacketCodecs::optional), (holder) -> holder.soundEvent, // alternatively, use the PacketCodec in the SoundEvent class
                 PacketCodecs.FLOAT, (holder) -> holder.volume,
                 PacketCodecs.FLOAT, (holder) -> holder.pitch,
                 PacketCodecs.BOOL, (holder) -> holder.useDistance,

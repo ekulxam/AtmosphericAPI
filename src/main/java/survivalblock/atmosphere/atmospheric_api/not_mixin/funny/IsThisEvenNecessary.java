@@ -7,10 +7,10 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.SOURCE)
 public @interface IsThisEvenNecessary {
 
-    LevelsOfUnnecessity value() default LevelsOfUnnecessity.NORMAL;
+    Levels value() default Levels.NORMAL;
 
     @SuppressWarnings("unused")
-    enum LevelsOfUnnecessity {
+    enum Levels {
         NORMAL,
         PROBABLY_NOT,
         BASCIALLY_DEPRECATED,

@@ -19,5 +19,6 @@ public final class AtmosphericOverlayRegistryImpl {
 
     public static void register(OverlayHolder overlayHolder) {
         OVERLAY_HOLDERS.add(overlayHolder);
+        OVERLAY_HOLDERS.sort(null);
     }
 }

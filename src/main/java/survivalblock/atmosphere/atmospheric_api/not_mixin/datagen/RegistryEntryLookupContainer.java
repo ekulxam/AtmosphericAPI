@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.IsThisEvenNecessary;
 
-@IsThisEvenNecessary(IsThisEvenNecessary.LevelsOfUnnecessity.PROBABLY_NOT)
+@IsThisEvenNecessary(IsThisEvenNecessary.Levels.PROBABLY_NOT)
 @SuppressWarnings("unused")
 public class RegistryEntryLookupContainer {
 
