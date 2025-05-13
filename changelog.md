@@ -1,13 +1,2 @@
-Atmospheric API 2.0.0+1.21.1
-- Add ShaderApplier
-- EntityWithAttributes#getDefaultAttributeContainer now returns a DefaultAttributeContainer. This is a breaking change!
-- Fixed lang
-- Added DamagingPersistentProjectile
-- Added some mixin accessors
-- Added RawVelocityUpdatePayload
-- Added BeaconLaserRenderer
-- Added EmptyModelRenderer
-- Added LineDrawer
-- Added translations for the damage gamerules
-- Slightly altered some javadocs
-- ItemProvider now uses generics
+Atmospheric API 2.0.1+1.21.1
+- Fixed RawVelocityUpdatePayload not being registered
