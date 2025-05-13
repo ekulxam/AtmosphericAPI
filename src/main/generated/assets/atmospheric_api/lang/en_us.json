@@ -1,4 +1,6 @@
 {
+  "gamerule.atmosphericAPI:damageTypesCanBypassCreativeInvulnerability": "Atmospheric API - Damage Types Can Bypass Creative",
+  "gamerule.atmosphericAPI:damageTypesCanBypassSpectatorInvulnerability": "Atmospheric API - Damage Types Can Bypass Spectator",
   "resourcePack.atmospheric_api.configscreen": "Atmospheric API - Resource Pack Config Screen",
   "resourcePack.atmospheric_api.disableallscreenshakers.name": "Disable All ScreenShakers from Atmospheric API"
 }

@@ -24,9 +24,6 @@
 		],
 		"modmenu": [
 			"survivalblock.atmosphere.atmospheric_api.not_mixin.compat.config.AtmosphericAPIModMenuCompat"
-		],
-		"fabric-datagen": [
-			"survivalblock.atmosphere.atmospheric_api.not_mixin.self_datagen.AtmosphericAPIDataGenerator"
 		]
 	},
 	"mixins": [

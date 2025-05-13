@@ -9,6 +9,7 @@
     "damage_type.PlayerEntityMixin",
     "datagen.BlockStateModelGeneratorMixin",
     "datagen.FabricDataGeneratorMixin",
+    "entity.EntityAccessor",
     "entity.EntityMixin",
     "entity.EntityTrackerEntryMixin",
     "entity.MobEntityMixin",
@@ -21,6 +22,7 @@
     "item.itemstack_of_undying.LivingEntityMixin",
     "item.scrolling.PlayerInventoryMixin",
     "item.spyglass.PlayerEntityMixin",
+    "registry.RegistriesAccessor",
     "render.screenshake.AtmosphericAPIMixin",
     "world.WorldMixin"
   ],
@@ -31,6 +33,7 @@
     "compat.modmenu.client.AtmosphericAPIClientMixin",
     "compat.modmenu.client.FabricIconHandlerMixin",
     "compat.modmenu.client.PackScreenMixin",
+    "entity.client.AtmosphericAPIClientMixin",
     "entity.client.ClientPlayNetworkHandlerMixin",
     "item.itemstack_of_undying.client.AtmosphericAPIClientMixin",
     "item.render.client.ItemRendererMixin",
