@@ -35,6 +35,7 @@
     "compat.modmenu.client.PackScreenMixin",
     "entity.client.AtmosphericAPIClientMixin",
     "entity.client.ClientPlayNetworkHandlerMixin",
+    "entity.client.LivingEntityRendererMixin",
     "item.itemstack_of_undying.client.AtmosphericAPIClientMixin",
     "item.render.client.ItemRendererMixin",
     "item.render.client.ModelLoaderMixin",
