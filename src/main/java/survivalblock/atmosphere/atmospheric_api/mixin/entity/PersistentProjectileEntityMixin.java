@@ -1,7 +1,14 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -9,10 +16,10 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.DamagingPersistentProjectile;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.StacklessPersistentProjectile;
 
 @Mixin(PersistentProjectileEntity.class)
@@ -46,5 +53,21 @@ public class PersistentProjectileEntityMixin {
         if (stacklessPersistentProjectile.shouldAvoidEncodingStack()) {
             if (nbt.contains("item")) nbt.remove("item");
         }
+    }
+
+    @WrapWithCondition(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setStuckArrowCount(I)V"))
+    private boolean notAllProjectilesAreArrows(LivingEntity instance, int stuckArrowCount, @Share("deltaStuckArrow")LocalIntRef localIntRef) {
+        if ((PersistentProjectileEntity) (Object) this instanceof DamagingPersistentProjectile damagingPersistentProjectile) {
+            return damagingPersistentProjectile.shouldIncreaseStuckArrowCount();
+        }
+        return true;
+    }
+
+    @WrapOperation(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSources;arrow(Lnet/minecraft/entity/projectile/PersistentProjectileEntity;Lnet/minecraft/entity/Entity;)Lnet/minecraft/entity/damage/DamageSource;"))
+    private DamageSource customDamageType(DamageSources instance, PersistentProjectileEntity source, Entity attacker, Operation<DamageSource> original) {
+        if ((PersistentProjectileEntity) (Object) this instanceof DamagingPersistentProjectile damagingPersistentProjectile) {
+            return new DamageSource(damagingPersistentProjectile.getDamageType(), source, attacker);
+        }
+        return original.call(instance, source, attacker);
     }
 }
