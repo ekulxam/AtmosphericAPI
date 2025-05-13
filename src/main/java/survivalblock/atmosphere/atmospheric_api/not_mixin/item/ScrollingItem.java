@@ -14,7 +14,7 @@ public interface ScrollingItem {
 	 * @param player The player using the item
 	 * @param stack The itemstack
 	 * @param scrollAmount The amount scrolled
-	 * @return if the default logic should occur (scroll in hotbar)
+	 * @return false to cancel default logic, true to allow
 	 */
 	boolean onScroll(World world, PlayerEntity player, ItemStack stack, double scrollAmount);
 }

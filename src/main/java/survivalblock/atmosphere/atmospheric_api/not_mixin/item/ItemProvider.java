@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 
 @SuppressWarnings("unused")
 @FunctionalInterface
-public interface ItemProvider {
+public interface ItemProvider<S extends Item.Settings, T extends Item> {
 
-    Item fromSettings(Item.Settings settings);
+    T fromSettings(S settings);
 }

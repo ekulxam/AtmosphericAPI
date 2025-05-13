@@ -21,6 +21,7 @@ public interface TwoHandedItem {
 
 		@ApiStatus.Internal
 		public static boolean longswordPosing = false;
+		@ApiStatus.Internal
 		public static float angle = 0f;
 	}
 }

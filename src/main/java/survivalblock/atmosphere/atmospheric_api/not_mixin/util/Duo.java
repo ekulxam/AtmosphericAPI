@@ -30,8 +30,11 @@ public class Duo<E> extends AbstractList<E> implements List<E>, RandomAccess {
         this.second = second;
     }
 
+    /**
+     * Creates a Duo from the first two elements of a {@link List}
+     */
     public Duo(List<E> other) {
-        assert other.size() == Duo.SIZE;
+        //assert other.size() == Duo.SIZE;
         this.first = other.get(0);
         this.second = other.get(1);
     }

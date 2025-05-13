@@ -5,7 +5,6 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
 import java.util.function.BiFunction;
 
 public class OverlayHolder implements Comparable<OverlayHolder> {
@@ -37,6 +36,7 @@ public class OverlayHolder implements Comparable<OverlayHolder> {
     public Float getOpacity(@NotNull MinecraftClient client, @NotNull ClientPlayerEntity player) {
         return this.opacityProvider.apply(client, player);
     }
+
     @Override
     public int compareTo(@NotNull OverlayHolder other) {
         return other.priority - this.priority;

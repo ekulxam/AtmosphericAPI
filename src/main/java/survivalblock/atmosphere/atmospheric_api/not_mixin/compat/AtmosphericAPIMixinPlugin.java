@@ -1,7 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.compat;
 
 import net.fabricmc.loader.api.FabricLoader;
-import survivalblock.atmosphere.atmospheric_api.mixin.compat.AtmosphericMixinConfigPlugin;
 
 public class AtmosphericAPIMixinPlugin implements AtmosphericMixinConfigPlugin {
 

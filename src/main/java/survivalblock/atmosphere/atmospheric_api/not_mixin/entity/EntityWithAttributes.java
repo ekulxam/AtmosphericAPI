@@ -1,6 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
 import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -44,7 +45,7 @@ public interface EntityWithAttributes {
     }
 
     default void resetAttributes() {
-        this.setAttributesFrom(this.getDefaultAttributeContainer());
+        this.setAttributesFrom(new AttributeContainer(this.getDefaultAttributeContainer()));
     }
 
     /**
@@ -57,8 +58,15 @@ public interface EntityWithAttributes {
     }
 
     /**
+     * @return a {@link DefaultAttributeContainer} with the entity's default attribute values
+     */
+    DefaultAttributeContainer getDefaultAttributeContainer();
+
+    /**
      * This method should create an {@link AttributeContainer} with the default attribute values
      * @return a new instance of {@link AttributeContainer}
      */
-    AttributeContainer getDefaultAttributeContainer();
+    default AttributeContainer getDefaultAttributes() {
+        return new AttributeContainer(this.getDefaultAttributeContainer());
+    }
 }
