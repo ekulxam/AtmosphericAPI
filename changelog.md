@@ -1,3 +1,13 @@
-Atmospheric API 1.1.3+1.21.1
-- Provide a DamageSource as a parameter to methods of ItemOfUndying
-- Allow OverlayHolders to have a priority value
+Atmospheric API 2.0.0+1.21.1
+- Add ShaderApplier
+- EntityWithAttributes#getDefaultAttributeContainer now returns a DefaultAttributeContainer. This is a breaking change!
+- Fixed lang
+- Added DamagingPersistentProjectile
+- Added some mixin accessors
+- Added RawVelocityUpdatePayload
+- Added BeaconLaserRenderer
+- Added EmptyModelRenderer
+- Added LineDrawer
+- Added translations for the damage gamerules
+- Slightly altered some javadocs
+- ItemProvider now uses generics
