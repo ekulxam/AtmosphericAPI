@@ -7,6 +7,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.Extensions;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ReadOnly;
 
 @SuppressWarnings("unused")
@@ -25,6 +26,7 @@ public class AtmosphericAPI implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		resetIsConnectorLoaded();
+		Extensions.load();
 	}
 
 	public static Identifier id(String path) {
