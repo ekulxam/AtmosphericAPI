@@ -1,4 +1,5 @@
-package survivalblock.atmosphere.atmospheric_api.not_mixin.item.client;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.item.client;
 
 import java.util.HashMap;
 import net.fabricmc.api.EnvType;
@@ -7,6 +8,7 @@ import net.minecraft.client.util.ModelIdentifier;
 import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.AlternateModelItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
+
 
 @Environment(EnvType.CLIENT)
 public final class AlternateItemModelRegistryImpl {
@@ -32,3 +34,4 @@ public final class AlternateItemModelRegistryImpl {
         return spyglassModels;
     }
 }
+*///?}

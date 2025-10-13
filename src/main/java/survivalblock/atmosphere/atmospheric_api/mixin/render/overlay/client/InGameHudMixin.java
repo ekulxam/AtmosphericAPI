@@ -30,8 +30,8 @@ public abstract class InGameHudMixin {
     }
 
     //? if =1.21.1 {
-    /*
-    @WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LayeredDrawer;addSubDrawer(Lnet/minecraft/client/gui/LayeredDrawer;Ljava/util/function/BooleanSupplier;)Lnet/minecraft/client/gui/LayeredDrawer;", ordinal = 0))
+    
+    /*@WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LayeredDrawer;addSubDrawer(Lnet/minecraft/client/gui/LayeredDrawer;Ljava/util/function/BooleanSupplier;)Lnet/minecraft/client/gui/LayeredDrawer;", ordinal = 0))
     private LayeredDrawer addSubDrawerToRenderNonBypassableOverlays(LayeredDrawer instance, LayeredDrawer drawer, BooleanSupplier shouldRender, Operation<LayeredDrawer> original) {
         LayeredDrawer alternateOverlayDrawer = new LayeredDrawer().addLayer((context, tickCounter) -> this.atmospheric_api$renderCustomOverlays(context, true));
         return original.call(instance, drawer, shouldRender).addSubDrawer(alternateOverlayDrawer, () -> !shouldRender.getAsBoolean());

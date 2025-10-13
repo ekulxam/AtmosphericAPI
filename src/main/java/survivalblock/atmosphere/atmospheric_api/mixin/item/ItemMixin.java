@@ -2,6 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AnimalArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stat.StatType;
@@ -18,10 +19,13 @@ public class ItemMixin implements AtmosphericHorseArmorItem, AtmosphericItemDama
     @Override
     public boolean atmospheric_api$isHorseArmor() {
         //? if =1.21.1 {
-        /*
-        return (Item) (Object) this instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType().equals(AnimalArmorItem.Type.EQUESTRIAN);
+        
+        /*return (Item) (Object) this instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType().equals(AnimalArmorItem.Type.EQUESTRIAN);
+
          *///?} elif =1.21.8 {
+
         return false;
+
         //?}
     }
 

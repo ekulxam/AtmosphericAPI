@@ -40,10 +40,10 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     //? if =1.21.1 {
-    /*
+    
 
 
-    @Shadow public abstract boolean damage(DamageSource source, float amount);
+    /*@Shadow public abstract boolean damage(DamageSource source, float amount);
 
     @WrapOperation(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean itemsOfUndyingAreTotemsToo(ItemStack instance, Item item, Operation<Boolean> original, DamageSource source) {
