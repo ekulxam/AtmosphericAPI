@@ -1,7 +1,9 @@
-package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -20,6 +22,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AlternateI
 
 import java.util.Map;
 
+@MixinEnvironment("1.21.1")
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
 
@@ -57,3 +60,4 @@ public class ItemRendererMixin {
         return original;
     }
 }
+*///?}

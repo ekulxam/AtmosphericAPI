@@ -7,7 +7,6 @@
     "block.BlockMixin",
     "damage_type.AtmosphericAPIMixin",
     "damage_type.PlayerEntityMixin",
-    "datagen.BlockStateModelGeneratorMixin",
     "datagen.FabricDataGeneratorMixin",
     "entity.AtmosphericAPIMixin",
     "entity.EntityAccessor",
@@ -19,17 +18,11 @@
     "entity.ServerWorldMixin",
     "item.ItemMixin",
     "item.ItemStackMixin",
-    "item.itemstack_of_undying.AtmosphericAPIMixin",
-    "item.itemstack_of_undying.LivingEntityMixin",
-    "item.scrolling.PlayerInventoryMixin",
     "item.spyglass.PlayerEntityMixin",
     "registry.RegistriesAccessor",
     "render.screenshake.AtmosphericAPIMixin",
     "world.WorldMixin"
   ],
-  "injectors": {
-    "defaultRequire": 1
-  },
   "client": [
     "compat.modmenu.client.AtmosphericAPIClientMixin",
     "compat.modmenu.client.FabricIconHandlerMixin",
@@ -37,13 +30,9 @@
     "entity.client.AtmosphericAPIClientMixin",
     "entity.client.ClientPlayNetworkHandlerMixin",
     "entity.client.LivingEntityRendererMixin",
-    "item.itemstack_of_undying.client.AtmosphericAPIClientMixin",
-    "item.render.client.ItemRendererMixin",
-    "item.render.client.ModelLoaderMixin",
     "item.spyglass.client.AbstractClientPlayerEntityMixin",
     "item.spyglass.client.InGameHudAccessor",
     "item.spyglass.client.InGameHudMixin",
-    "item.spyglass.client.MouseMixin",
     "item.spyglass.client.PlayerHeldItemFeatureRendererMixin",
     "item.two_handed.client.BipedEntityModelMixin",
     "item.two_handed.client.CrossbowPosingMixin",
@@ -53,5 +42,8 @@
     "render.screenshake.client.AtmosphericAPIClientMixin",
     "render.screenshake.client.WorldRendererMixin",
     "resourcepack.client.MinecraftClientMixin"
-  ]
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

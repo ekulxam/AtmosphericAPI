@@ -23,9 +23,17 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements At
 
     @Shadow public abstract PlayerAdvancementTracker getAdvancementTracker();
 
-    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+    //? if =1.21.1 {
+    
+    /*public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
+     *///?} elif =1.21.8 {
+    public ServerPlayerEntityMixin(World world, GameProfile profile) {
+        super(world, profile);
+    }
+    //?}
+
 
     @Override
     public boolean atmospheric_api$grantAdvancement(Identifier advancementId, boolean verboseLogging) {

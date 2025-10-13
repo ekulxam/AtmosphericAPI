@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "package": "survivalblock.atmosphere.atmospheric_api.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "survivalblock.atmosphere.atmospheric_api.not_mixin.compat.AtmosphericAPIMixinPlugin",
+  "mixins": [
+  ],
+  "client": [
+    "item.scrolling.client.MouseMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

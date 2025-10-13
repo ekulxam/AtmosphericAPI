@@ -7,6 +7,7 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.minecraft.client.render.entity.model.ArmPosing;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceFinder;
 import net.minecraft.resource.ResourceManager;
@@ -38,15 +39,15 @@ public abstract class AtmosphericResourceReader<T> implements IdentifiableResour
         this.resourceFinder = resourceFinder;
     }
 
-    protected abstract void upload(Map<Identifier, T> map, Profiler profiler);
+    protected abstract void upload(Map<Identifier, T> map, /*? =1.21.1 {*/ /*Profiler profiler *//*?} else {*/ ResourceManager manager, Executor applyExecutor/*?}*/);
 
     @Override
-    public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager, Profiler prepareProfiler, Profiler applyProfiler, Executor prepareExecutor, Executor applyExecutor) {
-        prepareProfiler.startTick();
+    public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager,/*? =1.21.1 {*/ /*Profiler prepareProfiler, Profiler applyProfiler, *//*?} else {*/ /*?}*/ Executor prepareExecutor, Executor applyExecutor) {
+        /*? =1.21.1 {*/ /*prepareProfiler.startTick(); *//*?} else {*/ /*?}*/
         CompletableFuture<Map<Identifier, T>> completableFuture = reloadAndFind(manager, prepareExecutor);
         return completableFuture
                 .thenCompose(synchronizer::whenPrepared)
-                .thenAcceptAsync(result -> this.upload(result, applyProfiler), applyExecutor);
+                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ /*applyProfiler, *//*?} else {*/ manager, applyExecutor /*?}*/ ), applyExecutor);
     }
 
     // what did I just create

@@ -3,7 +3,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.render.overlay.client;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.LayeredDrawer;
+/*? =1.21.1 {*/ /*import net.minecraft.client.gui.LayeredDrawer; *//*?} else {*/  /*?}*/
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
@@ -30,6 +30,7 @@ public abstract class InGameHudMixin {
     }
 
     //? if =1.21.1 {
+    
     
     /*@WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LayeredDrawer;addSubDrawer(Lnet/minecraft/client/gui/LayeredDrawer;Ljava/util/function/BooleanSupplier;)Lnet/minecraft/client/gui/LayeredDrawer;", ordinal = 0))
     private LayeredDrawer addSubDrawerToRenderNonBypassableOverlays(LayeredDrawer instance, LayeredDrawer drawer, BooleanSupplier shouldRender, Operation<LayeredDrawer> original) {

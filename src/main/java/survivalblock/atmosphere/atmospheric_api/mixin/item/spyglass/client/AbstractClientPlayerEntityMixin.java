@@ -15,9 +15,15 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.Atmospheri
 @Mixin(AbstractClientPlayerEntity.class)
 public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
 
-    public AbstractClientPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+    //? if =1.21.1 {
+    /*public AbstractClientPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
+     *///?} elif =1.21.8 {
+    public AbstractClientPlayerEntityMixin(World world, GameProfile profile) {
+        super(world, profile);
+    }
+    //?}
 
     @ModifyExpressionValue(method = "getFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;isUsingSpyglass()Z"))
     private boolean turnOffZoom(boolean original) {

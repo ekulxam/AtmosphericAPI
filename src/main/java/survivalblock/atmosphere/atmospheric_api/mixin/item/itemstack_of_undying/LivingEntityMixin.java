@@ -1,4 +1,5 @@
-package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -7,6 +8,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.advancement.criterion.UsedTotemCriterion;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
@@ -31,6 +33,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemOfUndying;
 
+@MixinEnvironment("1.21.1")
 @SuppressWarnings({"UnreachableCode", "ConstantValue"})
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -39,11 +42,7 @@ public abstract class LivingEntityMixin extends Entity {
         super(type, world);
     }
 
-    //? if =1.21.1 {
-    
-
-
-    /*@Shadow public abstract boolean damage(DamageSource source, float amount);
+    @Shadow public abstract boolean damage(DamageSource source, float amount);
 
     @WrapOperation(method = "tryUseTotem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean itemsOfUndyingAreTotemsToo(ItemStack instance, Item item, Operation<Boolean> original, DamageSource source) {
@@ -110,7 +109,5 @@ public abstract class LivingEntityMixin extends Entity {
         itemOfUndying.activate(living, stack, source);
         cir.setReturnValue(true);
     }
-    *///?} elif =1.21.8 {
-
-    //?}
 }
+*///?}

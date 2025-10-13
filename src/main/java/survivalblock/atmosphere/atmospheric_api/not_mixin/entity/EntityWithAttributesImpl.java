@@ -4,7 +4,13 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.*;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A basic implementation of {@link EntityWithAttributes}.
@@ -25,7 +31,9 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
         super.tick();
     }
 
-    @Override
+    //? if =1.21.1 {
+
+    /*@Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
         if (nbt.contains(ATTRIBUTES_NBT_KEY, NbtElement.LIST_TYPE) && this.getWorld() != null && !this.getWorld().isClient) {
             this.getAttributes().readNbt(nbt.getList(ATTRIBUTES_NBT_KEY, NbtElement.COMPOUND_TYPE));
@@ -36,6 +44,21 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
     protected void writeCustomDataToNbt(NbtCompound nbt) {
         nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().toNbt());
     }
+     *///?} elif =1.21.8 {
+
+    @Override
+    protected void readCustomData(ReadView view) {
+        if (this.getWorld() != null && !this.getWorld().isClient) {
+            Optional<List<EntityAttributeInstance.Packed>> optional = view.read("attributes", EntityAttributeInstance.Packed.LIST_CODEC);
+            optional.ifPresent(list -> Objects.requireNonNull(this.getAttributes()).unpack(list));
+        }
+    }
+
+    @Override
+    protected void writeCustomData(WriteView view) {
+        view.put("attributes", EntityAttributeInstance.Packed.LIST_CODEC, this.getAttributes().pack());
+    }
+    //?}
 
     @Override
     public AttributeContainer getAttributes() {

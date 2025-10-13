@@ -58,12 +58,14 @@ public abstract class ItemStackMixin implements ComponentHolder, AtmosphericEnch
         //? if =1.21.1 {
         
         /*return this.getItem().atmospheric_api$isHorseArmor();
+
          *///?} elif =1.21.8 {
         ComponentMap map = this.getComponents();
         if (!map.contains(DataComponentTypes.EQUIPPABLE)) {
             return false;
         }
         EquippableComponent component = map.get(DataComponentTypes.EQUIPPABLE);
+        // this seems to be the best I can do, given the component changes
         return EquipmentSlot.BODY == component.slot() && component.allows(EntityType.HORSE);
         //?}
     }

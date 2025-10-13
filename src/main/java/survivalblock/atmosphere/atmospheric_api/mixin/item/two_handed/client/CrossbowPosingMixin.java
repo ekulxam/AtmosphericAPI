@@ -1,8 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.client.render.entity.model.ArmPosing;
-import net.minecraft.client.render.entity.model.CrossbowPosing;
+/*? =1.21.1 {*/ /*import net.minecraft.client.render.entity.model.CrossbowPosing; *//*?} else {*/ import net.minecraft.client.render.entity.model.ArmPosing; /*?}*/
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

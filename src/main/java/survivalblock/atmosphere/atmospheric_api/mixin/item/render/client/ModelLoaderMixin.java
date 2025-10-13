@@ -1,5 +1,7 @@
-package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
 
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.render.model.BlockStatesLoader;
 import net.minecraft.client.render.model.ModelLoader;
@@ -19,6 +21,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AlternateI
 import java.util.List;
 import java.util.Map;
 
+@MixinEnvironment("1.21.1")
 @Mixin(ModelLoader.class)
 public abstract class ModelLoaderMixin {
 
@@ -36,3 +39,4 @@ public abstract class ModelLoaderMixin {
         }
     }
 }
+*///?}

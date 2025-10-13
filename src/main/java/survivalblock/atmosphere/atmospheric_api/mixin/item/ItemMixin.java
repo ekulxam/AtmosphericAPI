@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AnimalArmorItem;
+/*? =1.21.1 {*/ /*import net.minecraft.item.AnimalArmorItem;; *//*?} else {*/  /*?}*/
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stat.StatType;

@@ -28,7 +28,7 @@ public class RegistryEntryLookupContainer {
             return registerable.getRegistryLookup(registryKey);
         }
         if (this.wrapperLookup != null) {
-            return wrapperLookup.getWrapperOrThrow(registryKey);
+            return wrapperLookup./*? =1.21.1 {*/ /*getWrapperOrThrow *//*?} else {*/ getOrThrow /*?}*/(registryKey);
         }
         throw new IllegalStateException("A RegistryEntryLookupContainer cannot have both its fields be null!");
     }

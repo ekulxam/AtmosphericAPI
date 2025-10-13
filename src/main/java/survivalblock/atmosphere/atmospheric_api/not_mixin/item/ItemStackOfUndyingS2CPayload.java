@@ -1,4 +1,5 @@
-package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
@@ -18,13 +19,12 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericP
 
 import java.util.Optional;
 
-/**
- * Originally written as the PantsOfUndyingPacket for Enchancement Unbound
- * Used as an S2C payload to tell the client to display a floating item, limit to an activated totem of undying
- * @see net.minecraft.client.render.GameRenderer#floatingItem
- * @see net.minecraft.client.render.GameRenderer#showFloatingItem(ItemStack)
- * @see net.minecraft.client.render.GameRenderer#renderFloatingItem(DrawContext, float)
- */
+// Originally written as the PantsOfUndyingPacket for Enchancement Unbound
+// Used as an S2C payload to tell the client to display a floating item, limit to an activated totem of undying
+// @see net.minecraft.client.render.GameRenderer#floatingItem
+// @see net.minecraft.client.render.GameRenderer#showFloatingItem(ItemStack)
+// @see net.minecraft.client.render.GameRenderer#renderFloatingItem(DrawContext, float)
+
 @SuppressWarnings({"unused", "JavadocReference"})
 public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPayload {
     public static final CustomPayload.Id<ItemStackOfUndyingS2CPayload> ID = new Id<>(AtmosphericAPI.id("itemstack_of_undying_s2c"));
@@ -104,3 +104,4 @@ public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, Partic
         }
     }
 }
+*///?}

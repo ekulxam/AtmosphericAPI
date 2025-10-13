@@ -1,6 +1,9 @@
 plugins {
-	id 'fabric-loom' version '1.11-SNAPSHOT'
-	id 'maven-publish'
+	id "fabric-loom" version "1.11-SNAPSHOT"
+	id "maven-publish"
+	id "org.jetbrains.kotlin.jvm" version "2.2.10"
+	id "com.google.devtools.ksp" version "2.2.10-2.0.2"
+	id "dev.kikugie.fletching-table.fabric" version "0.1.0-alpha.17"
 }
 
 loom.runs.each {
@@ -41,6 +44,20 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${property('deps.fabric_api')}"
 
 	modApi "com.terraformersmc:modmenu:${property('deps.modmenu_version')}"
+}
+
+fletchingTable {
+	mixins.create("main") {
+		// Default matches the default value in the annotation
+		mixin("default", "atmospheric_api.mixins.json")
+
+		// Optionally add other mixin configs
+		mixin("1.21.1", "1.21.1.mixins.json")
+		mixin("1.21.8", "1.21.8.mixins.json")
+	}
+	mixins.all {
+		automatic = false
+	}
 }
 
 processResources {

@@ -1,5 +1,7 @@
-package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
 
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
@@ -12,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+@MixinEnvironment("1.21.1")
 @Mixin(BlockStateModelGenerator.class)
 public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenerationPreventer {
 
@@ -47,3 +50,4 @@ public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenera
         itemConvertibles.forEach(itemConvertible -> this.simpleItemModelExemptionCollector.accept(itemConvertible.asItem()));
     }
 }
+*///?}
