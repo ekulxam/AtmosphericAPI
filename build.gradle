@@ -1,6 +1,10 @@
 plugins {
-	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'fabric-loom' version '1.11-SNAPSHOT'
 	id 'maven-publish'
+}
+
+loom.runs.each {
+	it.ideConfigGenerated(true) // force idea to regen run configs
 }
 
 version = project.mod_version
@@ -29,14 +33,14 @@ fabricApi {
 
 dependencies {
 	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	minecraft "com.mojang:minecraft:${stonecutter.current.project}"
+	mappings "net.fabricmc:yarn:${property('deps.yarn_mappings')}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${property('deps.loader_version')}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${property('deps.fabric_api')}"
 
-	modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
+	modApi "com.terraformersmc:modmenu:${property('deps.modmenu_version')}"
 }
 
 processResources {

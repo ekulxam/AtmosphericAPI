@@ -7,7 +7,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 @SuppressWarnings({"UnstableApiUsage", "unused"})
-public class AtmosphericResourceManagerHelper {
+public final class AtmosphericResourceManagerHelper {
 
     public static boolean registerBuiltinDataPack(Identifier id, ModContainer container, ResourcePackActivationType activationType) {
         return ResourceManagerHelperImpl.registerBuiltinResourcePack(id, "datapacks/" + id.getPath(), container, activationType);
