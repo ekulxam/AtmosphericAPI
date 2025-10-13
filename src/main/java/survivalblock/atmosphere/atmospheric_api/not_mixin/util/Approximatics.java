@@ -1,7 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
 @SuppressWarnings("unused")
-public final class AtmosphericUtil {
+public final class Approximatics {
 
     public static final double DEFAULT_ACCURACY = 0.001;
 

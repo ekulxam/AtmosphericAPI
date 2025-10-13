@@ -1,7 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.render.screenshake.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.MathHelper;
@@ -13,7 +12,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.client.ClientScreenShaker;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.util.AtmosphericUtil;
 
 @Mixin(WorldRenderer.class)
 public class WorldRendererMixin {

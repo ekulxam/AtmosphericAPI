@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.EntityWithAttributes;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.ReflectionCacher;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -47,10 +48,19 @@ public abstract class EntityTrackerEntryMixin {
 			Collection<EntityAttributeInstance> collection = entityWithAttributes.getAttributes().getAttributesToSend();
 			if (!collection.isEmpty()) {
 				try {
+					// neoforge changes the type of the sender parameter
 					Object sender = senderRef.get();
 					Class<?> clazz = sender.getClass();
 					String methodName = "accept";
-					Method acceptMethod = clazz.getMethod(methodName, AtmosphericAPI.isConnectorLoaded ? Packet.class : Object.class); // neoforge changes the type of the sender parameter
+					Class<?>[] parameterTypes = new Class[]{AtmosphericAPI.isConnectorLoaded ? Packet.class : Object.class};
+					ReflectionCacher.MethodDescription desc = new ReflectionCacher.MethodDescription(clazz, methodName, parameterTypes);
+					Method acceptMethod = ReflectionCacher.METHODS.computeIfAbsent(desc, desc1 -> {
+						try {
+							return clazz.getMethod(methodName, parameterTypes);
+						} catch (NoSuchMethodException noSuchMethodException) {
+							return null;
+						}
+					});
 					acceptMethod.invoke(sender, new EntityAttributesS2CPacket(this.entity.getId(), collection));
 				} catch (Throwable throwable) {
 					AtmosphericAPI.LOGGER.error("Error while doing reflection to get a EntityWithAttributes's attributes!", throwable);

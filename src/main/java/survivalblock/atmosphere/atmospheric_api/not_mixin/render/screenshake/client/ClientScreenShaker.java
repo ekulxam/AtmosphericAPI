@@ -15,7 +15,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.AllowsForChainin
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.BasicScreenShaker;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.QueueingScreenShaker;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.ScreenShakeS2CPayload;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.util.AtmosphericUtil;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Approximatics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -160,7 +160,7 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
             }
             if (clientScreenShaker.intensity > active.intensity) {
                 clientScreenShaker.activate(clientWorld);
-            } else if (AtmosphericUtil.isBasicallyEqual(clientScreenShaker.intensity, active.intensity, 0.0001)
+            } else if (Approximatics.isBasicallyEqual(clientScreenShaker.intensity, active.intensity, 0.0001)
                     && clientScreenShaker.duration > active.duration) {
                 clientScreenShaker.activate(clientWorld);
             } else if (clientScreenShaker.shouldAddToQueue) {

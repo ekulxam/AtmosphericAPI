@@ -1,5 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -7,6 +8,8 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.advancement.criterion.UsedTotemCriterion;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -19,6 +22,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.Stat;
 import net.minecraft.stat.StatType;
 import net.minecraft.world.World;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,6 +38,10 @@ public abstract class LivingEntityMixin extends Entity {
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
+
+    //? if =1.21.1 {
+    /*
+
 
     @Shadow public abstract boolean damage(DamageSource source, float amount);
 
@@ -102,4 +110,7 @@ public abstract class LivingEntityMixin extends Entity {
         itemOfUndying.activate(living, stack, source);
         cir.setReturnValue(true);
     }
+    *///?} elif =1.21.8 {
+
+    //?}
 }

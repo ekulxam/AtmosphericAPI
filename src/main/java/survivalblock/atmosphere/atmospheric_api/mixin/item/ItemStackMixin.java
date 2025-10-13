@@ -2,9 +2,12 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.*;
+import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -52,7 +55,17 @@ public abstract class ItemStackMixin implements ComponentHolder, AtmosphericEnch
 
     @Override
     public boolean atmospheric_api$isHorseArmor() {
+        //? if =1.21.1 {
+        /*
         return this.getItem().atmospheric_api$isHorseArmor();
+         *///?} elif =1.21.8 {
+        ComponentMap map = this.getComponents();
+        if (!map.contains(DataComponentTypes.EQUIPPABLE)) {
+            return false;
+        }
+        EquippableComponent component = map.get(DataComponentTypes.EQUIPPABLE);
+        return EquipmentSlot.BODY == component.slot() && component.allows(EntityType.HORSE);
+        //?}
     }
 
     @Override
