@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-    "item.scrolling.client.MouseMixin"
+    "item.scrolling.client.MouseMixin",
+    "item.two_handed.client.ArmedEntityRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

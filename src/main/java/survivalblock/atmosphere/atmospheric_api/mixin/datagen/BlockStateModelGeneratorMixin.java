@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+@Debug(export=true)
 @MixinEnvironment("1.21.1")
 @Mixin(BlockStateModelGenerator.class)
 public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenerationPreventer {

@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;
 
+/*? =1.21.1 {*/   /*?} else {*/  /*?}*/
 @Mixin(/*? =1.21.1 {*/ /*CrossbowPosing.class *//*?} else {*/ ArmPosing.class /*?}*/)
 public class CrossbowPosingMixin {
 

@@ -3,7 +3,9 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.command;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.CommandOutput;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.CommandBlockExecutor;
 
@@ -14,7 +16,7 @@ public final class AtmosphericCommandDirector {
     }
 
     public static void runCommand(ServerWorld serverWorld, Entity entity, int level, String command) {
-        runCommand(serverWorld.getServer(), new ServerCommandSource(entity, entity.getPos(), entity.getRotationClient(), serverWorld, level,
+        runCommand(serverWorld.getServer(), new ServerCommandSource(/*? =1.21.1 {*/  /*entity *//*?} else {*/ entity instanceof ServerPlayerEntity serverPlayerEntity ? serverPlayerEntity.getCommandOutput() : CommandOutput.DUMMY /*?}*/, entity.getPos(), entity.getRotationClient(), serverWorld, level,
                 entity.getName().getString(), entity.getDisplayName(), serverWorld.getServer(), entity), command);
     }
 
