@@ -18,8 +18,8 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.Atmospheri
 public class PlayerEntityRendererMixin {
 
     @SuppressWarnings("DiscouragedShift")
-    @Inject(method = /*? =1.21.1 {*/ /*"getArmPose" *//*?} else {*/ "getArmPose(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/Hand;)Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;" /*?}*/, at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z", shift = At.Shift.BEFORE), cancellable = true)
-    private static void crossbowLongsword(/*? =1.21.1 {*/  /*AbstractClientPlayerEntity *//*?} else {*/ PlayerEntity /*?}*/ player, /*? =1.21.1 {*/   /*?} else {*/ ItemStack stack, /*?}*/ Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir/*? =1.21.1 {*/  /*, @Local ItemStack stack *//*?} else {*/  /*?}*/){
+    @Inject(method = /*? =1.21.1 {*/ "getArmPose" /*?} else {*/ /*"getArmPose(Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;Lnet/minecraft/util/Hand;)Lnet/minecraft/client/render/entity/model/BipedEntityModel$ArmPose;" *//*?}*/, at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isEmpty()Z", shift = At.Shift.BEFORE), cancellable = true)
+    private static void crossbowLongsword(/*? =1.21.1 {*/  AbstractClientPlayerEntity /*?} else {*/ /*PlayerEntity *//*?}*/ player, /*? =1.21.1 {*/   /*?} else {*/ /*ItemStack stack, *//*?}*/ Hand hand, CallbackInfoReturnable<BipedEntityModel.ArmPose> cir/*? =1.21.1 {*/  , @Local ItemStack stack /*?} else {*/  /*?}*/){
         if (stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack)) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }

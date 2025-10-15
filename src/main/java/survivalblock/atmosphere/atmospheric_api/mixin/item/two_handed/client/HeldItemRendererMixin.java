@@ -33,7 +33,7 @@ public class HeldItemRendererMixin {
         return original || (itemStack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(itemStack));
     }
 
-    @ModifyExpressionValue(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = /*? =1.21.1 {*/  /*1 *//*?} else {*/ 0 /*?}*/))
+    @ModifyExpressionValue(method = "renderFirstPersonItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = /*? =1.21.1 {*/  1 /*?} else {*/ /*0 *//*?}*/))
     private boolean renderFirstPersonLongsword(boolean original, @Local(argsOnly = true) ItemStack stack){
         return original || (stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack));
     }

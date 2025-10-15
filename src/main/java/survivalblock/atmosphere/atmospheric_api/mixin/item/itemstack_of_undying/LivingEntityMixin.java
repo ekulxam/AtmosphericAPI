@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-/*package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
+package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
@@ -108,4 +108,4 @@ public abstract class LivingEntityMixin extends Entity {
         cir.setReturnValue(true);
     }
 }
-*///?}
+//?}

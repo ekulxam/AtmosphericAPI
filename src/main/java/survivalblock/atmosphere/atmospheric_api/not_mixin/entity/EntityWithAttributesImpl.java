@@ -3,14 +3,14 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.*;
 //? if =1.21.1 {
-/*import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-*///?} elif =1.21.8 {
+//?} elif =1.21.8 {
 
-import net.minecraft.storage.ReadView;
+/*import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 }
-//?}
+*///?}
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
 
     //? if =1.21.1 {
 
-    /*@Override
+    @Override
     protected void readCustomDataFromNbt(NbtCompound nbt) {
         if (nbt.contains(ATTRIBUTES_NBT_KEY, NbtElement.LIST_TYPE) && this.getWorld() != null && !this.getWorld().isClient) {
             this.getAttributes().readNbt(nbt.getList(ATTRIBUTES_NBT_KEY, NbtElement.COMPOUND_TYPE));
@@ -49,9 +49,9 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
     protected void writeCustomDataToNbt(NbtCompound nbt) {
         nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().toNbt());
     }
-     *///?} elif =1.21.8 {
+     //?} elif =1.21.8 {
 
-    @Override
+    /*@Override
     protected void readCustomData(ReadView view) {
         if (this.getWorld() != null && !this.getWorld().isClient) {
             Optional<List<EntityAttributeInstance.Packed>> optional = view.read("attributes", EntityAttributeInstance.Packed.LIST_CODEC);
@@ -63,7 +63,7 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
     protected void writeCustomData(WriteView view) {
         view.put("attributes", EntityAttributeInstance.Packed.LIST_CODEC, this.getAttributes().pack());
     }
-    //?}
+    *///?}
 
     @Override
     public AttributeContainer getAttributes() {

@@ -203,16 +203,16 @@ public class BoxWithNoAtmosphere extends Box {
     }
 
     //? if =1.21.1 {
-    /*@Override
+    @Override
     public Vec3d getBottomCenter() {
         return this.zero;
     }
-    *///?} elif =1.21.8 {
-    @Override
+    //?} elif =1.21.8 {
+    /*@Override
     public Vec3d getHorizontalCenter() {
         return this.zero;
     }
-    //?}
+    *///?}
 
     @Override
     public Vec3d getMinPos() {
