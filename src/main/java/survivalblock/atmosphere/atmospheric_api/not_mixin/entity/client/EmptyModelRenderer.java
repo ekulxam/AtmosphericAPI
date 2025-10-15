@@ -1,7 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity.client;
 
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.state.LivingEntityRenderState;
+/*? =1.21.1 {*/  /*?} else {*/ /* import net.minecraft.client.render.entity.state.LivingEntityRenderState; /*?}*/
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 

@@ -1,7 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.damage_type;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.client.render.entity.model.ArmPosing;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;

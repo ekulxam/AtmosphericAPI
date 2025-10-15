@@ -8,7 +8,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.advancement.criterion.UsedTotemCriterion;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderTickCounter;
@@ -33,7 +32,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemOfUndying;
 
-@MixinEnvironment("1.21.1")
 @SuppressWarnings({"UnreachableCode", "ConstantValue"})
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {

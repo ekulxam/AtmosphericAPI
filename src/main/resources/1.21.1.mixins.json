@@ -4,15 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "plugin": "survivalblock.atmosphere.atmospheric_api.not_mixin.compat.AtmosphericAPIMixinPlugin",
   "mixins": [
-    "datagen.BlockStateModelGeneratorMixin",
-    "item.itemstack_of_undying.AtmosphericAPIMixin",
-    "item.itemstack_of_undying.LivingEntityMixin",
-    "item.scrolling.PlayerInventoryMixin"
   ],
   "client": [
-    "item.itemstack_of_undying.client.AtmosphericAPIClientMixin",
-    "item.render.client.ItemRendererMixin",
-    "item.render.client.ModelLoaderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

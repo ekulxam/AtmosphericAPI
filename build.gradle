@@ -50,13 +50,9 @@ fletchingTable {
 	mixins.create("main") {
 		// Default matches the default value in the annotation
 		mixin("default", "atmospheric_api.mixins.json")
-
-		// Optionally add other mixin configs
-		mixin("1.21.1", "1.21.1.mixins.json")
-		mixin("1.21.8", "1.21.8.mixins.json")
 	}
 	mixins.all {
-		automatic = false
+		automatic = true
 	}
 }
 

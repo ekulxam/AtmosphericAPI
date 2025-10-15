@@ -7,7 +7,6 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.client.render.entity.model.ArmPosing;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceFinder;
 import net.minecraft.resource.ResourceManager;
@@ -47,7 +46,7 @@ public abstract class AtmosphericResourceReader<T> implements IdentifiableResour
         CompletableFuture<Map<Identifier, T>> completableFuture = reloadAndFind(manager, prepareExecutor);
         return completableFuture
                 .thenCompose(synchronizer::whenPrepared)
-                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ /*applyProfiler, *//*?} else {*/ manager, applyExecutor /*?}*/ ), applyExecutor);
+                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ /*applyProfiler *//*?} else {*/ manager, applyExecutor /*?}*/ ), applyExecutor);
     }
 
     // what did I just create

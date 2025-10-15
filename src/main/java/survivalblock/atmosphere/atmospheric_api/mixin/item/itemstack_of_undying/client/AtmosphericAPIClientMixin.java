@@ -1,16 +1,12 @@
 //? if 1.21.1 {
 /*package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying.client;
 
-import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +18,6 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemStackOfUndyin
 
 import java.util.Objects;
 
-@MixinEnvironment("1.21.1")
 @ApiStatus.Internal
 @ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
 @Environment(EnvType.CLIENT)

@@ -1,4 +1,5 @@
-package survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client;
+//? if 1.21.1 {
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -16,3 +17,4 @@ public class PlayerHeldItemFeatureRendererMixin {
         return original || stack.getItem() instanceof IAmASpyglassItem;
     }
 }
+*///?}

@@ -4,7 +4,6 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling.client;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +15,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ScrollingItem;
 
-@MixinEnvironment("1.21.8")
 @Mixin(Mouse.class)
 public abstract class MouseMixin {
 

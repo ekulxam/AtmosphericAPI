@@ -33,7 +33,7 @@
     "item.spyglass.client.AbstractClientPlayerEntityMixin",
     "item.spyglass.client.InGameHudAccessor",
     "item.spyglass.client.InGameHudMixin",
-    "item.spyglass.client.PlayerHeldItemFeatureRendererMixin",
+    "item.spyglass.client.MouseMixin",
     "item.two_handed.client.BipedEntityModelMixin",
     "item.two_handed.client.CrossbowPosingMixin",
     "item.two_handed.client.HeldItemRendererMixin",

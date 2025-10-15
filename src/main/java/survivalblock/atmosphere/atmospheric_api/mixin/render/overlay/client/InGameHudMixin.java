@@ -1,6 +1,8 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.render.overlay.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 /*? =1.21.1 {*/ /*import net.minecraft.client.gui.LayeredDrawer; *//*?} else {*/  /*?}*/
@@ -17,6 +19,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.overlay.client.AtmosphericOverlayRegistryImpl;
 
+import java.util.function.BooleanSupplier;
+
 @Mixin(value = InGameHud.class, priority = 1500)
 public abstract class InGameHudMixin {
 
@@ -30,8 +34,6 @@ public abstract class InGameHudMixin {
     }
 
     //? if =1.21.1 {
-    
-    
     /*@WrapOperation(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/LayeredDrawer;addSubDrawer(Lnet/minecraft/client/gui/LayeredDrawer;Ljava/util/function/BooleanSupplier;)Lnet/minecraft/client/gui/LayeredDrawer;", ordinal = 0))
     private LayeredDrawer addSubDrawerToRenderNonBypassableOverlays(LayeredDrawer instance, LayeredDrawer drawer, BooleanSupplier shouldRender, Operation<LayeredDrawer> original) {
         LayeredDrawer alternateOverlayDrawer = new LayeredDrawer().addLayer((context, tickCounter) -> this.atmospheric_api$renderCustomOverlays(context, true));

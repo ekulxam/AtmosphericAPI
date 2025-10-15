@@ -2,10 +2,15 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.*;
-import net.minecraft.nbt.NbtCompound;
+//? if =1.21.1 {
+/*import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+*///?} elif =1.21.8 {
+
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
+}
+//?}
 import net.minecraft.world.World;
 
 import java.util.List;
