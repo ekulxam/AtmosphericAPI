@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-/*? =1.21.1 {*/  /*?} else {*/ /*/^ import net.minecraft.client.render.entity.state.BipedEntityRenderState; /^?}^/
+/*? =1.21.1 {*/  /*?} else {*/ /*/^/^ import net.minecraft.client.render.entity.state.BipedEntityRenderState; /^?}^/
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,5 +45,4 @@ public class BipedEntityModelMixin {
         TwoHandedItem.TwoHandedRenderType.longswordPosing = false;
         TwoHandedItem.TwoHandedRenderType.angle = 0f;
     }
-}
-*/
+}*/

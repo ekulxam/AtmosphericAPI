@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.*;
-/*? =1.21.1 {*/  /*?} else {*/ /*/^ import net.minecraft.component.type.EquippableComponent; /^?}^/
+/*? =1.21.1 {*/  /*?} else {*/ /*/^/^ import net.minecraft.component.type.EquippableComponent; /^?}^/
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -60,6 +60,7 @@ public abstract class ItemStackMixin implements ComponentHolder, AtmosphericEnch
         return this.getItem().atmospheric_api$isHorseArmor();
 
          //?} elif =1.21.8 {
+        
         /^ComponentMap map = this.getComponents();
         if (!map.contains(DataComponentTypes.EQUIPPABLE)) {
             return false;
@@ -84,5 +85,4 @@ public abstract class ItemStackMixin implements ComponentHolder, AtmosphericEnch
         this.set(type, fallback);
         return this.get(type);
     }
-}
-*/
+}*/

@@ -51,17 +51,27 @@ fletchingTable {
 }
 
 tasks.processResources {
+	inputs.property("version", project.property("version"))
 	inputs.property("minecraft", stonecutter.current.version)
 
-	filesMatching("fabric.mod.json") { expand(mapOf(
-		"minecraft" to stonecutter.current.version
-	)) }
+	filesMatching("fabric.mod.json") {
+		expand(
+			mapOf(
+				"version" to project.property("version"),
+				"minecraft" to stonecutter.current.version
+			)
+		)
+	}
 }
 
 loom {
 	runConfigs.all {
-		ideConfigGenerated(true) // Run configurations are not created for subprojects by default
-		runDir = "../../run" // Use a shared run folder and create separate worlds
+		ideConfigGenerated(true)
+		runDir = "../../run"
+	}
+
+	runConfigs["client"].apply {
+		programArgs("--username=Survivalblock", "--uuid=c45e97e6-94ef-42da-8b5e-0c3209551c3f")
 	}
 }
 
