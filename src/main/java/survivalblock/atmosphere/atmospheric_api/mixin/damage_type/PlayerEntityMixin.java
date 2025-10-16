@@ -28,8 +28,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract boolean isSpectator();
 
     @ModifyExpressionValue(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
-    private boolean bypassesCreativeMode(boolean original,/*? =1.21.1 {*/  /*?} else {*/ /*ServerWorld world, *//*?}*/ DamageSource source, float amount) {
-        GameRules rules = /*? =1.21.1 {*/ this.getWorld() /*?} else {*/ /*world*//*?}*/.getGameRules();
+    private boolean bypassesCreativeMode(boolean original,/*? =1.21.1 {*/  /*?} else {*/ ServerWorld world, /*?}*/ DamageSource source, float amount) {
+        GameRules rules = /*? =1.21.1 {*/ /*this.getWorld() *//*?} else {*/ world/*?}*/.getGameRules();
         return original ||
                 (source.isIn(AtmosphericDamageTypeTags.BYPASSES_CREATIVE) &&
                         this.isCreative() &&

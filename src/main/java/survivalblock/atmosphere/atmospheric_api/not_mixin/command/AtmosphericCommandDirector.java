@@ -16,7 +16,7 @@ public final class AtmosphericCommandDirector {
     }
 
     public static void runCommand(ServerWorld serverWorld, Entity entity, int level, String command) {
-        runCommand(serverWorld.getServer(), new ServerCommandSource(/*? =1.21.1 {*/  entity /*?} else {*/ /*entity instanceof ServerPlayerEntity serverPlayerEntity ? serverPlayerEntity.getCommandOutput() : CommandOutput.DUMMY *//*?}*/, entity.getPos(), entity.getRotationClient(), serverWorld, level,
+        runCommand(serverWorld.getServer(), new ServerCommandSource(/*? =1.21.1 {*/  /*entity *//*?} else {*/ entity instanceof ServerPlayerEntity serverPlayerEntity ? serverPlayerEntity.getCommandOutput() : CommandOutput.DUMMY /*?}*/, entity.getPos(), entity.getRotationClient(), serverWorld, level,
                 entity.getName().getString(), entity.getDisplayName(), serverWorld.getServer(), entity), command);
     }
 

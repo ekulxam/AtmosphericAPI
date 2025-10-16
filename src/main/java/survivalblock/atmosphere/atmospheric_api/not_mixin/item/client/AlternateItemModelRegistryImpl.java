@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.not_mixin.item.client;
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.item.client;
 
 import java.util.HashMap;
 import net.fabricmc.api.EnvType;
@@ -34,4 +34,4 @@ public final class AlternateItemModelRegistryImpl {
         return spyglassModels;
     }
 }
-//?}
+*///?}

@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
-/*? =1.21.1 {*/  /*?} else {*/ /*import net.minecraft.storage.WriteView; *//*?}*/
+/*? =1.21.1 {*/  /*?} else {*/ import net.minecraft.storage.WriteView; /*?}*/
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,7 +37,7 @@ public class PersistentProjectileEntityMixin {
     // @return a new "empty" instance of {@link NbtCompound} if {@link StacklessPersistentProjectile#shouldAvoidEncodingStack()} is true
     @SuppressWarnings("JavadocReference")
     //? if =1.21.1 {
-    @WrapOperation(method = "writeCustomDataToNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;encode(Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/nbt/NbtElement;"))
+    /*@WrapOperation(method = "writeCustomDataToNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;encode(Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/nbt/NbtElement;"))
     private NbtElement doNotEncodeIfStackIsEmpty(ItemStack instance, RegistryWrapper.WrapperLookup registries, Operation<NbtElement> original) {
 
         if (!(this instanceof StacklessPersistentProjectile stacklessPersistentProjectile)) {
@@ -57,15 +57,15 @@ public class PersistentProjectileEntityMixin {
         if (stacklessPersistentProjectile.shouldAvoidEncodingStack()) {
             if (nbt.contains("item")) nbt.remove("item");
         }
-    }     //?} elif =1.21.8 {
+    }     *///?} elif =1.21.8 {
     
-    /*@WrapOperation(method = "writeCustomData", at = @At(value = "INVOKE", target = "Lnet/minecraft/storage/WriteView;put(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", ordinal = 0), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/item/ItemStack;CODEC:Lcom/mojang/serialization/Codec;")))
+    @WrapOperation(method = "writeCustomData", at = @At(value = "INVOKE", target = "Lnet/minecraft/storage/WriteView;put(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", ordinal = 0), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/item/ItemStack;CODEC:Lcom/mojang/serialization/Codec;")))
     private <T> void doNotEncodeIfStackIsEmpty(WriteView instance, String s, Codec<T> tCodec, T t, Operation<Void> original) {
         if (!(this instanceof StacklessPersistentProjectile stacklessPersistentProjectile) || !stacklessPersistentProjectile.shouldAvoidEncodingStack()) {
             original.call(instance, s, tCodec, t);
         }
     }
-    *///?}
+    //?}
 
     @WrapWithCondition(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setStuckArrowCount(I)V"))
     private boolean notAllProjectilesAreArrows(LivingEntity instance, int stuckArrowCount, @Share("deltaStuckArrow")LocalIntRef localIntRef) {

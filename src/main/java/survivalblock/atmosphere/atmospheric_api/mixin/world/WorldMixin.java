@@ -19,7 +19,7 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
 
     //? if =1.21.1 {
     
-    @Override
+    /*@Override
     @Nullable
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKey(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         return this.getRegistryManager().get(dynamicRegistryRegistryKey).getEntry(key).orElse(null);
@@ -29,9 +29,9 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         return this.getRegistryManager().get(dynamicRegistryRegistryKey).entryOf(key);
     }
-     //?} elif =1.21.8 {
+     *///?} elif =1.21.8 {
 
-    /*@Override
+    @Override
     @Nullable
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKey(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         Optional<Registry<T>> optional = this.getRegistryManager().getOptional(dynamicRegistryRegistryKey);
@@ -42,5 +42,5 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         return this.getRegistryManager().getOrThrow(dynamicRegistryRegistryKey).getOrThrow(key);
     }
-    *///?}
+    //?}
 }

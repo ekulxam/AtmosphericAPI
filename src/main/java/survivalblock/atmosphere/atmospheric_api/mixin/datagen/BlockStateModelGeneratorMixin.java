@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
 
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.item.Item;
@@ -50,4 +50,4 @@ public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenera
         itemConvertibles.forEach(itemConvertible -> this.simpleItemModelExemptionCollector.accept(itemConvertible.asItem()));
     }
 }
-//?}
+*///?}

@@ -1,5 +1,5 @@
 //? if 1.21.8 {
-/*package survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client;
+package survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client;
 
 import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.entity.state.ArmedEntityRenderState;
@@ -49,4 +49,4 @@ public class ArmedEntityRenderStateMixin implements WaitingOnFabricRenderState {
         this.atmospheric_api$offHandStack = offHandStack;
     }
 }
-*///?}
+//?}

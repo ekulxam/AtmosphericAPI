@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-/*? =1.21.1 {*/  /*?} else {*/ /*/^/^ import net.minecraft.client.render.entity.state.BipedEntityRenderState; /^?}^/
+/*? =1.21.1 {*/  /*?} else {*/ /*/* import net.minecraft.client.render.entity.state.BipedEntityRenderState; /*?}*/
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,19 +19,19 @@ import java.util.Objects;
 public class BipedEntityModelMixin {
 
     @WrapOperation(method = {"positionLeftArm", "positionRightArm"}, at = @At(value = "INVOKE", target =
-            /^? =1.21.1 {^/ "Lnet/minecraft/client/render/entity/model/CrossbowPosing;hold(Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Z)V" /^?} else {^/ /^"Lnet/minecraft/client/render/entity/model/ArmPosing;hold(Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Z)V" ^//^?}^/
+            /*? =1.21.1 {*/ /*"Lnet/minecraft/client/render/entity/model/CrossbowPosing;hold(Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Z)V" *//*?} else {*/ "Lnet/minecraft/client/render/entity/model/ArmPosing;hold(Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/model/ModelPart;Z)V" /*?}*/
     ))
     private void doSomeCursedLongswordPosing(
-            ModelPart holdingArm, ModelPart otherArm, ModelPart head, boolean rightArmed, Operation<Void> original, /^? =1.21.1 {^/  LivingEntity living /^?} else {^/ /^BipedEntityRenderState state ^//^?}^/
+            ModelPart holdingArm, ModelPart otherArm, ModelPart head, boolean rightArmed, Operation<Void> original, /*? =1.21.1 {*/  /*LivingEntity living *//*?} else {*/ BipedEntityRenderState state /*?}*/
     ) {
         ItemStack twoHandedStack = null;
         TwoHandedItem twoHandedItem = null;
-        ItemStack mainHandStack = /^? =1.21.1 {^/  living.getMainHandStack() /^?} else {^/ /^((WaitingOnFabricRenderState) state).atmospheric_api$getMainHandStack() ^//^?}^/;
+        ItemStack mainHandStack = /*? =1.21.1 {*/  /*living.getMainHandStack() *//*?} else {*/ ((WaitingOnFabricRenderState) state).atmospheric_api$getMainHandStack() /*?}*/;
         if (!mainHandStack.isEmpty() && mainHandStack.getItem() instanceof TwoHandedItem twoHandedItem1) {
             twoHandedItem = twoHandedItem1;
             twoHandedStack = mainHandStack;
         } else {
-            ItemStack offHandStack = /^? =1.21.1 {^/  living.getOffHandStack() /^?} else {^/ /^((WaitingOnFabricRenderState) state).atmospheric_api$getOffHandStack() ^//^?}^/;
+            ItemStack offHandStack = /*? =1.21.1 {*/  /*living.getOffHandStack() *//*?} else {*/ ((WaitingOnFabricRenderState) state).atmospheric_api$getOffHandStack() /*?}*/;
             if (!offHandStack.isEmpty() && offHandStack.getItem() instanceof TwoHandedItem twoHandedItem1) {
                 twoHandedItem = twoHandedItem1;
                 twoHandedStack = offHandStack;
@@ -45,4 +45,4 @@ public class BipedEntityModelMixin {
         TwoHandedItem.TwoHandedRenderType.longswordPosing = false;
         TwoHandedItem.TwoHandedRenderType.angle = 0f;
     }
-}*/
+}

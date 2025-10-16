@@ -75,7 +75,7 @@ public final class BeaconLaserRenderer {
         q = outerRadius;
         t = -1.0f + h;
         u = (float) maxY * heightScale + t;
-        renderBeamLayer(matrices, vertexConsumers.getBuffer(RenderLayer.getBeaconBeam(textureId, true)), ColorHelper/*? =1.21.1 {*/  .Argb /*?} else {*/  /*?}*/.withAlpha(32, rgb), yOffset, i, j, k, l, m, n, o, p, q, 0.0f, 1.0f, u, t);
+        renderBeamLayer(matrices, vertexConsumers.getBuffer(RenderLayer.getBeaconBeam(textureId, true)), ColorHelper/*? =1.21.1 {*/  /*.Argb *//*?} else {*/  /*?}*/.withAlpha(32, rgb), yOffset, i, j, k, l, m, n, o, p, q, 0.0f, 1.0f, u, t);
         matrices.pop();
     }
 

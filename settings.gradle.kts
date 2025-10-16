@@ -13,6 +13,9 @@ plugins {
 }
 
 stonecutter {
+	kotlinController = true
+	centralScript = "build.gradle.kts"
+
 	// Subproject configuration
 	create(rootProject) {
 		versions("1.21.1", "1.21.8")

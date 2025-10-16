@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
@@ -104,4 +104,4 @@ public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, Partic
         }
     }
 }
-//?}
+*///?}

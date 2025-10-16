@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-/*? =1.21.1 {*/ import net.minecraft.item.AnimalArmorItem; /*?} else {*/  /*?}*/
+/*? =1.21.1 {*/ /*import net.minecraft.item.AnimalArmorItem; *//*?} else {*/  /*?}*/
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stat.StatType;
@@ -20,20 +20,20 @@ public class ItemMixin implements AtmosphericHorseArmorItem, AtmosphericItemDama
     public boolean atmospheric_api$isHorseArmor() {
         //? if =1.21.1 {
         
-        return (Item) (Object) this instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType().equals(AnimalArmorItem.Type.EQUESTRIAN);
+        /*return (Item) (Object) this instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType().equals(AnimalArmorItem.Type.EQUESTRIAN);
 
-         //?} elif =1.21.8 {
+         *///?} elif =1.21.8 {
 
-        /*return false;
+        return false;
 
-        *///?}
+        //?}
     }
 
     @Override
     public boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
         if (!user.isCreative()) {
             if (durabilityDamage > 0) stack.damage(durabilityDamage, user, LivingEntity.getSlotForHand(hand));
-            if (cooldownTicks > 0) user.getItemCooldownManager().set(/*? =1.21.1 {*/ (Item) (Object) this /*?} else {*/ /*stack *//*?}*/, cooldownTicks);
+            if (cooldownTicks > 0) user.getItemCooldownManager().set(/*? =1.21.1 {*/ /*(Item) (Object) this *//*?} else {*/ stack /*?}*/, cooldownTicks);
         }
         stat.ifPresent(statType -> statType.getOrCreateStat((Item) (Object) this));
         return true;

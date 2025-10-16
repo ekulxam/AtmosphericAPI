@@ -14,8 +14,8 @@ public record ScreenShakeS2CPayload(float intensity, int duration, String modId,
             PacketCodecs.VAR_INT, ScreenShakeS2CPayload::duration,
             PacketCodecs.STRING, ScreenShakeS2CPayload::modId,
             PacketCodecs.STRING, ScreenShakeS2CPayload::reason,
-            PacketCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, ScreenShakeS2CPayload::shouldAutoOverride,
-            PacketCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, ScreenShakeS2CPayload::shouldAddToQueue,
+            PacketCodecs./*? =1.21.1 {*/  /*BOOL *//*?} else {*/ BOOLEAN /*?}*/, ScreenShakeS2CPayload::shouldAutoOverride,
+            PacketCodecs./*? =1.21.1 {*/  /*BOOL *//*?} else {*/ BOOLEAN /*?}*/, ScreenShakeS2CPayload::shouldAddToQueue,
             ScreenShakeS2CPayload::new
     );
 
