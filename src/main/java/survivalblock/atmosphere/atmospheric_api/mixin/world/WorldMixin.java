@@ -35,7 +35,7 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
     @Nullable
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKey(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         Optional<Registry<T>> optional = this.getRegistryManager().getOptional(dynamicRegistryRegistryKey);
-        return optional.map(registry -> registry.getOptional(key).orElse(null)).orElse(null);
+        return optional.flatMap(registry -> registry.getOptional(key)).orElse(null);
     }
 
     @Override

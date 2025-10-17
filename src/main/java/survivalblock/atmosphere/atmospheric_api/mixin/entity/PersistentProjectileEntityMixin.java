@@ -15,7 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.registry.RegistryWrapper;
-/*? =1.21.1 {*/  /*?} else {*/ import net.minecraft.storage.WriteView; /*?}*/
+//? if >=1.21.6
+import net.minecraft.storage.WriteView;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

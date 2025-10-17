@@ -7,5 +7,5 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 public class AtmosphericDamageTypeTags {
     public static final TagKey<DamageType> BYPASSES_CREATIVE = TagKey.of(RegistryKeys.DAMAGE_TYPE, AtmosphericAPI.id("bypasses_creative"));
-    public static final TagKey<DamageType> BYPASSES_SPECTATOR = TagKey.of(RegistryKeys.DAMAGE_TYPE, AtmosphericAPI.id("bypasses_creative"));
+    public static final TagKey<DamageType> BYPASSES_SPECTATOR = TagKey.of(RegistryKeys.DAMAGE_TYPE, AtmosphericAPI.id("bypasses_spectator"));
 }

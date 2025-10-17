@@ -5,7 +5,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-/*? =1.21.1 {*/ /*import net.minecraft.client.gui.LayeredDrawer; *//*?} else {*/  /*?}*/
+//? if <1.21.6
+/*import net.minecraft.client.gui.LayeredDrawer;*/
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;

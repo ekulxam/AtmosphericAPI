@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-//? if =1.21.8
+//? if >=1.21.2
 import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;

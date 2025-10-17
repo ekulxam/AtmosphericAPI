@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.*;
-//? if =1.21.8
+//? if >=1.21.2
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;

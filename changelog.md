@@ -1,2 +1,6 @@
-Atmospheric API 2.0.1+1.21.1
-- Fixed RawVelocityUpdatePayload not being registered
+Atmospheric API ${version}
+- Migrate to stonecutter (port to 1.21.8)
+- Removed AtmosphericDamageTypes
+- Removed EntityWithScale
+- Added Extensions for extending codecs
+- Fix damage type tags

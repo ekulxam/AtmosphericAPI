@@ -9,9 +9,7 @@ plugins {
 version = project.property("mod_version") as String
 group = project.property("maven_group") as String
 
-base {
-	archivesName = project.property("archives_base_name") as String
-}
+base.archivesName = "${project.property("archives_base_name")}-${version}+${stonecutter.current.project}}"
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -51,14 +49,24 @@ fletchingTable {
 }
 
 tasks.processResources {
-	inputs.property("version", project.property("version"))
-	inputs.property("minecraft", stonecutter.current.version)
+	val modVersion = project.property("version")
+	val minecraftVersion = stonecutter.current.version
+	inputs.property("version", modVersion)
+	inputs.property("minecraft", minecraftVersion)
 
 	filesMatching("fabric.mod.json") {
 		expand(
 			mapOf(
-				"version" to project.property("version"),
-				"minecraft" to stonecutter.current.version
+				"version" to modVersion,
+				"minecraft" to minecraftVersion
+			)
+		)
+	}
+
+	filesMatching("changelog.md") {
+		expand(
+			mapOf(
+				"version" to modVersion
 			)
 		)
 	}
