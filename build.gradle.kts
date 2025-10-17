@@ -3,7 +3,7 @@ plugins {
 	id("maven-publish")
 	kotlin("jvm") version "2.2.10"
 	id("com.google.devtools.ksp") version "2.2.10-2.0.2"
-	id("dev.kikugie.fletching-table.fabric") version "0.1.0-alpha.17"
+	id("dev.kikugie.fletching-table.fabric") version "0.1.0-alpha.22"
 }
 
 version = project.property("mod_version") as String
