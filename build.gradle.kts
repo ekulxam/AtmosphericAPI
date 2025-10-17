@@ -6,10 +6,10 @@ plugins {
 	id("dev.kikugie.fletching-table.fabric") version "0.1.0-alpha.22"
 }
 
-version = project.property("mod_version") as String
+version = "${project.property("mod_version")}+${stonecutter.current.project}"
 group = project.property("maven_group") as String
 
-base.archivesName = "${project.property("archives_base_name")}-${version}+${stonecutter.current.project}}"
+base.archivesName = project.property("archives_base_name") as String
 
 repositories {
 	// Add repositories to retrieve artifacts from in here.
@@ -62,13 +62,14 @@ tasks.processResources {
 			)
 		)
 	}
+}
 
-	filesMatching("changelog.md") {
-		expand(
-			mapOf(
-				"version" to modVersion
-			)
-		)
+tasks.named("build") {
+	finalizedBy("autoVersionChangelog")
+}
+
+tasks.register("autoVersionChangelog") {
+	doLast {
 	}
 }
 
