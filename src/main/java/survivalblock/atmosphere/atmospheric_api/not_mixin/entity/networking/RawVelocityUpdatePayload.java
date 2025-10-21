@@ -1,4 +1,4 @@
-package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
+package survivalblock.atmosphere.atmospheric_api.not_mixin.entity.networking;
 
 import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;

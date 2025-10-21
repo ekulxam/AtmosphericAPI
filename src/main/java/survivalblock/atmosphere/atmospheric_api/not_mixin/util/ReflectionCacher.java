@@ -4,11 +4,15 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.WeakHashMap;
 
-public class ReflectionCacher {
+public final class ReflectionCacher {
 
     public static final WeakHashMap<MethodDescription, Method> METHODS = new WeakHashMap<>();
+
     @SuppressWarnings("unused")
     public static final WeakHashMap<FieldDescription, Field> FIELDS = new WeakHashMap<>();
+
+    private ReflectionCacher() {
+    }
 
     public record MethodDescription(Class<?> clazz, String name, Class<?>[] parameterTypes) {
 

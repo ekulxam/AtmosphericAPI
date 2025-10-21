@@ -9,9 +9,12 @@ import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.AlternateModelItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 
-
 @Environment(EnvType.CLIENT)
 public final class AlternateItemModelRegistryImpl {
+
+    private AlternateItemModelRegistryImpl() {
+    }
+
     private static final HashMap<AlternateModelItem, ModelIdentifier> models = new HashMap<>();
 
     private static final HashMap<IAmASpyglassItem, ModelIdentifier> spyglassModels = new HashMap<>();

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.RawVelocityUpdatePayload;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.networking.RawVelocityUpdatePayload;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 
 @ApiStatus.Internal

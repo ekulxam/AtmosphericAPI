@@ -29,16 +29,17 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.StacklessPersis
 @Mixin(PersistentProjectileEntity.class)
 public class PersistentProjectileEntityMixin {
 
-    //
-    // Avoids encoding the {@link PersistentProjectileEntity#stack} for a {@link StacklessPersistentProjectile}<p>
-    // I can't use a {@link com.llamalad7.mixinextras.injector.v2.WrapWithCondition} on the {@link NbtCompound#put(String, NbtElement)} call because {@link ItemStack#encode(RegistryWrapper.WrapperLookup)} is still called
-    // @param instance the {@link ItemStack} to be encoded
-    // @param registries the {@link net.minecraft.registry.RegistryWrapper.WrapperLookup} provided
-    // @param original the original {@link NbtCompound#put(String, NbtElement)} call
-    // @return a new "empty" instance of {@link NbtCompound} if {@link StacklessPersistentProjectile#shouldAvoidEncodingStack()} is true
-    @SuppressWarnings("JavadocReference")
     //? if =1.21.1 {
-    /*@WrapOperation(method = "writeCustomDataToNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;encode(Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/nbt/NbtElement;"))
+
+    /*/^*
+     * Avoids encoding the {@link PersistentProjectileEntity#stack} for a {@link StacklessPersistentProjectile}<p>I can't use a {@link com.llamalad7.mixinextras.injector.v2.WrapWithCondition} on the {@link NbtCompound#put(String, NbtElement)} call because {@link ItemStack#encode(RegistryWrapper.WrapperLookup)} is still called
+     * @param instance the {@link ItemStack} to be encoded
+     * @param registries the {@link net.minecraft.registry.RegistryWrapper.WrapperLookup} provided
+     * @param original the original {@link NbtCompound#put(String, NbtElement)} call
+     * @return a new "empty" instance of {@link NbtCompound} if {@link StacklessPersistentProjectile#shouldAvoidEncodingStack()} is true
+     ^/
+    @SuppressWarnings("JavadocReference")
+    @WrapOperation(method = "writeCustomDataToNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;encode(Lnet/minecraft/registry/RegistryWrapper$WrapperLookup;)Lnet/minecraft/nbt/NbtElement;"))
     private NbtElement doNotEncodeIfStackIsEmpty(ItemStack instance, RegistryWrapper.WrapperLookup registries, Operation<NbtElement> original) {
 
         if (!(this instanceof StacklessPersistentProjectile stacklessPersistentProjectile)) {

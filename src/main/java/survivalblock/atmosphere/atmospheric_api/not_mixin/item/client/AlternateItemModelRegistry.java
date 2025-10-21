@@ -12,6 +12,9 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 @Environment(EnvType.CLIENT)
 public final class AlternateItemModelRegistry {
 
+    private AlternateItemModelRegistry() {
+    }
+
     public static void register(Item item, ModelIdentifier modelIdentifier) {
         if (!(item instanceof AlternateModelItem alternateModelItem)) {
             throw new IllegalArgumentException("The item must be an instance of AlternateModelItem!");

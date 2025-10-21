@@ -5,6 +5,9 @@ public final class Approximatics {
 
     public static final double DEFAULT_ACCURACY = 0.001;
 
+    private Approximatics() {
+    }
+
     public static boolean isBasicallyEqual(double value, double original, double goodEnough) {
         return Math.abs(value - original) <= goodEnough;
     }

@@ -1,22 +1,14 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer;
 
-import com.google.gson.JsonElement;
 import com.mojang.datafixers.kinds.App;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
-import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -80,7 +72,7 @@ public class Extensions {
     public static <V> RecordCodecBuilder<V, V> convertForExtension(MapCodec<V> group) {
         return group.forGetter(v -> v);
     }
-
+/*
     public static <T> void test(T value, Codec<T> original, Codec<T> codec) {
 
         List<Codec<T>> codecs = List.of(original, codec);
@@ -109,4 +101,6 @@ public class Extensions {
         test(new BannerPattern(Identifier.ofVanilla("test"), "minecraft"), BannerPattern.CODEC, b -> 3);
         test(new StatusEffectInstance(StatusEffects.POISON, 10, 0), StatusEffectInstance.CODEC, StatusEffectInstance::getDuration);
     }
+
+ */
 }

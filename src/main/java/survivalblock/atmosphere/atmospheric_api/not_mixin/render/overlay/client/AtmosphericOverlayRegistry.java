@@ -12,6 +12,9 @@ import java.util.function.BiFunction;
 @Environment(EnvType.CLIENT)
 public final class AtmosphericOverlayRegistry {
 
+    private AtmosphericOverlayRegistry() {
+    }
+
     public static void registerOverlay(OverlayHolder overlayHolder) {
         AtmosphericOverlayRegistryImpl.register(overlayHolder);
     }

@@ -53,7 +53,7 @@ public abstract class InGameHudMixin {
     @Unique
     private void atmospheric_api$renderCustomOverlays(DrawContext context, boolean isHudHidden) {
         if (this.client.player != null) {
-            AtmosphericOverlayRegistryImpl.OVERLAY_HOLDERS.forEach(overlayHolder -> {
+            AtmosphericOverlayRegistryImpl.getOverlayHolders().forEach(overlayHolder -> {
                 if (isHudHidden && overlayHolder.isBypassable()) {
                     return;
                 }

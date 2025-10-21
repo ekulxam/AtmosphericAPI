@@ -5,6 +5,9 @@ import net.fabricmc.fabric.api.event.EventFactory;
 
 public final class ScreenShakePreventerRegistry {
 
+    private ScreenShakePreventerRegistry() {
+    }
+
     public static final Event<AllowShaking> ALLOW_SHAKING = EventFactory.createArrayBacked(AllowShaking.class, listeners -> (screenShaker) -> {
         for (AllowShaking listener : listeners) {
             if (!listener.allowScreenShaking(screenShaker)) {

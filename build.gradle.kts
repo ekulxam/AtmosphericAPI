@@ -1,3 +1,8 @@
+import org.gradle.kotlin.dsl.support.uppercaseFirstChar
+import java.io.BufferedReader
+import java.io.FileReader
+import java.util.Locale
+
 plugins {
 	id("fabric-loom") version "1.11-SNAPSHOT"
 	id("maven-publish")
@@ -70,6 +75,20 @@ tasks.named("build") {
 
 tasks.register("autoVersionChangelog") {
 	doLast {
+		val changelog = File("changelog.md")
+		val reader = BufferedReader(FileReader(changelog))
+		val lines = reader.readLines().toMutableList()
+		val title = "Atmospheric API ${project.property("mod_version")}"
+        lines[0] = title
+		changelog.bufferedWriter().use { writer ->
+			for (i in 0..lines.size - 1) {
+				writer.write(lines[i])
+				if (i != lines.size - 1) {
+					writer.newLine()
+				}
+			}
+		}
+		println("Changelog header successfully replaced as $title")
 	}
 }
 
