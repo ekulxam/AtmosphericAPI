@@ -1,10 +1,15 @@
-# Automatically build the project and run any configured tests for every push
-# and submitted pull request. This can help catch issues that only occur on
-# certain platforms or Java versions, and provides a first line of defence
-# against bad commits.
-
 name: build
-on: [pull_request, push]
+
+on:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  pull_request:
 
 permissions:
   id-token: write
@@ -47,3 +52,10 @@ jobs:
           path: |
             build/libs/*.jar
             !build/libs/*-sources.jar
+
+      - name: Github Publish
+        if: github.event_name == 'release' && github.event.action == 'published'
+        uses: AButler/upload-release-assets@v2.0
+        with:
+          files: 'build/libs/*.jar;!build/libs/*-sources.jar'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
