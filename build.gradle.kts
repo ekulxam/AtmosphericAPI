@@ -99,6 +99,8 @@ loom {
 	runConfigs["client"].apply {
 		programArgs("--username=Survivalblock", "--uuid=c45e97e6-94ef-42da-8b5e-0c3209551c3f")
 	}
+
+	fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json")
 }
 
 tasks.withType<JavaCompile>().configureEach {
