@@ -1,10 +1,8 @@
-import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 import java.io.BufferedReader
 import java.io.FileReader
-import java.util.Locale
 
 plugins {
-	id("fabric-loom") version "1.11-SNAPSHOT"
+	id("fabric-loom") version "1.12.0-alpha.29"
 	id("maven-publish")
 	kotlin("jvm") version "2.2.10"
 	id("com.google.devtools.ksp") version "2.2.10-2.0.2"

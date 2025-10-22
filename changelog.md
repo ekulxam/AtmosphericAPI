@@ -1,13 +1,2 @@
-Atmospheric API 3.0.0
-- Migrate to stonecutter (port to 1.21.8)
-- Removed AtmosphericDamageTypes
-- Removed EntityWithScale
-- Added Extensions for extending codecs
-- Fix damage type tags
-- Added Sequence
-- Added AutoSendPayload
-- Moved networking classes in entity package to entity.networking
-- Fixed javadocs with stonecutter
-- Implement ShaderApplier
-- Add DirectionalParticle from Amarong
-- Add PitchYawPair from ATTA-V
+Atmospheric API 3.0.1
+- Bump loom version
