@@ -5,7 +5,6 @@ import net.minecraft.client.item.ItemModelManager;
 import net.minecraft.client.render.entity.state.ArmedEntityRenderState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.access.WaitingOnFabricRenderState;
 
-@Debug(export = true)
 @Mixin(ArmedEntityRenderState.class)
 public class ArmedEntityRenderStateMixin implements WaitingOnFabricRenderState {
 

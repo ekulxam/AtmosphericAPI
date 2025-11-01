@@ -1,2 +1,3 @@
-Atmospheric API 3.0.2
-- Loom 1.12 features, specify fmj path in build.gradle.kts
+Atmospheric API 3.0.3
+- Bump fabric API versions
+- Add DirectionalParticleS2CPayload

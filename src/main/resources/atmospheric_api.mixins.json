@@ -19,6 +19,7 @@
     "item.ItemMixin",
     "item.ItemStackMixin",
     "item.spyglass.PlayerEntityMixin",
+    "particle.AtmosphericAPIMixin",
     "registry.RegistriesAccessor",
     "render.screenshake.AtmosphericAPIMixin",
     "world.WorldMixin"
@@ -38,6 +39,7 @@
     "item.two_handed.client.CrossbowPosingMixin",
     "item.two_handed.client.HeldItemRendererMixin",
     "item.two_handed.client.PlayerEntityRendererMixin",
+    "particle.client.AtmosphericAPIClientMixin",
     "render.overlay.client.InGameHudMixin",
     "render.screenshake.client.AtmosphericAPIClientMixin",
     "render.screenshake.client.WorldRendererMixin",
