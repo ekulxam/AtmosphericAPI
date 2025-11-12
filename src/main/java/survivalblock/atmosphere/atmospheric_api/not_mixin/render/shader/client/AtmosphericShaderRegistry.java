@@ -4,6 +4,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 
 @SuppressWarnings("unused")
 @Environment(EnvType.CLIENT)
@@ -12,16 +13,17 @@ public final class AtmosphericShaderRegistry {
     private AtmosphericShaderRegistry() {
     }
 
-    public static void registerOverlay(ShaderApplier shaderApplier) {
+    @ApiStatus.Experimental
+    public static void register(ShaderApplier shaderApplier) {
         AtmosphericShaderRegistryImpl.register(shaderApplier);
     }
 
-    public static void registerOverlay(Identifier id, ShaderApplier.PostEffectCondition condition) {
-        registerOverlay(new ShaderApplier(id, condition));
+    public static void register(Identifier id, ShaderApplier.PostEffectCondition condition) {
+        AtmosphericShaderRegistryImpl.register(id, condition);
     }
 
-    public static void registerOverlay(Identifier texture, ShaderApplier.PostEffectCondition condition, int priority) {
-        registerOverlay(new ShaderApplier(texture, condition, priority));
+    public static void register(Identifier id, ShaderApplier.PostEffectCondition condition, int priority) {
+        AtmosphericShaderRegistryImpl.register(id, condition, priority);
     }
 }
 //?}

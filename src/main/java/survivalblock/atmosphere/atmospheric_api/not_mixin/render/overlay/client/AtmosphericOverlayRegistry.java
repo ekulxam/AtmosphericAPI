@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.ApiStatus;
 
 import java.util.function.BiFunction;
 
@@ -15,15 +16,24 @@ public final class AtmosphericOverlayRegistry {
     private AtmosphericOverlayRegistry() {
     }
 
-    public static void registerOverlay(OverlayHolder overlayHolder) {
+    @ApiStatus.Experimental
+    public static void register(OverlayHolder overlayHolder) {
         AtmosphericOverlayRegistryImpl.register(overlayHolder);
     }
 
-    public static void registerOverlay(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, boolean bypassable) {
-        registerOverlay(new OverlayHolder(texture, opacitySupplier, bypassable));
+    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier) {
+        AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier);
     }
 
-    public static void registerOverlay(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier) {
-        registerOverlay(texture, opacitySupplier, true);
+    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, boolean bypassable) {
+        AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier, bypassable);
+    }
+
+    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, int priority) {
+        AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier, priority);
+    }
+
+    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, boolean bypassable, int priority) {
+        AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier, bypassable, priority);
     }
 }

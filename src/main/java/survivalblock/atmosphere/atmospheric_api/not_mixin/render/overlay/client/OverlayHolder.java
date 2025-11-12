@@ -7,15 +7,27 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiFunction;
 
+@SuppressWarnings("ClassCanBeRecord")
 public class OverlayHolder implements Comparable<OverlayHolder> {
+
+    public static final int DEFAULT_PRIORITY = 1000;
+    public static final boolean BYPASSABLE_BY_DEFAULT = true;
 
     protected final Identifier texture;
     protected final BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider;
     protected final boolean bypassable;
     protected final int priority;
 
+    public OverlayHolder(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider) {
+        this(texture, opacityProvider, BYPASSABLE_BY_DEFAULT, DEFAULT_PRIORITY);
+    }
+
+    public OverlayHolder(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider, int priority) {
+        this(texture, opacityProvider, BYPASSABLE_BY_DEFAULT, priority);
+    }
+
     public OverlayHolder(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider, boolean bypassable) {
-        this(texture, opacityProvider, bypassable, 1000);
+        this(texture, opacityProvider, bypassable, DEFAULT_PRIORITY);
     }
 
     public OverlayHolder(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacityProvider, boolean bypassable, int priority) {
