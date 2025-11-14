@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
 
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.block.model.BlockModel;
@@ -37,4 +37,4 @@ public abstract class ModelLoaderMixin {
         }
     }
 }
-//?}
+*///?}

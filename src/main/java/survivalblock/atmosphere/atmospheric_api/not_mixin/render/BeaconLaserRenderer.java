@@ -9,7 +9,11 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
+//? if =1.21.1 {
+/*import net.minecraft.util.FastColor;
+ *///?} elif =1.21.8 {
+import net.minecraft.util.ARGB;
+//?}
 import net.minecraft.util.Mth;
 
 /**
@@ -75,7 +79,7 @@ public final class BeaconLaserRenderer {
         q = outerRadius;
         t = -1.0f + h;
         u = (float) maxY * heightScale + t;
-        renderBeamLayer(matrices, vertexConsumers.getBuffer(RenderType.beaconBeam(textureId, true)), FastColor/*? =1.21.1 {*/  .ARGB32 /*?}*/.color(32, rgb), yOffset, i, j, k, l, m, n, o, p, q, 0.0f, 1.0f, u, t);
+        renderBeamLayer(matrices, vertexConsumers.getBuffer(RenderType.beaconBeam(textureId, true)), /*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.color(32, rgb), yOffset, i, j, k, l, m, n, o, p, q, 0.0f, 1.0f, u, t);
         matrices.popPose();
     }
 

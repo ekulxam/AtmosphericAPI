@@ -1,7 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.render.screenshake.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import net.minecraft.client.render.*;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;

@@ -1,9 +1,9 @@
 //? if >1.21.1 {
-/*package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
+package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.ApiStatus;
 
 @SuppressWarnings("unused")
@@ -18,12 +18,12 @@ public final class AtmosphericShaderRegistry {
         AtmosphericShaderRegistryImpl.register(shaderApplier);
     }
 
-    public static void register(Identifier id, ShaderApplier.PostEffectCondition condition) {
+    public static void register(ResourceLocation id, ShaderApplier.PostEffectCondition condition) {
         AtmosphericShaderRegistryImpl.register(id, condition);
     }
 
-    public static void register(Identifier id, ShaderApplier.PostEffectCondition condition, int priority) {
+    public static void register(ResourceLocation id, ShaderApplier.PostEffectCondition condition, int priority) {
         AtmosphericShaderRegistryImpl.register(id, condition, priority);
     }
 }
-*///?}
+//?}

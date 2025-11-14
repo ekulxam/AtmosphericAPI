@@ -5,6 +5,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,8 +18,8 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.Atmospheri
 public class PlayerEntityRendererMixin {
 
     @SuppressWarnings("DiscouragedShift")
-    @Inject(method = "getArmPose", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z", shift = At.Shift.BEFORE), cancellable = true)
-    private static void crossbowLongsword(/*? =1.21.1 {*/  AbstractClientPlayer /*?} else {*/ /*PlayerEntity *//*?}*/ player, /*? =1.21.1 {*/   /*?} else {*/ /*ItemStack stack, *//*?}*/ InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir/*? =1.21.1 {*/  , @Local ItemStack stack /*?} else {*/  /*?}*/){
+    @Inject(method = /*? =1.21.1 {*/ /*"getArmPose"  *//*?} else {*/ "getArmPose(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/client/model/HumanoidModel$ArmPose;" /*?}*/, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z", shift = At.Shift.BEFORE), cancellable = true)
+    private static void crossbowLongsword(/*? =1.21.1 {*/ /*AbstractClientPlayer *//*?} else {*/ Player /*?}*/ player, /*? =1.21.1 {*/   /*?} else {*/ ItemStack stack, /*?}*/ InteractionHand hand, CallbackInfoReturnable<HumanoidModel.ArmPose> cir/*? =1.21.1 {*/  /*, @Local ItemStack stack *//*?} else {*/  /*?}*/){
         if (stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack)) {
             cir.setReturnValue(HumanoidModel.ArmPose.CROSSBOW_HOLD);
         }

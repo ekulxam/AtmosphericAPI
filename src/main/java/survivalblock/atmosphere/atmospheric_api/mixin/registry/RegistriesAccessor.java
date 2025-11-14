@@ -13,7 +13,7 @@ public interface RegistriesAccessor {
 
     @SuppressWarnings("unused")
     @Accessor("LOADERS")
-    static Map<ResourceLocation, Supplier<?>> atmospheric_api$getDEFAULT_ENTRIES() {
+    static Map<ResourceLocation, Supplier<?>> atmospheric_api$getLoaders() {
         throw new UnsupportedOperationException();
     }
 }

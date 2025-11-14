@@ -25,7 +25,7 @@ public class AtmosphericAPIClientMixin {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             dispatcher.register(ClientCommandManager.literal("open_modmenu_screen").executes(context -> {
                 Minecraft client = context.getSource().getClient();
-                client.tell(() -> client.setScreen(new ModsScreen(null)));
+                client./*? =1.21.1 {*/ /*tell *//*?} else {*/ schedule /*?}*/(() -> client.setScreen(new ModsScreen(null)));
                 return 1;
             }));
         });

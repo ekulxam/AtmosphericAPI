@@ -16,7 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 //? if >=1.21.6
-/*import net.minecraft.storage.WriteView;*/
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,13 +31,13 @@ public class PersistentProjectileEntityMixin {
 
     //? if =1.21.1 {
 
-    /**
+    /*/^*
      * Avoids encoding the {@link AbstractArrow#stack} for a {@link StacklessPersistentProjectile}<p>I can't use a {@link com.llamalad7.mixinextras.injector.v2.WrapWithCondition} on the {@link CompoundTag#put(String, Tag)} call because {@link ItemStack#save(HolderLookup.Provider)} is still called
      * @param instance the {@link ItemStack} to be encoded
      * @param registries the {@link net.minecraft.core.HolderLookup.Provider} provided
      * @param original the original {@link CompoundTag#put(String, Tag)} call
      * @return a new "empty" instance of {@link CompoundTag} if {@link StacklessPersistentProjectile#shouldAvoidEncodingStack()} is true
-     */
+     ^/
     @SuppressWarnings("JavadocReference")
     @WrapOperation(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;save(Lnet/minecraft/core/HolderLookup$Provider;)Lnet/minecraft/nbt/Tag;"))
     private Tag doNotEncodeIfStackIsEmpty(ItemStack instance, HolderLookup.Provider registries, Operation<Tag> original) {
@@ -59,15 +59,15 @@ public class PersistentProjectileEntityMixin {
         if (stacklessPersistentProjectile.shouldAvoidEncodingStack()) {
             if (nbt.contains("item")) nbt.remove("item");
         }
-    }     //?} elif =1.21.8 {
+    }     *///?} elif =1.21.8 {
     
-    /*@WrapOperation(method = "writeCustomData", at = @At(value = "INVOKE", target = "Lnet/minecraft/storage/WriteView;put(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", ordinal = 0), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/item/ItemStack;CODEC:Lcom/mojang/serialization/Codec;")))
-    private <T> void doNotEncodeIfStackIsEmpty(WriteView instance, String s, Codec<T> tCodec, T t, Operation<Void> original) {
+    @WrapOperation(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/ValueOutput;store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", ordinal = 0), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/world/item/ItemStack;CODEC:Lcom/mojang/serialization/Codec;")))
+    private <T> void doNotEncodeIfStackIsEmpty(ValueOutput instance, String s, Codec<T> tCodec, T t, Operation<Void> original) {
         if (!(this instanceof StacklessPersistentProjectile stacklessPersistentProjectile) || !stacklessPersistentProjectile.shouldAvoidEncodingStack()) {
             original.call(instance, s, tCodec, t);
         }
     }
-    *///?}
+    //?}
 
     @WrapWithCondition(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setArrowCount(I)V"))
     private boolean notAllProjectilesAreArrows(LivingEntity instance, int stuckArrowCount, @Share("deltaStuckArrow")LocalIntRef localIntRef) {

@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
 
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
@@ -50,4 +50,4 @@ public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenera
         itemConvertibles.forEach(itemConvertible -> this.skippedAutoModelsOutput.accept(itemConvertible.asItem()));
     }
 }
-//?}
+*///?}

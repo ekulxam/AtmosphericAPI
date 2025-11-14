@@ -4,7 +4,6 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.registry.*;
 import net.minecraft.resources.ResourceKey;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,7 +32,7 @@ public class RegistryEntryLookupContainer {
             return registerable.lookup(registryKey);
         }
         if (this.wrapperLookup != null) {
-            return wrapperLookup./*? =1.21.1 {*/ lookupOrThrow /*?} else {*/ /*getOrThrow *//*?}*/(registryKey);
+            return wrapperLookup./*? =1.21.1 {*/ /*lookupOrThrow *//*?} else {*/ lookupOrThrow /*?}*/(registryKey);
         }
         throw new IllegalStateException("A RegistryEntryLookupContainer cannot have both its fields be null!");
     }

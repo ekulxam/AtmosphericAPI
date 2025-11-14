@@ -1,7 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.minecraft.component.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentHolder;
 import net.minecraft.core.component.DataComponentMap;
@@ -10,12 +9,16 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.stats.StatType;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
+//? if >=1.21.2
+import net.minecraft.world.item.equipment.Equippable;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -58,18 +61,18 @@ public abstract class ItemStackMixin implements DataComponentHolder, Atmospheric
     public boolean atmospheric_api$isHorseArmor() {
         //? if =1.21.1 {
         
-        return this.getItem().atmospheric_api$isHorseArmor();
+        /*return this.getItem().atmospheric_api$isHorseArmor();
 
-         //?} elif =1.21.8 {
+         *///?} elif =1.21.8 {
         
-        /*ComponentMap map = this.getComponents();
-        if (!map.contains(DataComponentTypes.EQUIPPABLE)) {
+        DataComponentMap map = this.getComponents();
+        if (!map.has(DataComponents.EQUIPPABLE)) {
             return false;
         }
-        EquippableComponent component = map.get(DataComponentTypes.EQUIPPABLE);
+        Equippable component = map.get(DataComponents.EQUIPPABLE);
         // this seems to be the best I can do, given the component changes
-        return EquipmentSlot.BODY == component.slot() && component.allows(EntityType.HORSE);
-        *///?}
+        return EquipmentSlot.BODY == component.slot() && component.canBeEquippedBy(EntityType.HORSE);
+        //?}
     }
 
     @Override

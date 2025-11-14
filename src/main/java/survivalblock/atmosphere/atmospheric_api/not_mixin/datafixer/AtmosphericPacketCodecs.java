@@ -40,7 +40,7 @@ public interface AtmosphericPacketCodecs {
                     box -> new Duo<>(box.getMinPosition(), box.getMaxPosition()));
 
     static <V> StreamCodec<ByteBuf, V> viaId(Registry<V> registry) {
-        return ResourceLocation.STREAM_CODEC.map(registry::get, registry::getKey);
+        return ResourceLocation.STREAM_CODEC.map(registry::/*? =1.21.1 {*/ /*get *//*?} else {*/ getValue /*?}*/, registry::getKey);
     }
 
     static <B extends ByteBuf, V> StreamCodec<B, Duo<V>> duo(StreamCodec<? super B, V> elementCodec) {

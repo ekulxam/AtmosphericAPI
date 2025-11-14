@@ -2,7 +2,6 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.math.*;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
@@ -207,16 +206,16 @@ public class BoxWithNoAtmosphere extends AABB {
     }
 
     //? if =1.21.1 {
+    /*@Override
+    public Vec3 getBottomCenter() {
+        return this.zero;
+    }
+    *///?} elif =1.21.8 {
     @Override
     public Vec3 getBottomCenter() {
         return this.zero;
     }
-    //?} elif =1.21.8 {
-    /*@Override
-    public Vec3d getHorizontalCenter() {
-        return this.zero;
-    }
-    *///?}
+    //?}
 
     @Override
     public Vec3 getMinPosition() {

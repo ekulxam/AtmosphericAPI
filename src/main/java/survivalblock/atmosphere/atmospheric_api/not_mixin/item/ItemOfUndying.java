@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.advancements.critereon.UsedTotemTrigger;
@@ -45,4 +45,4 @@ public interface ItemOfUndying {
         living.removeAllEffects();
     }
 }
-//?}
+*///?}

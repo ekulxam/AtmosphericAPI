@@ -14,8 +14,8 @@ public record ScreenShakeS2CPayload(float intensity, int duration, String modId,
             ByteBufCodecs.VAR_INT, ScreenShakeS2CPayload::duration,
             ByteBufCodecs.STRING_UTF8, ScreenShakeS2CPayload::modId,
             ByteBufCodecs.STRING_UTF8, ScreenShakeS2CPayload::reason,
-            ByteBufCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, ScreenShakeS2CPayload::shouldAutoOverride,
-            ByteBufCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, ScreenShakeS2CPayload::shouldAddToQueue,
+            ByteBufCodecs.BOOL, ScreenShakeS2CPayload::shouldAutoOverride,
+            ByteBufCodecs.BOOL, ScreenShakeS2CPayload::shouldAddToQueue,
             ScreenShakeS2CPayload::new
     );
 

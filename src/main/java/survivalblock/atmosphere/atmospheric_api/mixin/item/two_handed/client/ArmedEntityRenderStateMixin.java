@@ -1,10 +1,10 @@
 //? if 1.21.8 {
-/*package survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client;
+package survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client;
 
-import net.minecraft.client.item.ItemModelManager;
-import net.minecraft.client.render.entity.state.ArmedEntityRenderState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.renderer.entity.state.ArmedEntityRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,11 +20,11 @@ public class ArmedEntityRenderStateMixin implements WaitingOnFabricRenderState {
     @Unique
     ItemStack atmospheric_api$offHandStack = ItemStack.EMPTY;
 
-    @Inject(method = "updateRenderState", at = @At(value = "HEAD"))
-    private static void updateHandStacks(LivingEntity entity, ArmedEntityRenderState state, ItemModelManager itemModelManager, CallbackInfo ci) {
+    @Inject(method = "extractArmedEntityRenderState", at = @At(value = "HEAD"))
+    private static void updateHandStacks(LivingEntity entity, ArmedEntityRenderState state, ItemModelResolver itemModelResolver, CallbackInfo ci) {
         WaitingOnFabricRenderState please = ((WaitingOnFabricRenderState) state);
-        please.atmospheric_api$setMainHandStack(entity.getMainHandStack());
-        please.atmospheric_api$setOffHandStack(entity.getOffHandStack());
+        please.atmospheric_api$setMainHandStack(entity.getMainHandItem());
+        please.atmospheric_api$setOffHandStack(entity.getOffhandItem());
     }
 
     @Override
@@ -47,4 +47,4 @@ public class ArmedEntityRenderStateMixin implements WaitingOnFabricRenderState {
         this.atmospheric_api$offHandStack = offHandStack;
     }
 }
-*///?}
+//?}

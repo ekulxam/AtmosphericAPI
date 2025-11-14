@@ -19,7 +19,7 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
 
     //? if =1.21.1 {
     
-    @Override
+    /*@Override
     @Nullable
     public <T> Holder.Reference<T> atmospheric_api$getEntryFromKey(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
         return this.registryAccess().registryOrThrow(dynamicRegistryRegistryKey).getHolder(key).orElse(null);
@@ -29,18 +29,18 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
     public <T> Holder.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
         return this.registryAccess().registryOrThrow(dynamicRegistryRegistryKey).getHolderOrThrow(key);
     }
-     //?} elif =1.21.8 {
+     *///?} elif =1.21.8 {
 
-    /*@Override
+    @Override
     @Nullable
-    public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKey(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
-        Optional<Registry<T>> optional = this.getRegistryManager().getOptional(dynamicRegistryRegistryKey);
-        return optional.flatMap(registry -> registry.getOptional(key)).orElse(null);
+    public <T> Holder.Reference<T> atmospheric_api$getEntryFromKey(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
+        Optional<Registry<T>> optional = this.registryAccess().lookup(dynamicRegistryRegistryKey);
+        return optional.flatMap(registry -> registry.get(key)).orElse(null);
     }
 
     @Override
-    public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
-        return this.getRegistryManager().getOrThrow(dynamicRegistryRegistryKey).getOrThrow(key);
+    public <T> Holder.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
+        return this.registryAccess().lookupOrThrow(dynamicRegistryRegistryKey).getOrThrow(key);
     }
-    *///?}
+    //?}
 }

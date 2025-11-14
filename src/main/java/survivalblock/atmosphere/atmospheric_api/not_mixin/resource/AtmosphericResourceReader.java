@@ -38,15 +38,15 @@ public abstract class AtmosphericResourceReader<T> implements IdentifiableResour
         this.resourceFinder = resourceFinder;
     }
 
-    protected abstract void upload(Map<ResourceLocation, T> map, /*? =1.21.1 {*/ ProfilerFiller profiler /*?} else {*/ /*ResourceManager manager, Executor applyExecutor*//*?}*/);
+    protected abstract void upload(Map<ResourceLocation, T> map, /*? =1.21.1 {*/ /*ProfilerFiller profiler *//*?} else {*/ ResourceManager manager, Executor applyExecutor/*?}*/);
 
     @Override
-    public CompletableFuture<Void> reload(PreparationBarrier synchronizer, ResourceManager manager,/*? =1.21.1 {*/ ProfilerFiller prepareProfiler, ProfilerFiller applyProfiler, /*?} else {*/ /*?}*/ Executor prepareExecutor, Executor applyExecutor) {
-        /*? =1.21.1 {*/ prepareProfiler.startTick(); /*?} else {*/ /*?}*/
+    public CompletableFuture<Void> reload(PreparationBarrier synchronizer, ResourceManager manager,/*? =1.21.1 {*/ /*ProfilerFiller prepareProfiler, ProfilerFiller applyProfiler, *//*?} else {*/ /*?}*/ Executor prepareExecutor, Executor applyExecutor) {
+        /*? =1.21.1 {*/ /*prepareProfiler.startTick(); *//*?} else {*/ /*?}*/
         CompletableFuture<Map<ResourceLocation, T>> completableFuture = reloadAndFind(manager, prepareExecutor);
         return completableFuture
                 .thenCompose(synchronizer::wait)
-                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ applyProfiler /*?} else {*/ /*manager, applyExecutor *//*?}*/ ), applyExecutor);
+                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ /*applyProfiler *//*?} else {*/ manager, applyExecutor /*?}*/ ), applyExecutor);
     }
 
     // what did I just create

@@ -24,14 +24,14 @@ public abstract class ServerPlayerEntityMixin extends Player implements Atmosphe
 
     //? if =1.21.1 {
     
-    public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
+    /*public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
-     //?} elif =1.21.8 {
-    /*public ServerPlayerEntityMixin(World world, GameProfile profile) {
+     *///?} elif =1.21.8 {
+    public ServerPlayerEntityMixin(Level world, GameProfile profile) {
         super(world, profile);
     }
-    *///?}
+    //?}
 
 
     @Override

@@ -31,8 +31,8 @@ public class AtmosphericAPIClientMixin {
             double j = random.nextGaussian() * payload.deltaZ();
 
             try {
-                world./*? >=1.21.5 {*/ /*addParticleClient *//*?} else {*/ addParticle /*?}*/(payload.particleEffect(),
-                        payload.force(), /*? >=1.21.5 {*/ /*payload.canSpawnOnMinimal(), *//*?}*/
+                world.addParticle(payload.particleEffect(),
+                        payload.force(), /*? >=1.21.5 {*/ payload.canSpawnOnMinimal(), /*?}*/
                         payload.x() + g, payload.y() + h, payload.z()+ j,
                         payload.velocityX(), payload.velocityY(), payload.velocityZ());
             } catch (Throwable throwable) {

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;
 
-@Mixin(/*? =1.21.1 {*/ AnimationUtils.class /*?} else {*/ /*ArmPosing.class *//*?}*/)
+@Mixin(AnimationUtils.class)
 public class CrossbowPosingMixin {
 
     // I HATE RENDERING I HATE RENDERING I HATE RENDERING I HATE RENDERING I HATE RENDERING

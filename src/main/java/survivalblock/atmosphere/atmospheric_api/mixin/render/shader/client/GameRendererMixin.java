@@ -1,12 +1,12 @@
 //? if >1.21.1 {
-/*package survivalblock.atmosphere.atmospheric_api.mixin.render.shader.client;
+package survivalblock.atmosphere.atmospheric_api.mixin.render.shader.client;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.PostEffectProcessor;
-import net.minecraft.client.render.DefaultFramebufferSet;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.util.Pool;
+import com.mojang.blaze3d.resource.CrossFrameResourcePool;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LevelTargetBundle;
+import net.minecraft.client.renderer.PostChain;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,22 +18,22 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client.A
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
 
-    @Shadow @Final private MinecraftClient client;
+    @Shadow @Final private Minecraft minecraft;
 
-    @Shadow @Final private Pool pool;
+    @Shadow @Final private CrossFrameResourcePool resourcePool;
 
     @SuppressWarnings("deprecation")
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/WorldRenderer;drawEntityOutlinesFramebuffer()V", shift = At.Shift.AFTER))
-    private void applySlumberShader(RenderTickCounter tickCounter, boolean tick, CallbackInfo ci) {
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/LevelRenderer;doEntityOutline()V", shift = At.Shift.AFTER))
+    private void applySlumberShader(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
         AtmosphericShaderRegistryImpl.getShaderAppliers().forEach(shaderApplier -> {
-            if (!shaderApplier.shouldRender(tickCounter, tick)) {
+            if (!shaderApplier.shouldRender(deltaTracker, renderLevel)) {
                 return;
             }
-            PostEffectProcessor pep = this.client.getShaderLoader().loadPostEffect(shaderApplier.getPostEffectId(), DefaultFramebufferSet.MAIN_ONLY);
-            if (pep != null) {
-                pep.render(this.client.getFramebuffer(), this.pool);
+            PostChain postChain = this.minecraft.getShaderManager().getPostChain(shaderApplier.getPostEffectId(), LevelTargetBundle.MAIN_TARGETS);
+            if (postChain != null) {
+                postChain.process(this.minecraft.getMainRenderTarget(), this.resourcePool);
             }
         });
     }
 }
-*///?}
+//?}

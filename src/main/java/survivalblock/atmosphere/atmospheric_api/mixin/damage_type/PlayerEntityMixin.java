@@ -1,6 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.damage_type;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,9 +27,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Shadow public abstract boolean isSpectator();
 
-    @ModifyExpressionValue(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSource;is(Lnet/minecraft/tags/TagKey;)Z"))
-    private boolean bypassesCreativeMode(boolean original,/*? =1.21.1 {*/  /*?} else {*/ /*ServerWorld world, *//*?}*/ DamageSource source, float amount) {
-        GameRules rules = /*? =1.21.1 {*/ this.level() /*?} else {*/ /*world*//*?}*/.getGameRules();
+    @ModifyExpressionValue(method = /*? =1.21.1 {*/ /*"hurt" *//*?} else {*/ "hurtServer" /*?}*/, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSource;is(Lnet/minecraft/tags/TagKey;)Z"))
+    private boolean bypassesCreativeMode(boolean original,/*? =1.21.1 {*/  /*?} else {*/ ServerLevel world, /*?}*/ DamageSource source, float amount) {
+        GameRules rules = /*? =1.21.1 {*/ /*this.level() *//*?} else {*/ world/*?}*/.getGameRules();
         return original ||
                 (source.is(AtmosphericDamageTypeTags.BYPASSES_CREATIVE) &&
                         this.isCreative() &&

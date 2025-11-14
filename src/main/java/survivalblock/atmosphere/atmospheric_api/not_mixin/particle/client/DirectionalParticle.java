@@ -29,7 +29,7 @@ public abstract class DirectionalParticle extends Particle {
     }
 
     @Override
-    public void /*? <1.21.4 {*/ render /*?} else {*/ /*render *//*?}*/(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
+    public void /*? <1.21.4 {*/ /*render *//*?} else {*/ render /*?}*/(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         Quaternionf quaternionf = new Quaternionf()
                 .rotationYXZ(-this.yaw * Mth.DEG_TO_RAD, this.pitch * Mth.DEG_TO_RAD, 0);
         switch (this.getRenderMode()) {
@@ -60,9 +60,9 @@ public abstract class DirectionalParticle extends Particle {
 
     protected void render(VertexConsumer vertexConsumer, Camera camera, Quaternionf quaternionf, float tickProgress) {
         Vec3 vec3d = camera.getPosition();
-        float x = (float)(Mth.lerp(tickProgress, this./*? <1.21.5 {*/ xo /*?} else {*/ /*lastX *//*?}*/, this.x) - vec3d.x());
-        float y = (float)(Mth.lerp(tickProgress, this./*? <1.21.5 {*/ yo /*?} else {*/ /*lastY *//*?}*/, this.y) - vec3d.y());
-        float z = (float)(Mth.lerp(tickProgress, this./*? <1.21.5 {*/ zo /*?} else {*/ /*lastZ *//*?}*/, this.z) - vec3d.z());
+        float x = (float)(Mth.lerp(tickProgress, this.xo, this.x) - vec3d.x());
+        float y = (float)(Mth.lerp(tickProgress, this.yo, this.y) - vec3d.y());
+        float z = (float)(Mth.lerp(tickProgress, this.zo, this.z) - vec3d.z());
         this.render(vertexConsumer, quaternionf, x, y, z, tickProgress);
     }
 

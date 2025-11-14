@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -58,4 +58,4 @@ public class ItemRendererMixin {
         return original;
     }
 }
-//?}
+*///?}

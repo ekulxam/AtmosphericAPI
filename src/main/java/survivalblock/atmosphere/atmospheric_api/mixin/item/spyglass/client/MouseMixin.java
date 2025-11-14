@@ -16,7 +16,7 @@ public class MouseMixin {
 
     @Shadow @Final private Minecraft minecraft;
 
-    @ModifyExpressionValue(method = "turnPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isUsingSpyglass()Z"))
+    @ModifyExpressionValue(method = "turnPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isScoping()Z"))
     private boolean changeMouseSmoothnessInZoom(boolean original) {
         ItemStack activeStack = this.minecraft.player.getUseItem();
         if (!(activeStack.getItem() instanceof IAmASpyglassItem spyglass)) {

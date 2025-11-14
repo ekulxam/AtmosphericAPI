@@ -23,7 +23,7 @@ public abstract class EntityMixin implements AtmosphericEntityDaylightGetter {
     @Override
     public boolean atmospheric_api$isAffectedByDaylight() {
         Level world = this.level();
-        if (world.isDay()) {
+        if (world./*? =1.21.1 {*/ /*isDay *//*?} else {*/ isBrightOutside /*?}*/()) { // lol
             float f = this.getLightLevelDependentMagicValue();
             BlockPos blockPos = BlockPos.containing(this.getX(), this.getEyeY(), this.getZ());
             return f > 0.5F && world.canSeeSky(blockPos);

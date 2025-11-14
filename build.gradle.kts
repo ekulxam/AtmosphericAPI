@@ -21,6 +21,7 @@ repositories {
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
 	maven ("https://maven.terraformersmc.com")
+    maven ("https://maven.parchmentmc.org")
 }
 
 fabricApi {
@@ -32,13 +33,27 @@ fabricApi {
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft("com.mojang:minecraft:${stonecutter.current.project}")
-	mappings("net.fabricmc:yarn:${property("deps.yarn_mappings")}:v2")
+
+	mappings (loom.layered {
+        officialMojangMappings()
+        if (hasProperty("deps.parchment")) {
+            parchment("org.parchmentmc.data:parchment-${stonecutter.current.project}:${property("deps.parchment")}@zip")
+        }
+    })
+
 	modImplementation("net.fabricmc:fabric-loader:${property("deps.loader_version")}")
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric_api")}")
 
 	modApi("com.terraformersmc:modmenu:${property("deps.modmenu_version")}")
+}
+
+stonecutter {
+    replacements.string {
+        direction = eval(current.version, ">1.21.10")
+        replace("ResourceLocation", "Identifier")
+    }
 }
 
 fletchingTable {

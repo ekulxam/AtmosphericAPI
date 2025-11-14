@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.gui.GuiGraphics;
@@ -19,7 +19,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericP
 
 import java.util.Optional;
 
-/**
+/^*
  * Originally written as the PantsOfUndyingPacket for Enchancement Unbound
  * Used as an S2C payload to tell the client to display a floating item, limit to an activated totem of undying
  * @see net.minecraft.client.renderer.GameRenderer#floatingItem
@@ -29,7 +29,7 @@ import java.util.Optional;
  * @param entityId the id of the entity
  * @param particleEffectHolder
  * @param soundEventHolder
- */
+ ^/
 @SuppressWarnings({"unused", "JavadocReference"})
 public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<ItemStackOfUndyingS2CPayload> ID = new Type<>(AtmosphericAPI.id("itemstack_of_undying_s2c"));
@@ -109,4 +109,4 @@ public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, Partic
         }
     }
 }
-//?}
+*///?}

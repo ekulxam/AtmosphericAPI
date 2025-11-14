@@ -1,13 +1,17 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
-import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.level.Level;
+//? if >=1.21.6 {
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+//?}
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,7 +37,7 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
 
     //? if =1.21.1 {
 
-    @Override
+    /*@Override
     protected void readAdditionalSaveData(CompoundTag nbt) {
         if (nbt.contains(ATTRIBUTES_NBT_KEY, Tag.TAG_LIST) && this.level() != null && !this.level().isClientSide) {
             this.getAttributes().load(nbt.getList(ATTRIBUTES_NBT_KEY, Tag.TAG_COMPOUND));
@@ -44,21 +48,21 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
     protected void addAdditionalSaveData(CompoundTag nbt) {
         nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().save());
     }
-     //?} elif =1.21.8 {
+     *///?} elif =1.21.8 {
 
-    /*@Override
-    protected void readCustomData(ReadView view) {
-        if (this.getWorld() != null && !this.getWorld().isClient) {
-            Optional<List<EntityAttributeInstance.Packed>> optional = view.read("attributes", EntityAttributeInstance.Packed.LIST_CODEC);
-            optional.ifPresent(list -> Objects.requireNonNull(this.getAttributes()).unpack(list));
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        if (this.level() != null && !this.level().isClientSide()) {
+            Optional<List<AttributeInstance.Packed>> optional = input.read(ATTRIBUTES_NBT_KEY, AttributeInstance.Packed.LIST_CODEC);
+            optional.ifPresent(list -> Objects.requireNonNull(this.getAttributes()).apply(list));
         }
     }
 
     @Override
-    protected void writeCustomData(WriteView view) {
-        view.put("attributes", EntityAttributeInstance.Packed.LIST_CODEC, this.getAttributes().pack());
+    protected void addAdditionalSaveData(ValueOutput output) {
+        output.store(ATTRIBUTES_NBT_KEY, AttributeInstance.Packed.LIST_CODEC, this.getAttributes().pack());
     }
-    *///?}
+    //?}
 
     @Override
     public AttributeMap getAttributes() {

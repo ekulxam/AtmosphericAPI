@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -33,4 +33,4 @@ public abstract class PlayerInventoryMixin {
         }
     }
 }
-//?}
+*///?}
