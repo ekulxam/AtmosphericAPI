@@ -1,8 +1,9 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datagen.injected_interface;
 
-import java.util.Collection;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
+
+import java.util.Collection;
 
 @SuppressWarnings("unused")
 public interface AtmosphericItemModelGenerationPreventer {

@@ -1,6 +1,11 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.compat.config;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.repository.PackRepository;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -9,11 +14,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.server.packs.repository.PackRepository;
 
 public class ConfigPackScreen extends PackSelectionScreen {
 

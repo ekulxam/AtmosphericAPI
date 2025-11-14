@@ -1,12 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
 import com.mojang.authlib.GameProfile;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface.AtmosphericPlayerAdvancementGranter;
-
-import java.util.Objects;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
@@ -16,6 +10,12 @@ import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface.AtmosphericPlayerAdvancementGranter;
+
+import java.util.Objects;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerEntityMixin extends Player implements AtmosphericPlayerAdvancementGranter {

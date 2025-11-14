@@ -1,14 +1,14 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.util.function.Consumer;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Consumer;
 
 /**
  * Classes implementing this interface should extend {@link net.minecraft.world.entity.Entity}.<p>

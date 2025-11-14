@@ -1,7 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.ApiStatus;

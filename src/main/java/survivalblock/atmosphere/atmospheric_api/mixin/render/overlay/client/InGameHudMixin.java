@@ -3,8 +3,13 @@ package survivalblock.atmosphere.atmospheric_api.mixin.render.overlay.client;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 //? if <1.21.6
 /*import net.minecraft.client.gui.LayeredDraw;*/
+import net.minecraft.resources.ResourceLocation;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,12 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.overlay.client.AtmosphericOverlayRegistryImpl;
 
 import java.util.function.BooleanSupplier;
-import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-
 @Mixin(value = Gui.class, priority = 1500)
 public abstract class InGameHudMixin {
 

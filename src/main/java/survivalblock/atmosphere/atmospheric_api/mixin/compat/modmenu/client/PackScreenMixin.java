@@ -2,6 +2,9 @@ package survivalblock.atmosphere.atmospheric_api.mixin.compat.modmenu.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.packs.PackSelectionModel;
+import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,9 +15,6 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.compat.config.ConfigPa
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.packs.PackSelectionModel;
-import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
 
 @Mixin(value = PackSelectionScreen.class, priority = 1250) // 1500 felt a little too high
 public class PackScreenMixin {

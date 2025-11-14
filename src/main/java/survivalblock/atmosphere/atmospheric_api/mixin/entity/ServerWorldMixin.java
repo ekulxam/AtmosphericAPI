@@ -1,5 +1,10 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.AbortableIterationConsumer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.entity.EntityTypeTest;
+import net.minecraft.world.level.entity.LevelEntityGetter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface.AtmosphericServerWorldEntityCollector;
@@ -7,11 +12,6 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interf
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.AbortableIterationConsumer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.entity.EntityTypeTest;
-import net.minecraft.world.level.entity.LevelEntityGetter;
 
 @Mixin(ServerLevel.class)
 public abstract class ServerWorldMixin implements AtmosphericServerWorldEntityCollector {

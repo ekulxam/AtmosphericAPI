@@ -1,12 +1,12 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.BadAtProgramming;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Duo;
 
 import java.util.List;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 
 @SuppressWarnings("unused")
 public interface AtmosphericCodecs {

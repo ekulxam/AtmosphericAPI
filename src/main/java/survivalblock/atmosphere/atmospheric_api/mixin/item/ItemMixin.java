@@ -1,10 +1,5 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
-import org.spongepowered.asm.mixin.Mixin;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface.AtmosphericHorseArmorItem;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface.AtmosphericItemDamager;
-
-import java.util.Optional;
 import net.minecraft.stats.StatType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,6 +8,11 @@ import net.minecraft.world.entity.player.Player;
 /*import net.minecraft.world.item.AnimalArmorItem;*/
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.spongepowered.asm.mixin.Mixin;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface.AtmosphericHorseArmorItem;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface.AtmosphericItemDamager;
+
+import java.util.Optional;
 
 @Mixin(Item.class)
 public class ItemMixin implements AtmosphericHorseArmorItem, AtmosphericItemDamager {

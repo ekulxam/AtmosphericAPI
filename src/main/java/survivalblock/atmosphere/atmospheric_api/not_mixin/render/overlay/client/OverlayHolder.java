@@ -1,11 +1,11 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.overlay.client;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.function.BiFunction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.BiFunction;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class OverlayHolder implements Comparable<OverlayHolder> {

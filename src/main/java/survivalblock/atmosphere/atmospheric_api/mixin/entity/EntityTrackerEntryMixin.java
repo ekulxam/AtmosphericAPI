@@ -4,6 +4,13 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket;
+import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,13 +26,6 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.util.ReflectionCacher;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Set;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket;
-import net.minecraft.server.level.ServerEntity;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 
 @Mixin(ServerEntity.class)
 public abstract class EntityTrackerEntryMixin {

@@ -4,6 +4,7 @@ import com.mojang.datafixers.kinds.App;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.codec.StreamCodec;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
@@ -11,7 +12,6 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import net.minecraft.network.codec.StreamCodec;
 
 @SuppressWarnings("unused")
 public class Extensions {

@@ -1,11 +1,9 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.geometry;
 
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import java.util.List;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
 @SuppressWarnings("unused")
 public class LineDrawer {

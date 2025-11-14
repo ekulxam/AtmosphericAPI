@@ -2,13 +2,6 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer;
 
 import com.mojang.datafixers.util.*;
 import io.netty.buffer.ByteBuf;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.DangerousAndOrUnstable;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Duo;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.util.FunctionUnlimited;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -17,6 +10,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.DangerousAndOrUnstable;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Duo;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.FunctionUnlimited;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public interface AtmosphericPacketCodecs {
