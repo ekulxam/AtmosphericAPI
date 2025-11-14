@@ -1,9 +1,8 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datagen.injected_interface;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-
 import java.util.Collection;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 
 @SuppressWarnings("unused")
 public interface AtmosphericItemModelGenerationPreventer {
@@ -17,12 +16,12 @@ public interface AtmosphericItemModelGenerationPreventer {
     default void atmospheric_api$excludeFromSimpleItemModelGeneration(Collection<Item> items) {
     }
 
-    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemConvertible itemConvertible) {
+    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemLike itemConvertible) {
     }
 
-    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemConvertible... itemConvertibles) {
+    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(ItemLike... itemConvertibles) {
     }
 
-    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(Collection<ItemConvertible> itemConvertibles) {
+    default void atmospheric_api$excludeConvertibleFromSimpleItemModelGeneration(Collection<ItemLike> itemConvertibles) {
     }
 }

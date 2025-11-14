@@ -1,42 +1,40 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.command;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.CommandOutput;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.CommandBlockExecutor;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BaseCommandBlock;
 
 @SuppressWarnings("unused")
 public final class AtmosphericCommandDirector {
-    public static void runCommand(ServerWorld serverWorld, Entity entity, String command) {
+    public static void runCommand(ServerLevel serverWorld, Entity entity, String command) {
         runCommand(serverWorld, entity,4, command);
     }
 
-    public static void runCommand(ServerWorld serverWorld, Entity entity, int level, String command) {
-        runCommand(serverWorld.getServer(), new ServerCommandSource(/*? =1.21.1 {*/  /*entity *//*?} else {*/ entity instanceof ServerPlayerEntity serverPlayerEntity ? serverPlayerEntity.getCommandOutput() : CommandOutput.DUMMY /*?}*/, entity.getPos(), entity.getRotationClient(), serverWorld, level,
+    public static void runCommand(ServerLevel serverWorld, Entity entity, int level, String command) {
+        runCommand(serverWorld.getServer(), new CommandSourceStack(/*? =1.21.1 {*/  entity /*?} else {*/ /*entity instanceof ServerPlayerEntity serverPlayerEntity ? serverPlayerEntity.getCommandOutput() : CommandOutput.DUMMY *//*?}*/, entity.position(), entity.getRotationVector(), serverWorld, level,
                 entity.getName().getString(), entity.getDisplayName(), serverWorld.getServer(), entity), command);
     }
 
-    public static void runCommand(CommandBlockExecutor commandBlockExecutor) {
-        runCommand(commandBlockExecutor.getWorld().getServer(), commandBlockExecutor.getSource(), commandBlockExecutor.getCommand());
+    public static void runCommand(BaseCommandBlock commandBlockExecutor) {
+        runCommand(commandBlockExecutor.getLevel().getServer(), commandBlockExecutor.createCommandSourceStack(), commandBlockExecutor.getCommand());
     }
 
-    public static void runCommand(ServerWorld serverWorld, CommandBlockExecutor commandBlockExecutor, String command) {
-        runCommand(serverWorld.getServer(), commandBlockExecutor.getSource(), command);
+    public static void runCommand(ServerLevel serverWorld, BaseCommandBlock commandBlockExecutor, String command) {
+        runCommand(serverWorld.getServer(), commandBlockExecutor.createCommandSourceStack(), command);
     }
 
-    public static void runCommand(MinecraftServer server, CommandBlockExecutor commandBlockExecutor, String command) {
-        runCommand(server, commandBlockExecutor.getSource(), command);
+    public static void runCommand(MinecraftServer server, BaseCommandBlock commandBlockExecutor, String command) {
+        runCommand(server, commandBlockExecutor.createCommandSourceStack(), command);
     }
 
-    public static void runCommand(MinecraftServer server, ServerCommandSource serverCommandSource, String command) {
-        runCommand(server.getCommandManager(), serverCommandSource, command);
+    public static void runCommand(MinecraftServer server, CommandSourceStack serverCommandSource, String command) {
+        runCommand(server.getCommands(), serverCommandSource, command);
     }
 
-    public static void runCommand(CommandManager commandManager, ServerCommandSource serverCommandSource, String command) {
-        commandManager.executeWithPrefix(serverCommandSource, command);
+    public static void runCommand(Commands commandManager, CommandSourceStack serverCommandSource, String command) {
+        commandManager.performPrefixedCommand(serverCommandSource, command);
     }
 }

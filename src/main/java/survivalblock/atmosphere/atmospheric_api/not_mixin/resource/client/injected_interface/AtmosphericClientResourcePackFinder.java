@@ -2,8 +2,8 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.resource.client.injec
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.resource.ResourcePackProfile;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.repository.Pack;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
@@ -19,12 +19,12 @@ public interface AtmosphericClientResourcePackFinder {
     }
 
     @Nullable
-    default ResourcePackProfile atmospheric_api$getResourcePack(String name) {
+    default Pack atmospheric_api$getResourcePack(String name) {
         return null;
     }
 
     @Nullable
-    default ResourcePackProfile atmospheric_api$getActiveResourcePack(String name) {
+    default Pack atmospheric_api$getActiveResourcePack(String name) {
         return null;
     }
 
@@ -36,29 +36,29 @@ public interface AtmosphericClientResourcePackFinder {
         return false;
     }
 
-    default boolean atmospheric_api$isResourcePackLoaded(Identifier id) {
+    default boolean atmospheric_api$isResourcePackLoaded(ResourceLocation id) {
         return this.atmospheric_api$isResourcePackLoaded(id.toString());
     }
 
-    default boolean atmospheric_api$doesResourcePackExist(Identifier id) {
+    default boolean atmospheric_api$doesResourcePackExist(ResourceLocation id) {
         return this.atmospheric_api$doesResourcePackExist(id.toString());
     }
 
     @Nullable
-    default ResourcePackProfile atmospheric_api$getResourcePack(Identifier id) {
+    default Pack atmospheric_api$getResourcePack(ResourceLocation id) {
         return this.atmospheric_api$getResourcePack(id.toString());
     }
 
     @Nullable
-    default ResourcePackProfile atmospheric_api$getActiveResourcePack(Identifier id) {
+    default Pack atmospheric_api$getActiveResourcePack(ResourceLocation id) {
         return this.atmospheric_api$getActiveResourcePack(id.toString());
     }
 
-    default boolean atmospheric_api$enableResourcePack(Identifier id) {
+    default boolean atmospheric_api$enableResourcePack(ResourceLocation id) {
         return this.atmospheric_api$enableResourcePack(id.toString());
     }
 
-    default boolean atmospheric_api$disableResourcePack(Identifier id) {
+    default boolean atmospheric_api$disableResourcePack(ResourceLocation id) {
         return this.atmospheric_api$disableResourcePack(id.toString());
     }
 }

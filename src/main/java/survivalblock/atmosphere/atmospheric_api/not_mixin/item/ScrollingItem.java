@@ -1,8 +1,8 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 @SuppressWarnings("unused")
 public interface ScrollingItem {
@@ -16,5 +16,5 @@ public interface ScrollingItem {
 	 * @param scrollAmount The amount scrolled
 	 * @return false to cancel default logic, true to allow
 	 */
-	boolean onScroll(World world, PlayerEntity player, ItemStack stack, double scrollAmount);
+	boolean onScroll(Level world, Player player, ItemStack stack, double scrollAmount);
 }

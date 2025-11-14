@@ -1,6 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -8,9 +8,9 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(Entity.class)
 public interface EntityAccessor {
 
-    @Accessor("firstUpdate")
+    @Accessor("firstTick")
     boolean atmospheric_api$isFirstUpdate();
 
-    @Accessor("firstUpdate")
+    @Accessor("firstTick")
     void atmospheric_api$setFirstUpdate(boolean firstUpdate);
 }

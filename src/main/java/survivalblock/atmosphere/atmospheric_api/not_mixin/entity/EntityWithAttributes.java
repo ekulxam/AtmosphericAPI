@@ -1,72 +1,72 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
 /**
- * Classes implementing this interface should extend {@link net.minecraft.entity.Entity}.<p>
- * Classes extending {@link net.minecraft.entity.LivingEntity} already have attributes and do not need to implement this class.
- * @see net.minecraft.entity.attribute.EntityAttributes
+ * Classes implementing this interface should extend {@link net.minecraft.world.entity.Entity}.<p>
+ * Classes extending {@link net.minecraft.world.entity.LivingEntity} already have attributes and do not need to implement this class.
+ * @see net.minecraft.world.entity.ai.attributes.Attributes
  */
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public interface EntityWithAttributes {
 
     String ATTRIBUTES_NBT_KEY = "attributes";
 
-    AttributeContainer getAttributes();
+    AttributeMap getAttributes();
 
     @Nullable
-    default EntityAttributeInstance getAttributeInstance(RegistryEntry<EntityAttribute> attribute) {
-        return this.getAttributes().getCustomInstance(attribute);
+    default AttributeInstance getAttributeInstance(Holder<Attribute> attribute) {
+        return this.getAttributes().getInstance(attribute);
     }
 
-    default double getAttributeValue(RegistryEntry<EntityAttribute> attribute) {
+    default double getAttributeValue(Holder<Attribute> attribute) {
         return this.getAttributes().getValue(attribute);
     }
 
-    default double getAttributeBaseValue(RegistryEntry<EntityAttribute> attribute) {
+    default double getAttributeBaseValue(Holder<Attribute> attribute) {
         return this.getAttributes().getBaseValue(attribute);
     }
 
     /**
-     * In vanilla code, {@link net.minecraft.server.network.EntityTrackerEntry#sendPackets(ServerPlayerEntity, Consumer)} handles attribute syncing between server and client.
+     * In vanilla code, {@link net.minecraft.server.level.ServerEntity#sendPairingData(ServerPlayer, Consumer)} handles attribute syncing between server and client.
      * A mixin has been created with allows instances {@link EntityWithAttributes} to have their attributes synced like this.
-     * @return whether the attributes should be synced using {@link net.minecraft.server.network.EntityTrackerEntry}
+     * @return whether the attributes should be synced using {@link net.minecraft.server.level.ServerEntity}
      */
     default boolean shouldAutoSyncAttributes() {
         return true;
     }
 
     default void resetAttributes() {
-        this.setAttributesFrom(new AttributeContainer(this.getDefaultAttributeContainer()));
+        this.setAttributesFrom(new AttributeMap(this.getDefaultAttributeContainer()));
     }
 
     /**
      * Sets the values of the attributes from another {@link org.spongepowered.asm.mixin.injection.At}
-     * @param attributeContainer the {@link AttributeContainer} to set from
+     * @param attributeContainer the {@link AttributeMap} to set from
      * @return true if the operation succeeded
      */
-    default boolean setAttributesFrom(AttributeContainer attributeContainer) {
+    default boolean setAttributesFrom(AttributeMap attributeContainer) {
         return false;
     }
 
     /**
-     * @return a {@link DefaultAttributeContainer} with the entity's default attribute values
+     * @return a {@link AttributeSupplier} with the entity's default attribute values
      */
-    DefaultAttributeContainer getDefaultAttributeContainer();
+    AttributeSupplier getDefaultAttributeContainer();
 
     /**
-     * This method should create an {@link AttributeContainer} with the default attribute values
-     * @return a new instance of {@link AttributeContainer}
+     * This method should create an {@link AttributeMap} with the default attribute values
+     * @return a new instance of {@link AttributeMap}
      */
-    default AttributeContainer getDefaultAttributes() {
-        return new AttributeContainer(this.getDefaultAttributeContainer());
+    default AttributeMap getDefaultAttributes() {
+        return new AttributeMap(this.getDefaultAttributeContainer());
     }
 }

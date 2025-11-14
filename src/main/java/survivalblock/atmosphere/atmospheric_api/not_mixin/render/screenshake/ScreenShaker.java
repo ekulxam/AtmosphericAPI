@@ -1,15 +1,15 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 @SuppressWarnings("unused")
 public interface ScreenShaker {
 
-    Identifier DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK = AtmosphericAPI.id("disableallscreenshakers");
-    Random RANDOM = Random.createLocal();
+    ResourceLocation DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK = AtmosphericAPI.id("disableallscreenshakers");
+    RandomSource RANDOM = RandomSource.createNewThreadLocalInstance();
 
     float getIntensity();
 
@@ -19,7 +19,7 @@ public interface ScreenShaker {
      */
     int getDuration();
 
-    default void tick(World world) throws UnsupportedOperationException {
+    default void tick(Level world) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 

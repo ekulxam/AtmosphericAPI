@@ -7,12 +7,12 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceFinder;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.minecraft.util.profiler.Profiler;
+import net.minecraft.Util;
+import net.minecraft.resources.FileToIdConverter;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 import java.util.ArrayList;
@@ -30,38 +30,38 @@ public abstract class AtmosphericResourceReader<T> implements IdentifiableResour
 
     protected final Codec<T> elementCodec;
 
-    protected final ResourceFinder resourceFinder;
+    protected final FileToIdConverter resourceFinder;
 
-    protected AtmosphericResourceReader(String errorMessage, Codec<T> elementCodec, ResourceFinder resourceFinder) {
+    protected AtmosphericResourceReader(String errorMessage, Codec<T> elementCodec, FileToIdConverter resourceFinder) {
         this.errorMessage = errorMessage;
         this.elementCodec = elementCodec;
         this.resourceFinder = resourceFinder;
     }
 
-    protected abstract void upload(Map<Identifier, T> map, /*? =1.21.1 {*/ /*Profiler profiler *//*?} else {*/ ResourceManager manager, Executor applyExecutor/*?}*/);
+    protected abstract void upload(Map<ResourceLocation, T> map, /*? =1.21.1 {*/ ProfilerFiller profiler /*?} else {*/ /*ResourceManager manager, Executor applyExecutor*//*?}*/);
 
     @Override
-    public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager,/*? =1.21.1 {*/ /*Profiler prepareProfiler, Profiler applyProfiler, *//*?} else {*/ /*?}*/ Executor prepareExecutor, Executor applyExecutor) {
-        /*? =1.21.1 {*/ /*prepareProfiler.startTick(); *//*?} else {*/ /*?}*/
-        CompletableFuture<Map<Identifier, T>> completableFuture = reloadAndFind(manager, prepareExecutor);
+    public CompletableFuture<Void> reload(PreparationBarrier synchronizer, ResourceManager manager,/*? =1.21.1 {*/ ProfilerFiller prepareProfiler, ProfilerFiller applyProfiler, /*?} else {*/ /*?}*/ Executor prepareExecutor, Executor applyExecutor) {
+        /*? =1.21.1 {*/ prepareProfiler.startTick(); /*?} else {*/ /*?}*/
+        CompletableFuture<Map<ResourceLocation, T>> completableFuture = reloadAndFind(manager, prepareExecutor);
         return completableFuture
-                .thenCompose(synchronizer::whenPrepared)
-                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ /*applyProfiler *//*?} else {*/ manager, applyExecutor /*?}*/ ), applyExecutor);
+                .thenCompose(synchronizer::wait)
+                .thenAcceptAsync(result -> this.upload(result, /*? =1.21.1 {*/ applyProfiler /*?} else {*/ /*manager, applyExecutor *//*?}*/ ), applyExecutor);
     }
 
     // what did I just create
     // I love it when I just mash together a bunch of code
-    private CompletableFuture<Map<Identifier, T>> reloadAndFind(ResourceManager resourceManager, Executor executor) {
-        return CompletableFuture.supplyAsync(() -> this.resourceFinder.findResources(resourceManager), executor)
+    private CompletableFuture<Map<ResourceLocation, T>> reloadAndFind(ResourceManager resourceManager, Executor executor) {
+        return CompletableFuture.supplyAsync(() -> this.resourceFinder.listMatchingResources(resourceManager), executor)
                 .thenCompose(
                         resources -> {
-                            List<CompletableFuture<Pair<Identifier, T>>> list = new ArrayList<>(resources.size());
-                            for (Map.Entry<Identifier, Resource> entry : resources.entrySet()) {
+                            List<CompletableFuture<Pair<ResourceLocation, T>>> list = new ArrayList<>(resources.size());
+                            for (Map.Entry<ResourceLocation, Resource> entry : resources.entrySet()) {
                                 list.add(CompletableFuture.supplyAsync(() -> {
                                     try {
-                                        JsonReader reader = new JsonReader(entry.getValue().getReader());
+                                        JsonReader reader = new JsonReader(entry.getValue().openAsReader());
                                         reader.setLenient(false);
-                                        Pair<Identifier, T> pair;
+                                        Pair<ResourceLocation, T> pair;
                                         try {
                                             pair = Pair.of(entry.getKey(), this.elementCodec.parse(JsonOps.INSTANCE, Streams.parse(reader)).getOrThrow(JsonParseException::new));
                                         } catch (Throwable throwable) {
@@ -81,7 +81,7 @@ public abstract class AtmosphericResourceReader<T> implements IdentifiableResour
                                     }
                                 }, executor));
                             }
-                            return Util.combineSafe(list)
+                            return Util.sequence(list)
                                     .thenApply(resourcesx -> resourcesx.stream().filter(Objects::nonNull).collect(Collectors.toUnmodifiableMap(Pair::getFirst, Pair::getSecond)));
                         }
                 );

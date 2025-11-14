@@ -2,7 +2,7 @@ import java.io.BufferedReader
 import java.io.FileReader
 
 plugins {
-	id("fabric-loom") version "1.12-SNAPSHOT"
+	id("fabric-loom") version "1.13-SNAPSHOT"
 	id("maven-publish")
 	kotlin("jvm") version "2.2.10"
 	id("com.google.devtools.ksp") version "2.2.10-2.0.2"

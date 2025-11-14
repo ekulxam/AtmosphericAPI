@@ -1,5 +1,5 @@
 //? if 1.21.1 {
-/*package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
+package survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.jetbrains.annotations.ApiStatus;
@@ -21,4 +21,4 @@ public class AtmosphericAPIMixin {
         PayloadTypeRegistry.playS2C().register(ItemStackOfUndyingS2CPayload.ID, ItemStackOfUndyingS2CPayload.CODEC);
     }
 }
-*///?}
+//?}

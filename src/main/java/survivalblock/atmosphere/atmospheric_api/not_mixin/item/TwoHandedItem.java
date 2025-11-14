@@ -1,6 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 
 @SuppressWarnings("unused")

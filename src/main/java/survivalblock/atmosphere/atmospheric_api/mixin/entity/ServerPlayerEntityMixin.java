@@ -1,54 +1,53 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementProgress;
-import net.minecraft.advancement.PlayerAdvancementTracker;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.ServerAdvancementLoader;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface.AtmosphericPlayerAdvancementGranter;
 
 import java.util.Objects;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.server.ServerAdvancementManager;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
-@Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity implements AtmosphericPlayerAdvancementGranter {
+@Mixin(ServerPlayer.class)
+public abstract class ServerPlayerEntityMixin extends Player implements AtmosphericPlayerAdvancementGranter {
 
-    @Shadow public abstract PlayerAdvancementTracker getAdvancementTracker();
+    @Shadow public abstract PlayerAdvancements getAdvancements();
 
     //? if =1.21.1 {
     
-    /*public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
+    public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
-     *///?} elif =1.21.8 {
-    public ServerPlayerEntityMixin(World world, GameProfile profile) {
+     //?} elif =1.21.8 {
+    /*public ServerPlayerEntityMixin(World world, GameProfile profile) {
         super(world, profile);
     }
-    //?}
+    *///?}
 
 
     @Override
-    public boolean atmospheric_api$grantAdvancement(Identifier advancementId, boolean verboseLogging) {
+    public boolean atmospheric_api$grantAdvancement(ResourceLocation advancementId, boolean verboseLogging) {
         //noinspection DataFlowIssue (server should not be null already)
-        ServerAdvancementLoader loader = this.getServer().getAdvancementLoader();
-        AdvancementEntry advancementEntry = loader.get(advancementId);
+        ServerAdvancementManager loader = this.getServer().getAdvancements();
+        AdvancementHolder advancementEntry = loader.get(advancementId);
         try {
             Objects.requireNonNull(advancementEntry, "Advancement entry cannot be null!");
-            PlayerAdvancementTracker advancementTracker = this.getAdvancementTracker();
-            AdvancementProgress advancementProgress = advancementTracker.getProgress(advancementEntry);
+            PlayerAdvancements advancementTracker = this.getAdvancements();
+            AdvancementProgress advancementProgress = advancementTracker.getOrStartProgress(advancementEntry);
             if (advancementProgress.isDone()) {
                 return false;
             }
-            for (String string : advancementProgress.getUnobtainedCriteria()) {
-                advancementTracker.grantCriterion(advancementEntry, string);
+            for (String string : advancementProgress.getRemainingCriteria()) {
+                advancementTracker.award(advancementEntry, string);
                 return true;
             }
         } catch (Throwable throwable) {

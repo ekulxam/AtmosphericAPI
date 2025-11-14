@@ -1,10 +1,10 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 @SuppressWarnings("unused")
 @FunctionalInterface
-public interface ItemProvider<S extends Item.Settings, T extends Item> {
+public interface ItemProvider<S extends Item.Properties, T extends Item> {
 
     T fromSettings(S settings);
 }

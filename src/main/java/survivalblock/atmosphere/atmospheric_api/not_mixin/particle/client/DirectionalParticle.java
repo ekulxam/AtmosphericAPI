@@ -1,18 +1,18 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Camera;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 /**
  * A non-billboard particle
- * @see net.minecraft.client.particle.BillboardParticle
+ * @see net.minecraft.client.particle.SingleQuadParticle
  */
 public abstract class DirectionalParticle extends Particle {
 
@@ -20,18 +20,18 @@ public abstract class DirectionalParticle extends Particle {
     protected float pitch = 0;
     protected float yaw = 0;
 
-    protected DirectionalParticle(ClientWorld clientWorld, double d, double e, double f) {
+    protected DirectionalParticle(ClientLevel clientWorld, double d, double e, double f) {
         super(clientWorld, d, e, f);
     }
 
-    protected DirectionalParticle(ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+    protected DirectionalParticle(ClientLevel clientWorld, double d, double e, double f, double g, double h, double i) {
         super(clientWorld, d, e, f, g, h, i);
     }
 
     @Override
-    public void /*? <1.21.4 {*/ /*buildGeometry *//*?} else {*/ render /*?}*/(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
+    public void /*? <1.21.4 {*/ render /*?} else {*/ /*render *//*?}*/(VertexConsumer vertexConsumer, Camera camera, float tickDelta) {
         Quaternionf quaternionf = new Quaternionf()
-                .rotationYXZ(-this.yaw * MathHelper.RADIANS_PER_DEGREE, this.pitch * MathHelper.RADIANS_PER_DEGREE, 0);
+                .rotationYXZ(-this.yaw * Mth.DEG_TO_RAD, this.pitch * Mth.DEG_TO_RAD, 0);
         switch (this.getRenderMode()) {
             case RENDER_TWICE -> {
                 this.render(vertexConsumer, camera, quaternionf, tickDelta);
@@ -40,10 +40,10 @@ public abstract class DirectionalParticle extends Particle {
             }
             case FRONTFACE -> {
                 // TODO: fix this
-                Vec3d particleDirection = Vec3d.fromPolar(this.yaw, this.pitch).normalize();
+                Vec3 particleDirection = Vec3.directionFromRotation(this.yaw, this.pitch).normalize();
                 //Vec3d view = camera.getPos().subtract(this.x, this.y, this.z).normalize();
-                Vec3d view = Vec3d.fromPolar(camera.getPitch(), camera.getYaw()).normalize();
-                double dotProduct = view.dotProduct(particleDirection);
+                Vec3 view = Vec3.directionFromRotation(camera.getXRot(), camera.getYRot()).normalize();
+                double dotProduct = view.dot(particleDirection);
                 if (dotProduct < 0) {
                     quaternionf.rotateY((float) Math.PI);
                 }
@@ -59,10 +59,10 @@ public abstract class DirectionalParticle extends Particle {
     }
 
     protected void render(VertexConsumer vertexConsumer, Camera camera, Quaternionf quaternionf, float tickProgress) {
-        Vec3d vec3d = camera.getPos();
-        float x = (float)(MathHelper.lerp(tickProgress, this./*? <1.21.5 {*/ /*prevPosX *//*?} else {*/ lastX /*?}*/, this.x) - vec3d.getX());
-        float y = (float)(MathHelper.lerp(tickProgress, this./*? <1.21.5 {*/ /*prevPosY *//*?} else {*/ lastY /*?}*/, this.y) - vec3d.getY());
-        float z = (float)(MathHelper.lerp(tickProgress, this./*? <1.21.5 {*/ /*prevPosZ *//*?} else {*/ lastZ /*?}*/, this.z) - vec3d.getZ());
+        Vec3 vec3d = camera.getPosition();
+        float x = (float)(Mth.lerp(tickProgress, this./*? <1.21.5 {*/ xo /*?} else {*/ /*lastX *//*?}*/, this.x) - vec3d.x());
+        float y = (float)(Mth.lerp(tickProgress, this./*? <1.21.5 {*/ yo /*?} else {*/ /*lastY *//*?}*/, this.y) - vec3d.y());
+        float z = (float)(Mth.lerp(tickProgress, this./*? <1.21.5 {*/ zo /*?} else {*/ /*lastZ *//*?}*/, this.z) - vec3d.z());
         this.render(vertexConsumer, quaternionf, x, y, z, tickProgress);
     }
 
@@ -72,7 +72,7 @@ public abstract class DirectionalParticle extends Particle {
         float maxU = this.getMaxU();
         float minV = this.getMinV();
         float maxV = this.getMaxV();
-        int brightness = this.getBrightness(tickProgress);
+        int brightness = this.getLightColor(tickProgress);
         this.render(vertexConsumer, quaternionf, x, y, z, 1.0F, -1.0F, size, maxU, maxV, brightness);
         this.render(vertexConsumer, quaternionf, x, y, z, 1.0F, 1.0F, size, maxU, minV, brightness);
         this.render(vertexConsumer, quaternionf, x, y, z, -1.0F, 1.0F, size, minU, minV, brightness);
@@ -83,7 +83,7 @@ public abstract class DirectionalParticle extends Particle {
             VertexConsumer vertexConsumer, Quaternionf quaternionf, float x, float y, float z, float f, float g, float size, float l, float u, int v
     ) {
         Vector3f vector3f = new Vector3f(f, g, 0.0F).rotate(quaternionf).mul(size).add(x, y, z);
-        vertexConsumer.vertex(vector3f.x(), vector3f.y(), vector3f.z()).texture(l, u).color(this.red, this.green, this.blue, this.alpha).light(v);
+        vertexConsumer.addVertex(vector3f.x(), vector3f.y(), vector3f.z()).setUv(l, u).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(v);
     }
 
     @SuppressWarnings("unused")

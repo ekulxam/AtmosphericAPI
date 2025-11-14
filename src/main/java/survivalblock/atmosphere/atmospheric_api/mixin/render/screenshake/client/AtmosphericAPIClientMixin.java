@@ -5,8 +5,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,9 +29,9 @@ public class AtmosphericAPIClientMixin {
     @Inject(method = "onInitializeClient", at = @At("HEAD"))
     private void invokeInitializeScreenShakers(CallbackInfo ci) {
         FabricLoader.getInstance().getModContainer(AtmosphericAPI.MOD_ID).ifPresent(modContainer -> {
-            ResourceManagerHelper.registerBuiltinResourcePack(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK, modContainer, Text.translatable("resourcePack.atmospheric_api.disableallscreenshakers.name"), ResourcePackActivationType.DEFAULT_ENABLED);
+            ResourceManagerHelper.registerBuiltinResourcePack(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK, modContainer, Component.translatable("resourcePack.atmospheric_api.disableallscreenshakers.name"), ResourcePackActivationType.DEFAULT_ENABLED);
         });
-        ScreenShakePreventerRegistry.ALLOW_SHAKING.register((screenShaker -> !MinecraftClient.getInstance().atmospheric_api$isResourcePackLoaded(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK)));
+        ScreenShakePreventerRegistry.ALLOW_SHAKING.register((screenShaker -> !Minecraft.getInstance().atmospheric_api$isResourcePackLoaded(DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK)));
         ClientScreenShaker.initialize();
     }
 }

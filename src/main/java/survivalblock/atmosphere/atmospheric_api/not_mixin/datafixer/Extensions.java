@@ -4,7 +4,6 @@ import com.mojang.datafixers.kinds.App;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.codec.PacketCodec;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
@@ -12,14 +11,15 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import net.minecraft.network.codec.StreamCodec;
 
 @SuppressWarnings("unused")
 public class Extensions {
 
     public static final Logger LOGGER = AtmosphericAPI.LOGGER;
 
-    public static <B, C, T1> PacketCodec<B, C> extend(PacketCodec<B, C> original, PacketCodec<B, T1> addon, Function<C, @Nullable T1> from, BiConsumer<C, T1> to) {
-        return new PacketCodec<>() {
+    public static <B, C, T1> StreamCodec<B, C> extend(StreamCodec<B, C> original, StreamCodec<B, T1> addon, Function<C, @Nullable T1> from, BiConsumer<C, T1> to) {
+        return new StreamCodec<>() {
             @Override
             public C decode(B buf) {
                 C c = original.decode(buf);

@@ -1,37 +1,37 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.world;
 
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.world.injected_interface.AtmosphericWorldRegistryShenanigans;
 
 import java.util.Optional;
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
 
-@Mixin(World.class)
+@Mixin(Level.class)
 public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans {
 
-    @Shadow public abstract DynamicRegistryManager getRegistryManager();
+    @Shadow public abstract RegistryAccess registryAccess();
 
     //? if =1.21.1 {
     
-    /*@Override
+    @Override
     @Nullable
-    public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKey(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
-        return this.getRegistryManager().get(dynamicRegistryRegistryKey).getEntry(key).orElse(null);
+    public <T> Holder.Reference<T> atmospheric_api$getEntryFromKey(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
+        return this.registryAccess().registryOrThrow(dynamicRegistryRegistryKey).getHolder(key).orElse(null);
     }
 
     @Override
-    public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
-        return this.getRegistryManager().get(dynamicRegistryRegistryKey).entryOf(key);
+    public <T> Holder.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
+        return this.registryAccess().registryOrThrow(dynamicRegistryRegistryKey).getHolderOrThrow(key);
     }
-     *///?} elif =1.21.8 {
+     //?} elif =1.21.8 {
 
-    @Override
+    /*@Override
     @Nullable
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKey(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         Optional<Registry<T>> optional = this.getRegistryManager().getOptional(dynamicRegistryRegistryKey);
@@ -42,5 +42,5 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
     public <T> RegistryEntry.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(RegistryKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, RegistryKey<T> key) {
         return this.getRegistryManager().getOrThrow(dynamicRegistryRegistryKey).getOrThrow(key);
     }
-    //?}
+    *///?}
 }

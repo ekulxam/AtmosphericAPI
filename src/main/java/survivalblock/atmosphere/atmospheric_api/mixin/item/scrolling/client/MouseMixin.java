@@ -1,5 +1,5 @@
 //? if 1.21.8 {
-package survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling.client;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -34,4 +34,4 @@ public abstract class MouseMixin {
         return original.call(scrollAmount, selectedIndex, total);
     }
 }
-//?}
+*///?}

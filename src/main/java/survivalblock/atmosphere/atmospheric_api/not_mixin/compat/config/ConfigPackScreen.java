@@ -1,11 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.compat.config;
 
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.pack.PackScreen;
-import net.minecraft.resource.ResourcePackManager;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Path;
@@ -14,37 +9,42 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.repository.PackRepository;
 
-public class ConfigPackScreen extends PackScreen {
+public class ConfigPackScreen extends PackSelectionScreen {
 
     protected final Screen parent;
     protected final Set<String> allowedPacks;
 
-    public ConfigPackScreen(ResourcePackManager resourcePackManager, Consumer<ResourcePackManager> applier, Path file, Text title, Screen parent, Set<String> allowedPacks) {
+    public ConfigPackScreen(PackRepository resourcePackManager, Consumer<PackRepository> applier, Path file, Component title, Screen parent, Set<String> allowedPacks) {
         super(resourcePackManager, applier, file, title);
         this.parent = parent;
         this.allowedPacks = ImmutableSet.copyOf(allowedPacks);
     }
 
-    public static @NotNull ConfigPackScreen fromParent(Screen parent, Text title, Set<String> allowedPacks) {
-        MinecraftClient client = MinecraftClient.getInstance();
+    public static @NotNull ConfigPackScreen fromParent(Screen parent, Component title, Set<String> allowedPacks) {
+        Minecraft client = Minecraft.getInstance();
         return new ConfigPackScreen(
-                client.getResourcePackManager(),
-                client.options::refreshResourcePacks,
-                client.getResourcePackDir(),
+                client.getResourcePackRepository(),
+                client.options::updateResourcePacks,
+                client.getResourcePackDirectory(),
                 title,
                 parent,
                 allowedPacks);
     }
 
-    public static @NotNull ConfigPackScreen fromParent(Screen parent, Text title, String... allowedPacks) {
+    public static @NotNull ConfigPackScreen fromParent(Screen parent, Component title, String... allowedPacks) {
         return fromParent(parent, title, Arrays.stream(allowedPacks).collect(Collectors.toSet()));
     }
 
     @Override
-    public void close() {
-        super.close();
-        Objects.requireNonNull(this.client).setScreen(parent);
+    public void onClose() {
+        super.onClose();
+        Objects.requireNonNull(this.minecraft).setScreen(parent);
     }
 
     public Set<String> getAllowedPacks() {

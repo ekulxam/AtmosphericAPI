@@ -1,6 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
@@ -46,7 +46,7 @@ public class BasicScreenShaker implements ScreenShaker {
         return this.duration;
     }
 
-    public void tick(@Nullable World world) {
+    public void tick(@Nullable Level world) {
         if (this.duration <= 0) {
             return;
         }

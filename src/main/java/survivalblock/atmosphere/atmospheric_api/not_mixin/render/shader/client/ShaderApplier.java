@@ -1,5 +1,5 @@
 //? if >1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
 
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
@@ -40,4 +40,4 @@ public class ShaderApplier implements Comparable<ShaderApplier> {
         boolean shouldRender(RenderTickCounter renderTickCounter, boolean tick);
     }
 }
-//?}
+*///?}

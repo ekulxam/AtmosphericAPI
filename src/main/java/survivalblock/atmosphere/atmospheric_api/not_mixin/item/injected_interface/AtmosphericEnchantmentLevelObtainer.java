@@ -1,7 +1,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 @SuppressWarnings("unused")
 public interface AtmosphericEnchantmentLevelObtainer {

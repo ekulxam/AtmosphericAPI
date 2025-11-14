@@ -1,5 +1,5 @@
 //? if >1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
+/*package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,4 +26,4 @@ public final class AtmosphericShaderRegistry {
         AtmosphericShaderRegistryImpl.register(id, condition, priority);
     }
 }
-//?}
+*///?}

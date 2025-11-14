@@ -1,9 +1,9 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.Util;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.util.FastColor;
 
 @SuppressWarnings("unused")
 public final class Sequence {
@@ -11,15 +11,15 @@ public final class Sequence {
     private Sequence() {
     }
 
-    public static MutableText scrollingGradient(Text original, int wrap, float reciprocalWrap, int startColor, int endColor, boolean forward) {
+    public static MutableComponent scrollingGradient(Component original, int wrap, float reciprocalWrap, int startColor, int endColor, boolean forward) {
         String string = original.getString();
         int length = string.length();
         //noinspection NonStrictComparisonCanBeEquality
         if (length <= 0) {
-            return original instanceof MutableText mutableText ? mutableText : original.copy();
+            return original instanceof MutableComponent mutableText ? mutableText : original.copy();
         }
-        long time = Util.getMeasuringTimeMs();
-        MutableText text = Text.literal(string.substring(0, 1)).withColor(ColorHelper/*? =1.21.1 {*/  /*.Argb *//*?}*/.lerp(((time) % wrap) * reciprocalWrap, startColor, endColor));
+        long time = Util.getMillis();
+        MutableComponent text = Component.literal(string.substring(0, 1)).withColor(FastColor/*? =1.21.1 {*/  .ARGB32 /*?}*/.lerp(((time) % wrap) * reciprocalWrap, startColor, endColor));
         float incr = (float) wrap / length;
         for (int i = 1; i < length; i++) {
             float deltaHalfCalculated;
@@ -28,7 +28,7 @@ public final class Sequence {
             } else {
                 deltaHalfCalculated = time + (int) (incr * i);
             }
-            text.append(Text.literal(string.substring(i, i + 1)).withColor(ColorHelper/*? =1.21.1 {*/  /*.Argb *//*?}*/.lerp((deltaHalfCalculated % wrap) * reciprocalWrap, startColor, endColor)));
+            text.append(Component.literal(string.substring(i, i + 1)).withColor(FastColor/*? =1.21.1 {*/  .ARGB32 /*?}*/.lerp((deltaHalfCalculated % wrap) * reciprocalWrap, startColor, endColor)));
         }
         return text;
     }

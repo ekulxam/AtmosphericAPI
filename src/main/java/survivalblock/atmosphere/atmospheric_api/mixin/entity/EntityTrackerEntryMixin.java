@@ -4,13 +4,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.EntityAttributesS2CPacket;
-import net.minecraft.server.network.EntityTrackerEntry;
-import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,26 +19,33 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.util.ReflectionCacher;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Set;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket;
+import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 
-@Mixin(EntityTrackerEntry.class)
+@Mixin(ServerEntity.class)
 public abstract class EntityTrackerEntryMixin {
 
 	@Shadow @Final private Entity entity;
 
-	@Shadow protected abstract void sendSyncPacket(Packet<?> packet);
+	@Shadow protected abstract void broadcastAndSend(Packet<?> packet);
 
-	@Inject(method = "sendPackets", at = @At("HEAD"))
-	private void captureSender(ServerPlayerEntity player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
+	@Inject(method = "sendPairingData", at = @At("HEAD"))
+	private void captureSender(ServerPlayer player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
 		senderRef.set(sender);
 	}
 
-	@WrapOperation(method = "sendPackets", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
+	@WrapOperation(method = "sendPairingData", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
 	private boolean updateEntityWithAttributesAttributes(Object object, Operation<Boolean> original, @Share("sender") LocalRef<Object> senderRef) {
 		if (original.call(object)) {
 			return true;
 		}
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
-			Collection<EntityAttributeInstance> collection = entityWithAttributes.getAttributes().getAttributesToSend();
+			Collection<AttributeInstance> collection = entityWithAttributes.getAttributes().getSyncableAttributes();
 			if (!collection.isEmpty()) {
 				try {
 					// neoforge changes the type of the sender parameter
@@ -61,7 +61,7 @@ public abstract class EntityTrackerEntryMixin {
 							return null;
 						}
 					});
-					acceptMethod.invoke(sender, new EntityAttributesS2CPacket(this.entity.getId(), collection));
+					acceptMethod.invoke(sender, new ClientboundUpdateAttributesPacket(this.entity.getId(), collection));
 				} catch (Throwable throwable) {
 					AtmosphericAPI.LOGGER.error("Error while doing reflection to get a EntityWithAttributes's attributes!", throwable);
 				}
@@ -70,15 +70,15 @@ public abstract class EntityTrackerEntryMixin {
 		return false;
 	}
 
-	@WrapOperation(method = "syncEntityData", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
+	@WrapOperation(method = "sendDirtyEntityData", constant = @Constant(classValue = LivingEntity.class, ordinal = 0))
 	private boolean updateEntityWithAttributesAttributes(Object object, Operation<Boolean> original) {
 		if (original.call(object)) {
 			return true;
 		}
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
-			Set<EntityAttributeInstance> set = entityWithAttributes.getAttributes().getTracked();
+			Set<AttributeInstance> set = entityWithAttributes.getAttributes().getAttributesToSync();
 			if (!set.isEmpty()) {
-				this.sendSyncPacket(new EntityAttributesS2CPacket(this.entity.getId(), set));
+				this.broadcastAndSend(new ClientboundUpdateAttributesPacket(this.entity.getId(), set));
 			}
 			set.clear();
 		}

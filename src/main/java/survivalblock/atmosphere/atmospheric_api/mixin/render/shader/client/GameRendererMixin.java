@@ -1,5 +1,5 @@
 //? if >1.21.1 {
-package survivalblock.atmosphere.atmospheric_api.mixin.render.shader.client;
+/*package survivalblock.atmosphere.atmospheric_api.mixin.render.shader.client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.PostEffectProcessor;
@@ -36,4 +36,4 @@ public abstract class GameRendererMixin {
         });
     }
 }
-//?}
+*///?}

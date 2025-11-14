@@ -1,32 +1,31 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.geometry;
 
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
-
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.List;
+import net.minecraft.world.phys.Vec3;
 
 @SuppressWarnings("unused")
 public class LineDrawer {
 
-    public static void drawLine(Vec3d pos, Vec3d start, Vec3d end, MatrixStack matrixStack, VertexConsumer lines, int color) {
+    public static void drawLine(Vec3 pos, Vec3 start, Vec3 end, PoseStack matrixStack, VertexConsumer lines, int color) {
         drawLine(start.subtract(pos).toVector3f(), end.subtract(start), matrixStack, lines, color);
     }
 
-    public static void drawLine(Vec3d start, Vec3d end, MatrixStack matrixStack, VertexConsumer lines, int color) {
+    public static void drawLine(Vec3 start, Vec3 end, PoseStack matrixStack, VertexConsumer lines, int color) {
         drawLine(start.toVector3f(), end.subtract(start), matrixStack, lines, color);
     }
 
-    private static void drawLine(Vector3f offset, Vec3d rotationVec, MatrixStack matrixStack, VertexConsumer lines, int color) {
-        matrixStack.push();
-        MatrixStack.Entry entry = matrixStack.peek();
-        lines.vertex(entry, offset).color(color).normal(entry, (float)rotationVec.x, (float)rotationVec.y, (float)rotationVec.z);
-        lines.vertex(entry, (float)(offset.x() + rotationVec.x), (float)(offset.y() + rotationVec.y), (float)(offset.z() + rotationVec.z))
-                .color(color)
-                .normal(entry, (float)rotationVec.x, (float)rotationVec.y, (float)rotationVec.z);
-        matrixStack.pop();
+    private static void drawLine(Vector3f offset, Vec3 rotationVec, PoseStack matrixStack, VertexConsumer lines, int color) {
+        matrixStack.pushPose();
+        PoseStack.Pose entry = matrixStack.last();
+        lines.addVertex(entry, offset).setColor(color).setNormal(entry, (float)rotationVec.x, (float)rotationVec.y, (float)rotationVec.z);
+        lines.addVertex(entry, (float)(offset.x() + rotationVec.x), (float)(offset.y() + rotationVec.y), (float)(offset.z() + rotationVec.z))
+                .setColor(color)
+                .setNormal(entry, (float)rotationVec.x, (float)rotationVec.y, (float)rotationVec.z);
+        matrixStack.popPose();
     }
 
     /*

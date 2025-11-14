@@ -2,9 +2,9 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.render.overlay.client
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.util.function.BiFunction;
@@ -21,19 +21,19 @@ public final class AtmosphericOverlayRegistry {
         AtmosphericOverlayRegistryImpl.register(overlayHolder);
     }
 
-    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier) {
+    public static void register(ResourceLocation texture, BiFunction<Minecraft, LocalPlayer, Float> opacitySupplier) {
         AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier);
     }
 
-    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, boolean bypassable) {
+    public static void register(ResourceLocation texture, BiFunction<Minecraft, LocalPlayer, Float> opacitySupplier, boolean bypassable) {
         AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier, bypassable);
     }
 
-    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, int priority) {
+    public static void register(ResourceLocation texture, BiFunction<Minecraft, LocalPlayer, Float> opacitySupplier, int priority) {
         AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier, priority);
     }
 
-    public static void register(Identifier texture, BiFunction<MinecraftClient, ClientPlayerEntity, Float> opacitySupplier, boolean bypassable, int priority) {
+    public static void register(ResourceLocation texture, BiFunction<Minecraft, LocalPlayer, Float> opacitySupplier, boolean bypassable, int priority) {
         AtmosphericOverlayRegistryImpl.register(texture, opacitySupplier, bypassable, priority);
     }
 }

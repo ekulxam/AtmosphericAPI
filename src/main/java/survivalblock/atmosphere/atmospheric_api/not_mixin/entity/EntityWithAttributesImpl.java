@@ -2,16 +2,12 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.*;
-//? if =1.21.1 {
-/*import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-*///?} elif =1.21.8 {
-
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-//?}
-import net.minecraft.world.World;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,11 +19,11 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public abstract class EntityWithAttributesImpl extends Entity implements EntityWithAttributes {
 
-    protected final AttributeContainer attributes;
+    protected final AttributeMap attributes;
 
-    public EntityWithAttributesImpl(EntityType<? extends Entity> type, World world) {
+    public EntityWithAttributesImpl(EntityType<? extends Entity> type, Level world) {
         super(type, world);
-        this.attributes = new AttributeContainer(this.getDefaultAttributeContainer());
+        this.attributes = new AttributeMap(this.getDefaultAttributeContainer());
     }
 
     @Override
@@ -37,20 +33,20 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
 
     //? if =1.21.1 {
 
-    /*@Override
-    protected void readCustomDataFromNbt(NbtCompound nbt) {
-        if (nbt.contains(ATTRIBUTES_NBT_KEY, NbtElement.LIST_TYPE) && this.getWorld() != null && !this.getWorld().isClient) {
-            this.getAttributes().readNbt(nbt.getList(ATTRIBUTES_NBT_KEY, NbtElement.COMPOUND_TYPE));
+    @Override
+    protected void readAdditionalSaveData(CompoundTag nbt) {
+        if (nbt.contains(ATTRIBUTES_NBT_KEY, Tag.TAG_LIST) && this.level() != null && !this.level().isClientSide) {
+            this.getAttributes().load(nbt.getList(ATTRIBUTES_NBT_KEY, Tag.TAG_COMPOUND));
         }
     }
 
     @Override
-    protected void writeCustomDataToNbt(NbtCompound nbt) {
-        nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().toNbt());
+    protected void addAdditionalSaveData(CompoundTag nbt) {
+        nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().save());
     }
-     *///?} elif =1.21.8 {
+     //?} elif =1.21.8 {
 
-    @Override
+    /*@Override
     protected void readCustomData(ReadView view) {
         if (this.getWorld() != null && !this.getWorld().isClient) {
             Optional<List<EntityAttributeInstance.Packed>> optional = view.read("attributes", EntityAttributeInstance.Packed.LIST_CODEC);
@@ -62,17 +58,17 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
     protected void writeCustomData(WriteView view) {
         view.put("attributes", EntityAttributeInstance.Packed.LIST_CODEC, this.getAttributes().pack());
     }
-    //?}
+    *///?}
 
     @Override
-    public AttributeContainer getAttributes() {
+    public AttributeMap getAttributes() {
         return this.attributes;
     }
 
     @Override
-    public boolean setAttributesFrom(AttributeContainer attributes) {
+    public boolean setAttributesFrom(AttributeMap attributes) {
         if (attributes != null) {
-            this.attributes.setFrom(attributes);
+            this.attributes.assignAllValues(attributes);
             return true;
         }
         return false;

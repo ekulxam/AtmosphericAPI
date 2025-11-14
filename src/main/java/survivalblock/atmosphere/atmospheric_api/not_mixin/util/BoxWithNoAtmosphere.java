@@ -1,60 +1,64 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.math.*;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 /**
- * A {@link Box} with zero side length. This box does not intersect anything.
- * Using the operations of {@link Box} on this class simply does nothing and does NOT
- * create a new instance. For example, see {@link Box#withMinX(double)} and {@link BoxWithNoAtmosphere#withMinX(double)}
+ * A {@link AABB} with zero side length. This box does not intersect anything.
+ * Using the operations of {@link AABB} on this class simply does nothing and does NOT
+ * create a new instance. For example, see {@link AABB#setMinX(double)} and {@link BoxWithNoAtmosphere#setMinX(double)}
  */
 @SuppressWarnings("unused")
-public class BoxWithNoAtmosphere extends Box {
+public class BoxWithNoAtmosphere extends AABB {
 
     public static final BoxWithNoAtmosphere INSTANCE = new BoxWithNoAtmosphere(); // the default instance
-    public final Vec3d zero = new Vec3d(0.0, 0.0, 0.0); // creates another instance of the zero vector
+    public final Vec3 zero = new Vec3(0.0, 0.0, 0.0); // creates another instance of the zero vector
 
     public BoxWithNoAtmosphere() {
         super(0, 0, 0, 0, 0, 0);
     }
 
     @Override
-    public Box withMinX(double minX) {
+    public AABB setMinX(double minX) {
         return this;
     }
 
     @Override
-    public Box withMinY(double minY) {
+    public AABB setMinY(double minY) {
         return this;
     }
 
     @Override
-    public Box withMinZ(double minZ) {
+    public AABB setMinZ(double minZ) {
         return this;
     }
 
     @Override
-    public Box withMaxX(double maxX) {
+    public AABB setMaxX(double maxX) {
         return this;
     }
 
     @Override
-    public Box withMaxY(double maxY) {
+    public AABB setMaxY(double maxY) {
         return this;
     }
 
     @Override
-    public Box withMaxZ(double maxZ) {
+    public AABB setMaxZ(double maxZ) {
         return this;
     }
 
     @Override
-    public double getMin(Direction.Axis axis) {
+    public double min(Direction.Axis axis) {
         return 0;
     }
 
     @Override
-    public double getMax(Direction.Axis axis) {
+    public double max(Direction.Axis axis) {
         return 0;
     }
 
@@ -88,62 +92,62 @@ public class BoxWithNoAtmosphere extends Box {
     }
 
     @Override
-    public Box shrink(double x, double y, double z) {
+    public AABB contract(double x, double y, double z) {
         return this;
     }
 
     @Override
-    public Box stretch(Vec3d scale) {
+    public AABB expandTowards(Vec3 scale) {
         return this;
     }
 
     @Override
-    public Box stretch(double x, double y, double z) {
+    public AABB expandTowards(double x, double y, double z) {
         return this;
     }
 
     @Override
-    public Box expand(double x, double y, double z) {
+    public AABB inflate(double x, double y, double z) {
         return this;
     }
 
     @Override
-    public Box expand(double value) {
+    public AABB inflate(double value) {
         return this;
     }
 
     @Override
-    public Box intersection(Box box) {
+    public AABB intersect(AABB box) {
         return this;
     }
 
     @Override
-    public Box union(Box box) {
+    public AABB minmax(AABB box) {
         return this;
     }
 
     @Override
-    public Box offset(double x, double y, double z) {
+    public AABB move(double x, double y, double z) {
         return this;
     }
 
     @Override
-    public Box offset(BlockPos blockPos) {
+    public AABB move(BlockPos blockPos) {
         return this;
     }
 
     @Override
-    public Box offset(Vec3d vec) {
+    public AABB move(Vec3 vec) {
         return this;
     }
 
     @Override
-    public Box offset(Vector3f offset) {
+    public AABB move(Vector3f offset) {
         return this;
     }
 
     @Override
-    public boolean intersects(Box box) {
+    public boolean intersects(AABB box) {
         return false;
     }
 
@@ -153,12 +157,12 @@ public class BoxWithNoAtmosphere extends Box {
     }
 
     @Override
-    public boolean intersects(Vec3d pos1, Vec3d pos2) {
+    public boolean intersects(Vec3 pos1, Vec3 pos2) {
         return false;
     }
 
     @Override
-    public boolean contains(Vec3d pos) {
+    public boolean contains(Vec3 pos) {
         return false;
     }
 
@@ -168,59 +172,59 @@ public class BoxWithNoAtmosphere extends Box {
     }
 
     @Override
-    public double getAverageSideLength() {
+    public double getSize() {
         return 0;
     }
 
     @Override
-    public double getLengthX() {
+    public double getXsize() {
         return 0;
     }
 
     @Override
-    public double getLengthY() {
+    public double getYsize() {
         return 0;
     }
 
     @Override
-    public double getLengthZ() {
+    public double getZsize() {
         return 0;
     }
 
     @Override
-    public Box contract(double x, double y, double z) {
+    public AABB deflate(double x, double y, double z) {
         return this;
     }
 
     @Override
-    public Box contract(double value) {
+    public AABB deflate(double value) {
         return this;
     }
 
     @Override
-    public Vec3d getCenter() {
+    public Vec3 getCenter() {
         return this.zero;
     }
 
     //? if =1.21.1 {
-    /*@Override
-    public Vec3d getBottomCenter() {
+    @Override
+    public Vec3 getBottomCenter() {
         return this.zero;
     }
-    *///?} elif =1.21.8 {
-    @Override
+    //?} elif =1.21.8 {
+    /*@Override
     public Vec3d getHorizontalCenter() {
         return this.zero;
     }
-    //?}
+    *///?}
 
     @Override
-    public Vec3d getMinPos() {
+    public Vec3 getMinPosition() {
         return this.zero;
     }
 
     @Override
-    public Vec3d getMaxPos() {
+    public Vec3 getMaxPosition() {
         return this.zero;
     }
 }

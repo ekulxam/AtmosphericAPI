@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,6 +31,6 @@ public class FabricIconHandlerMixin {
         if (!modContainer.equals(atmosphere.get())) {
             return originalPath;
         }
-        return MinecraftClient.getInstance().atmospheric_api$isResourcePackLoaded(ScreenShaker.DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK) ? "assets/atmospheric_api/giver_of_light.png" : originalPath;
+        return Minecraft.getInstance().atmospheric_api$isResourcePackLoaded(ScreenShaker.DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK) ? "assets/atmospheric_api/giver_of_light.png" : originalPath;
     }
 }

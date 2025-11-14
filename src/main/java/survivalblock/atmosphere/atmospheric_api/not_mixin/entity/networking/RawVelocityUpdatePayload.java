@@ -2,36 +2,36 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.entity.networking;
 
 import io.netty.buffer.ByteBuf;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.entity.Entity;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 @SuppressWarnings("unused")
-public record RawVelocityUpdatePayload(int entityId, double velocityX, double velocityY, double velocityZ) implements CustomPayload {
+public record RawVelocityUpdatePayload(int entityId, double velocityX, double velocityY, double velocityZ) implements CustomPacketPayload {
 
-    public static final Id<RawVelocityUpdatePayload> ID = new Id<>(AtmosphericAPI.id("raw_velocity_update"));
+    public static final Type<RawVelocityUpdatePayload> ID = new Type<>(AtmosphericAPI.id("raw_velocity_update"));
 
-    public static final PacketCodec<ByteBuf, RawVelocityUpdatePayload> CODEC = PacketCodec.tuple(
-            PacketCodecs.VAR_INT, payload -> payload.entityId,
-            PacketCodecs.DOUBLE, payload -> payload.velocityX,
-            PacketCodecs.DOUBLE, payload -> payload.velocityY,
-            PacketCodecs.DOUBLE, payload -> payload.velocityZ,
+    public static final StreamCodec<ByteBuf, RawVelocityUpdatePayload> CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, payload -> payload.entityId,
+            ByteBufCodecs.DOUBLE, payload -> payload.velocityX,
+            ByteBufCodecs.DOUBLE, payload -> payload.velocityY,
+            ByteBufCodecs.DOUBLE, payload -> payload.velocityZ,
             RawVelocityUpdatePayload::new);
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 
-    public RawVelocityUpdatePayload(Entity entity, Vec3d velocity) {
+    public RawVelocityUpdatePayload(Entity entity, Vec3 velocity) {
         this(entity.getId(), velocity);
     }
 
-    public RawVelocityUpdatePayload(int entityId, Vec3d velocity) {
+    public RawVelocityUpdatePayload(int entityId, Vec3 velocity) {
         this(entityId, velocity.x, velocity.y, velocity.z);
     }
 
@@ -46,15 +46,15 @@ public record RawVelocityUpdatePayload(int entityId, double velocityX, double ve
         @SuppressWarnings("resource")
         @Override
         public void receive(T payload, ClientPlayNetworking.Context context) {
-            World world = context.client().world;
+            Level world = context.client().level;
             if (world == null) {
                 return;
             }
-            Entity entity = world.getEntityById(payload.entityId());
+            Entity entity = world.getEntity(payload.entityId());
             if (entity == null) {
                 return;
             }
-            entity.setVelocityClient(payload.velocityX(), payload.velocityY(), payload.velocityZ());
+            entity.lerpMotion(payload.velocityX(), payload.velocityY(), payload.velocityZ());
         }
     }
 }

@@ -1,11 +1,11 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface;
 
-import net.minecraft.component.ComponentType;
+import net.minecraft.core.component.DataComponentType;
 
 @SuppressWarnings("unused")
 public interface AtmosphericItemStackComponentCreator {
 
-    default <T> T atmospheric_api$getOrCreate(ComponentType<T> type, T fallback) {
+    default <T> T atmospheric_api$getOrCreate(DataComponentType<T> type, T fallback) {
         return fallback;
     }
 }

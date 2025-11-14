@@ -5,7 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.ApiStatus;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,8 +24,8 @@ public class AtmosphericAPIClientMixin {
     private void createModmenuScreenCommand(CallbackInfo ci) {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
             dispatcher.register(ClientCommandManager.literal("open_modmenu_screen").executes(context -> {
-                MinecraftClient client = context.getSource().getClient();
-                client.send(() -> client.setScreen(new ModsScreen(null)));
+                Minecraft client = context.getSource().getClient();
+                client.tell(() -> client.setScreen(new ModsScreen(null)));
                 return 1;
             }));
         });

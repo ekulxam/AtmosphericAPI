@@ -1,15 +1,8 @@
 //? if 1.21.1 {
-/*package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
+package survivalblock.atmosphere.atmospheric_api.mixin.item.render.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.client.render.item.ItemModels;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,42 +13,49 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AlternateItemModelRegistryImpl;
 
 import java.util.Map;
+import net.minecraft.client.renderer.ItemModelShaper;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
 
-    @Shadow @Final private ItemModels models;
+    @Shadow @Final private ItemModelShaper itemModelShaper;
 
-    @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z", ordinal = 1),
+    @ModifyVariable(method = "render(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;ZLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/client/resources/model/BakedModel;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z", ordinal = 1),
             index = 8, argsOnly = true)
     private BakedModel getCustomSpyglassInventoryModel(BakedModel value, @Local(argsOnly = true) ItemStack stack) {
         if (stack.getItem() instanceof IAmASpyglassItem spyglass) {
-            Map<AlternateModelItem, ModelIdentifier> models = AlternateItemModelRegistryImpl.getModels();
-            return this.models.getModelManager().getModel(models.get(spyglass));
+            Map<AlternateModelItem, ModelResourceLocation> models = AlternateItemModelRegistryImpl.getModels();
+            return this.itemModelShaper.getModelManager().getModel(models.get(spyglass));
         }
         return value;
     }
 
-    @ModifyVariable(method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
+    @ModifyVariable(method = "render(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemDisplayContext;ZLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;IILnet/minecraft/client/resources/model/BakedModel;)V",
             at = @At(value = "HEAD"),
             index = 8, argsOnly = true)
-    private BakedModel getAlternateInventoryModel(BakedModel value, @Local(argsOnly = true) ModelTransformationMode renderMode, @Local(argsOnly = true) ItemStack stack) {
+    private BakedModel getAlternateInventoryModel(BakedModel value, @Local(argsOnly = true) ItemDisplayContext renderMode, @Local(argsOnly = true) ItemStack stack) {
         Item item = stack.getItem();
-        if (item instanceof AlternateModelItem alternateModelItem && !(item instanceof IAmASpyglassItem) && renderMode.equals(ModelTransformationMode.GUI)) {
-            Map<AlternateModelItem, ModelIdentifier> models = AlternateItemModelRegistryImpl.getModels();
-            return this.models.getModelManager().getModel(models.get(alternateModelItem));
+        if (item instanceof AlternateModelItem alternateModelItem && !(item instanceof IAmASpyglassItem) && renderMode.equals(ItemDisplayContext.GUI)) {
+            Map<AlternateModelItem, ModelResourceLocation> models = AlternateItemModelRegistryImpl.getModels();
+            return this.itemModelShaper.getModelManager().getModel(models.get(alternateModelItem));
         }
         return value;
     }
 
-    @ModifyExpressionValue(method = "getModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/item/ItemModels;getModel(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/client/render/model/BakedModel;"))
+    @ModifyExpressionValue(method = "getModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/ItemModelShaper;getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;"))
     private BakedModel getCustomSpyglassHandheldModel(BakedModel original, @Local(argsOnly = true) ItemStack stack) {
         if (stack.getItem() instanceof IAmASpyglassItem spyglass) {
-            Map<IAmASpyglassItem, ModelIdentifier> spyglassModels = AlternateItemModelRegistryImpl.getSpyglassModels();
-            return this.models.getModelManager().getModel(spyglassModels.get(spyglass));
+            Map<IAmASpyglassItem, ModelResourceLocation> spyglassModels = AlternateItemModelRegistryImpl.getSpyglassModels();
+            return this.itemModelShaper.getModelManager().getModel(spyglassModels.get(spyglass));
         }
         return original;
     }
 }
-*///?}
+//?}

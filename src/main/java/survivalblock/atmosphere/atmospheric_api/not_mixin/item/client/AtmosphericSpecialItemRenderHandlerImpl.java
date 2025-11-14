@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.item.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;

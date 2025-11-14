@@ -1,9 +1,8 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface;
 
-import net.minecraft.entity.Entity;
-
 import java.util.Collection;
 import java.util.function.Predicate;
+import net.minecraft.world.entity.Entity;
 
 @SuppressWarnings("unused")
 public interface AtmosphericServerWorldEntityCollector {

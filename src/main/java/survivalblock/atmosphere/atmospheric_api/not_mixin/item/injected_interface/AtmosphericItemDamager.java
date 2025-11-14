@@ -1,22 +1,21 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stat.StatType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
-
 import java.util.Optional;
+import net.minecraft.stats.StatType;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 @SuppressWarnings({"unused", "UnusedReturnValue", "OptionalUsedAsFieldOrParameterType"})
 public interface AtmosphericItemDamager {
 
     /**
-     * @see Item#finishUsing(ItemStack, World, LivingEntity)
+     * @see Item#finishUsingItem(ItemStack, Level, LivingEntity)
      */
-    default boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
+    default boolean atmospheric_api$applyWhenDoneUsing(Player user, InteractionHand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
         return false;
     }
 }

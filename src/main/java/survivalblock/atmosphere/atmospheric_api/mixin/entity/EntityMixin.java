@@ -1,8 +1,8 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface.AtmosphericEntityDaylightGetter;
@@ -10,9 +10,9 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interf
 @Mixin(Entity.class)
 public abstract class EntityMixin implements AtmosphericEntityDaylightGetter {
 
-    @Shadow public abstract World getWorld();
+    @Shadow public abstract Level level();
 
-    @Shadow public abstract float getBrightnessAtEyes();
+    @Shadow public abstract float getLightLevelDependentMagicValue();
 
     @Shadow public abstract double getX();
 
@@ -22,11 +22,11 @@ public abstract class EntityMixin implements AtmosphericEntityDaylightGetter {
 
     @Override
     public boolean atmospheric_api$isAffectedByDaylight() {
-        World world = this.getWorld();
+        Level world = this.level();
         if (world.isDay()) {
-            float f = this.getBrightnessAtEyes();
-            BlockPos blockPos = BlockPos.ofFloored(this.getX(), this.getEyeY(), this.getZ());
-            return f > 0.5F && world.isSkyVisible(blockPos);
+            float f = this.getLightLevelDependentMagicValue();
+            BlockPos blockPos = BlockPos.containing(this.getX(), this.getEyeY(), this.getZ());
+            return f > 0.5F && world.canSeeSky(blockPos);
         }
         return false;
     }

@@ -1,7 +1,7 @@
 //? if <1.21.9 {
 package survivalblock.atmosphere.atmospheric_api.access;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public interface WaitingOnFabricRenderState {
 

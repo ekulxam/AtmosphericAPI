@@ -1,6 +1,11 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datagen;
 
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.registry.*;
+import net.minecraft.resources.ResourceKey;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.IsThisEvenNecessary;
@@ -10,25 +15,25 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.IsThisEvenNecess
 public class RegistryEntryLookupContainer {
 
     @Nullable
-    private Registerable<?> registerable = null;
+    private BootstrapContext<?> registerable = null;
 
     @Nullable
-    private RegistryWrapper.WrapperLookup wrapperLookup = null;
+    private HolderLookup.Provider wrapperLookup = null;
 
-    public RegistryEntryLookupContainer(@NotNull Registerable<?> registerable) {
+    public RegistryEntryLookupContainer(@NotNull BootstrapContext<?> registerable) {
         this.registerable = registerable;
     }
 
-    public RegistryEntryLookupContainer(@NotNull RegistryWrapper.WrapperLookup wrapperLookup) {
+    public RegistryEntryLookupContainer(@NotNull HolderLookup.Provider wrapperLookup) {
         this.wrapperLookup = wrapperLookup;
     }
 
-    public <T> RegistryEntryLookup<T> get(RegistryKey<? extends Registry<? extends T>> registryKey) {
+    public <T> HolderGetter<T> get(ResourceKey<? extends Registry<? extends T>> registryKey) {
         if (this.registerable != null) {
-            return registerable.getRegistryLookup(registryKey);
+            return registerable.lookup(registryKey);
         }
         if (this.wrapperLookup != null) {
-            return wrapperLookup./*? =1.21.1 {*/ /*getWrapperOrThrow *//*?} else {*/ getOrThrow /*?}*/(registryKey);
+            return wrapperLookup./*? =1.21.1 {*/ lookupOrThrow /*?} else {*/ /*getOrThrow *//*?}*/(registryKey);
         }
         throw new IllegalStateException("A RegistryEntryLookupContainer cannot have both its fields be null!");
     }

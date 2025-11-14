@@ -1,18 +1,17 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-//? if <1.21.5
-/*import net.minecraft.item.AnimalArmorItem;*/
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.stat.StatType;
-import net.minecraft.util.Hand;
 import org.spongepowered.asm.mixin.Mixin;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface.AtmosphericHorseArmorItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.injected_interface.AtmosphericItemDamager;
 
 import java.util.Optional;
+import net.minecraft.stats.StatType;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AnimalArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 @Mixin(Item.class)
 public class ItemMixin implements AtmosphericHorseArmorItem, AtmosphericItemDamager {
@@ -21,22 +20,22 @@ public class ItemMixin implements AtmosphericHorseArmorItem, AtmosphericItemDama
     public boolean atmospheric_api$isHorseArmor() {
         //? if =1.21.1 {
         
-        /*return (Item) (Object) this instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getType().equals(AnimalArmorItem.Type.EQUESTRIAN);
+        return (Item) (Object) this instanceof AnimalArmorItem animalArmorItem && animalArmorItem.getBodyType().equals(AnimalArmorItem.BodyType.EQUESTRIAN);
 
-         *///?} elif =1.21.8 {
+         //?} elif =1.21.8 {
 
-        return false;
+        /*return false;
 
-        //?}
+        *///?}
     }
 
     @Override
-    public boolean atmospheric_api$applyWhenDoneUsing(PlayerEntity user, Hand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
+    public boolean atmospheric_api$applyWhenDoneUsing(Player user, InteractionHand hand, ItemStack stack, int durabilityDamage, int cooldownTicks, Optional<StatType<Item>> stat) {
         if (!user.isCreative()) {
-            if (durabilityDamage > 0) stack.damage(durabilityDamage, user, LivingEntity.getSlotForHand(hand));
-            if (cooldownTicks > 0) user.getItemCooldownManager().set(/*? =1.21.1 {*/ /*(Item) (Object) this *//*?} else {*/ stack /*?}*/, cooldownTicks);
+            if (durabilityDamage > 0) stack.hurtAndBreak(durabilityDamage, user, LivingEntity.getSlotForHand(hand));
+            if (cooldownTicks > 0) user.getCooldowns().addCooldown(/*? =1.21.1 {*/ (Item) (Object) this /*?} else {*/ /*stack *//*?}*/, cooldownTicks);
         }
-        stat.ifPresent(statType -> statType.getOrCreateStat((Item) (Object) this));
+        stat.ifPresent(statType -> statType.get((Item) (Object) this));
         return true;
     }
 }

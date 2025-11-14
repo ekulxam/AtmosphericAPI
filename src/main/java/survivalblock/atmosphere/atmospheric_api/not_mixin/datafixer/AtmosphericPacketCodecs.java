@@ -2,14 +2,6 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer;
 
 import com.mojang.datafixers.util.*;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.DangerousAndOrUnstable;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Duo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.FunctionUnlimited;
@@ -17,66 +9,74 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.util.FunctionUnlimited
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 @SuppressWarnings("unused")
 public interface AtmosphericPacketCodecs {
 
-    PacketCodec<ByteBuf, SoundEvent> SOUND_EVENT_BY_ID = viaId(Registries.SOUND_EVENT);
+    StreamCodec<ByteBuf, SoundEvent> SOUND_EVENT_BY_ID = viaId(BuiltInRegistries.SOUND_EVENT);
 
-    PacketCodec<ByteBuf, Vec3d> VEC3D = new PacketCodec<>() {
-        public Vec3d decode(ByteBuf byteBuf) {
-            return new Vec3d(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
+    StreamCodec<ByteBuf, Vec3> VEC3D = new StreamCodec<>() {
+        public Vec3 decode(ByteBuf byteBuf) {
+            return new Vec3(byteBuf.readDouble(), byteBuf.readDouble(), byteBuf.readDouble());
         }
 
-        public void encode(ByteBuf byteBuf, Vec3d vec3d) {
-            byteBuf.writeDouble(vec3d.getX());
-            byteBuf.writeDouble(vec3d.getY());
-            byteBuf.writeDouble(vec3d.getZ());
+        public void encode(ByteBuf byteBuf, Vec3 vec3d) {
+            byteBuf.writeDouble(vec3d.x());
+            byteBuf.writeDouble(vec3d.y());
+            byteBuf.writeDouble(vec3d.z());
         }
     };
 
-    PacketCodec<ByteBuf, Box> BOX = VEC3D.collect(AtmosphericPacketCodecs::duo)
-            .xmap(vec3ds -> new Box(vec3ds.getFirst(), vec3ds.getSecond()),
-                    box -> new Duo<>(box.getMinPos(), box.getMaxPos()));
+    StreamCodec<ByteBuf, AABB> BOX = VEC3D.apply(AtmosphericPacketCodecs::duo)
+            .map(vec3ds -> new AABB(vec3ds.getFirst(), vec3ds.getSecond()),
+                    box -> new Duo<>(box.getMinPosition(), box.getMaxPosition()));
 
-    static <V> PacketCodec<ByteBuf, V> viaId(Registry<V> registry) {
-        return Identifier.PACKET_CODEC.xmap(registry::get, registry::getId);
+    static <V> StreamCodec<ByteBuf, V> viaId(Registry<V> registry) {
+        return ResourceLocation.STREAM_CODEC.map(registry::get, registry::getKey);
     }
 
-    static <B extends ByteBuf, V> PacketCodec<B, Duo<V>> duo(PacketCodec<? super B, V> elementCodec) {
-        return new PacketCodec<>() {
+    static <B extends ByteBuf, V> StreamCodec<B, Duo<V>> duo(StreamCodec<? super B, V> elementCodec) {
+        return new StreamCodec<>() {
             public Duo<V> decode(B byteBuf) {
-                PacketCodecs.readCollectionSize(byteBuf, 2);
+                ByteBufCodecs.readCount(byteBuf, 2);
                 return new Duo<>(elementCodec.decode(byteBuf), elementCodec.decode(byteBuf));
             }
 
             public void encode(B byteBuf, Duo<V> duo) {
                 // IsThisEvenNecessary(IsThisEvenNecessary.LevelsOfUnnecessity.PROBABLY_NOT)
-                PacketCodecs.writeCollectionSize(byteBuf, duo.size(), 2); // ensures it's actually a duo of size 2
+                ByteBufCodecs.writeCount(byteBuf, duo.size(), 2); // ensures it's actually a duo of size 2
                 elementCodec.encode(byteBuf, duo.getFirst());
                 elementCodec.encode(byteBuf, duo.getSecond());
             }
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
             Function7<T1, T2, T3, T4, T5, T6, T7, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -102,26 +102,26 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
             Function8<T1, T2, T3, T4, T5, T6, T7, T8, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -149,28 +149,28 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
             Function9<T1, T2, T3, T4, T5, T6, T7, T8, T9, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -200,30 +200,30 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
             Function10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -255,32 +255,32 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
-            PacketCodec<? super B, T11> codec11,
+            StreamCodec<? super B, T11> codec11,
             Function<C, T11> from11,
             Function11<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -314,34 +314,34 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
-            PacketCodec<? super B, T11> codec11,
+            StreamCodec<? super B, T11> codec11,
             Function<C, T11> from11,
-            PacketCodec<? super B, T12> codec12,
+            StreamCodec<? super B, T12> codec12,
             Function<C, T12> from12,
             Function12<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -377,36 +377,36 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
-            PacketCodec<? super B, T11> codec11,
+            StreamCodec<? super B, T11> codec11,
             Function<C, T11> from11,
-            PacketCodec<? super B, T12> codec12,
+            StreamCodec<? super B, T12> codec12,
             Function<C, T12> from12,
-            PacketCodec<? super B, T13> codec13,
+            StreamCodec<? super B, T13> codec13,
             Function<C, T13> from13,
             Function13<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -444,38 +444,38 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
-            PacketCodec<? super B, T11> codec11,
+            StreamCodec<? super B, T11> codec11,
             Function<C, T11> from11,
-            PacketCodec<? super B, T12> codec12,
+            StreamCodec<? super B, T12> codec12,
             Function<C, T12> from12,
-            PacketCodec<? super B, T13> codec13,
+            StreamCodec<? super B, T13> codec13,
             Function<C, T13> from13,
-            PacketCodec<? super B, T14> codec14,
+            StreamCodec<? super B, T14> codec14,
             Function<C, T14> from14,
             Function14<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -515,40 +515,40 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
-            PacketCodec<? super B, T11> codec11,
+            StreamCodec<? super B, T11> codec11,
             Function<C, T11> from11,
-            PacketCodec<? super B, T12> codec12,
+            StreamCodec<? super B, T12> codec12,
             Function<C, T12> from12,
-            PacketCodec<? super B, T13> codec13,
+            StreamCodec<? super B, T13> codec13,
             Function<C, T13> from13,
-            PacketCodec<? super B, T14> codec14,
+            StreamCodec<? super B, T14> codec14,
             Function<C, T14> from14,
-            PacketCodec<? super B, T15> codec15,
+            StreamCodec<? super B, T15> codec15,
             Function<C, T15> from15,
             Function15<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -590,42 +590,42 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> PacketCodec<B, C> tuple(
-            PacketCodec<? super B, T1> codec1,
+    static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> StreamCodec<B, C> tuple(
+            StreamCodec<? super B, T1> codec1,
             Function<C, T1> from1,
-            PacketCodec<? super B, T2> codec2,
+            StreamCodec<? super B, T2> codec2,
             Function<C, T2> from2,
-            PacketCodec<? super B, T3> codec3,
+            StreamCodec<? super B, T3> codec3,
             Function<C, T3> from3,
-            PacketCodec<? super B, T4> codec4,
+            StreamCodec<? super B, T4> codec4,
             Function<C, T4> from4,
-            PacketCodec<? super B, T5> codec5,
+            StreamCodec<? super B, T5> codec5,
             Function<C, T5> from5,
-            PacketCodec<? super B, T6> codec6,
+            StreamCodec<? super B, T6> codec6,
             Function<C, T6> from6,
-            PacketCodec<? super B, T7> codec7,
+            StreamCodec<? super B, T7> codec7,
             Function<C, T7> from7,
-            PacketCodec<? super B, T8> codec8,
+            StreamCodec<? super B, T8> codec8,
             Function<C, T8> from8,
-            PacketCodec<? super B, T9> codec9,
+            StreamCodec<? super B, T9> codec9,
             Function<C, T9> from9,
-            PacketCodec<? super B, T10> codec10,
+            StreamCodec<? super B, T10> codec10,
             Function<C, T10> from10,
-            PacketCodec<? super B, T11> codec11,
+            StreamCodec<? super B, T11> codec11,
             Function<C, T11> from11,
-            PacketCodec<? super B, T12> codec12,
+            StreamCodec<? super B, T12> codec12,
             Function<C, T12> from12,
-            PacketCodec<? super B, T13> codec13,
+            StreamCodec<? super B, T13> codec13,
             Function<C, T13> from13,
-            PacketCodec<? super B, T14> codec14,
+            StreamCodec<? super B, T14> codec14,
             Function<C, T14> from14,
-            PacketCodec<? super B, T15> codec15,
+            StreamCodec<? super B, T15> codec15,
             Function<C, T15> from15,
-            PacketCodec<? super B, T16> codec16,
+            StreamCodec<? super B, T16> codec16,
             Function<C, T16> from16,
             Function16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, C> to
     ) {
-        return new PacketCodec<>() {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 T1 object2 = codec1.decode(object);
@@ -672,8 +672,8 @@ public interface AtmosphericPacketCodecs {
     // you really need to know what you are doing
     // this should be unlimited in theory, but there are always realistic constraints
     @DangerousAndOrUnstable
-    static <B, C> PacketCodec<B, C> unlimitedTuple(FunctionUnlimited<C> operation, PacketCodecAndValueGetterContainer<B, C, ?>... containers) {
-        return new PacketCodec<>() {
+    static <B, C> StreamCodec<B, C> unlimitedTuple(FunctionUnlimited<C> operation, PacketCodecAndValueGetterContainer<B, C, ?>... containers) {
+        return new StreamCodec<>() {
             @Override
             public C decode(B object) {
                 List<Object> objects = new ArrayList<>();
@@ -692,7 +692,7 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    record PacketCodecAndValueGetterContainer<B, C, V>(PacketCodec<? super B, V> packetCodec, Function<C, V> function) {
+    record PacketCodecAndValueGetterContainer<B, C, V>(StreamCodec<? super B, V> packetCodec, Function<C, V> function) {
 
         public void encode(B object, C object2) {
             this.packetCodec.encode(object, this.function.apply(object2));

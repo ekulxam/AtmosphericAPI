@@ -1,46 +1,46 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.particle;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.phys.Vec3;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericPacketCodecs;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.PitchYawPair;
 
-public record DirectionalParticleS2CPayload(ParticleEffect particleEffect, double x, double y, double z, float pitch, float yaw, double deltaX, double deltaY, double deltaZ, double velocityX, double velocityY, double velocityZ, boolean force /*? >=1.21.5 {*/ , boolean canSpawnOnMinimal /*?}*/) implements CustomPayload {
+public record DirectionalParticleS2CPayload(ParticleOptions particleEffect, double x, double y, double z, float pitch, float yaw, double deltaX, double deltaY, double deltaZ, double velocityX, double velocityY, double velocityZ, boolean force /*? >=1.21.5 {*/ /*, boolean canSpawnOnMinimal *//*?}*/) implements CustomPacketPayload {
 
-    public static final CustomPayload.Id<DirectionalParticleS2CPayload> ID = new CustomPayload.Id<>(AtmosphericAPI.id("directional_particle_s2c"));
+    public static final CustomPacketPayload.Type<DirectionalParticleS2CPayload> ID = new CustomPacketPayload.Type<>(AtmosphericAPI.id("directional_particle_s2c"));
 
-    public static final PacketCodec<RegistryByteBuf, DirectionalParticleS2CPayload> PACKET_CODEC = AtmosphericPacketCodecs.tuple(
-            ParticleTypes.PACKET_CODEC, payload -> payload.particleEffect,
-            PacketCodecs.DOUBLE, payload -> payload.x,
-            PacketCodecs.DOUBLE, payload -> payload.y,
-            PacketCodecs.DOUBLE, payload -> payload.z,
-            PacketCodecs.FLOAT, payload -> payload.pitch,
-            PacketCodecs.FLOAT, payload -> payload.yaw,
-            PacketCodecs.DOUBLE, payload -> payload.deltaX,
-            PacketCodecs.DOUBLE, payload -> payload.deltaY,
-            PacketCodecs.DOUBLE, payload -> payload.deltaZ,
-            PacketCodecs.DOUBLE, payload -> payload.velocityX,
-            PacketCodecs.DOUBLE, payload -> payload.velocityY,
-            PacketCodecs.DOUBLE, payload -> payload.velocityZ,
-            PacketCodecs./*? =1.21.1 {*/  /*BOOL *//*?} else {*/ BOOLEAN /*?}*/, payload -> payload.force,
-            /*? >=1.21.5 {*/ PacketCodecs.BOOLEAN, payload -> payload.canSpawnOnMinimal, /*?}*/
+    public static final StreamCodec<RegistryFriendlyByteBuf, DirectionalParticleS2CPayload> PACKET_CODEC = AtmosphericPacketCodecs.tuple(
+            ParticleTypes.STREAM_CODEC, payload -> payload.particleEffect,
+            ByteBufCodecs.DOUBLE, payload -> payload.x,
+            ByteBufCodecs.DOUBLE, payload -> payload.y,
+            ByteBufCodecs.DOUBLE, payload -> payload.z,
+            ByteBufCodecs.FLOAT, payload -> payload.pitch,
+            ByteBufCodecs.FLOAT, payload -> payload.yaw,
+            ByteBufCodecs.DOUBLE, payload -> payload.deltaX,
+            ByteBufCodecs.DOUBLE, payload -> payload.deltaY,
+            ByteBufCodecs.DOUBLE, payload -> payload.deltaZ,
+            ByteBufCodecs.DOUBLE, payload -> payload.velocityX,
+            ByteBufCodecs.DOUBLE, payload -> payload.velocityY,
+            ByteBufCodecs.DOUBLE, payload -> payload.velocityZ,
+            ByteBufCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, payload -> payload.force,
+            /*? >=1.21.5 {*/ /*PacketCodecs.BOOLEAN, payload -> payload.canSpawnOnMinimal, *//*?}*/
             DirectionalParticleS2CPayload::new
     );
 
     @Override
-    public Id<? extends DirectionalParticleS2CPayload> getId() {
+    public Type<? extends DirectionalParticleS2CPayload> type() {
         return ID;
     }
 
     public static class Builder {
 
-        protected ParticleEffect particleEffect = null;
+        protected ParticleOptions particleEffect = null;
         protected double x = 0;
         protected double y = 0;
         protected double z = 0;
@@ -53,17 +53,17 @@ public record DirectionalParticleS2CPayload(ParticleEffect particleEffect, doubl
         protected double velocityY = 0;
         protected double velocityZ = 0;
         protected boolean force = false;
-        /*? >=1.21.5 {*/ protected boolean canSpawnOnMinimal = false; /*?}*/
+        /*? >=1.21.5 {*/ /*protected boolean canSpawnOnMinimal = false; *//*?}*/
 
         public Builder() {
         }
 
-        public Builder particleEffect(ParticleEffect particleEffect) {
+        public Builder particleEffect(ParticleOptions particleEffect) {
             this.particleEffect = particleEffect;
             return this;
         }
 
-        public Builder pos(Vec3d vec3d) {
+        public Builder pos(Vec3 vec3d) {
             return this.pos(vec3d.x, vec3d.y, vec3d.z);
         }
 
@@ -84,7 +84,7 @@ public record DirectionalParticleS2CPayload(ParticleEffect particleEffect, doubl
             return this;
         }
 
-        public Builder deltaPos(Vec3d delta) {
+        public Builder deltaPos(Vec3 delta) {
             return this.deltaPos(delta.x, delta.y, delta.z);
         }
 
@@ -95,7 +95,7 @@ public record DirectionalParticleS2CPayload(ParticleEffect particleEffect, doubl
             return this;
         }
 
-        public Builder velocity(Vec3d velocity) {
+        public Builder velocity(Vec3 velocity) {
             return this.velocity(velocity.x, velocity.y, velocity.z);
         }
 
@@ -112,14 +112,14 @@ public record DirectionalParticleS2CPayload(ParticleEffect particleEffect, doubl
         }
 
         //? if >=1.21.5 {
-        public Builder canSpawnOnMinimal(boolean canSpawnOnMinimal) {
+        /*public Builder canSpawnOnMinimal(boolean canSpawnOnMinimal) {
             this.canSpawnOnMinimal = canSpawnOnMinimal;
             return this;
         }
-        //?}
+        *///?}
 
         public DirectionalParticleS2CPayload build() {
-            return new DirectionalParticleS2CPayload(this.particleEffect, this.x, this.y, this.z, this.pitch, this.yaw, this.deltaX, this.deltaY, this.deltaZ, this.velocityX, this.velocityY, this.velocityZ, this.force/*? >=1.21.5 {*/ , canSpawnOnMinimal /*?}*/);
+            return new DirectionalParticleS2CPayload(this.particleEffect, this.x, this.y, this.z, this.pitch, this.yaw, this.deltaX, this.deltaY, this.deltaZ, this.velocityX, this.velocityY, this.velocityZ, this.force/*? >=1.21.5 {*/ /*, canSpawnOnMinimal *//*?}*/);
         }
     }
 }

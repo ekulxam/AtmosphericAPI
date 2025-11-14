@@ -1,21 +1,21 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 @SuppressWarnings({"unused"})
-public record ScreenShakeS2CPayload(float intensity, int duration, String modId, String reason, boolean shouldAutoOverride, boolean shouldAddToQueue) implements CustomPayload {
-    public static final Id<ScreenShakeS2CPayload> ID = new Id<>(AtmosphericAPI.id("screen_shake_s2c"));
-    public static final PacketCodec<RegistryByteBuf, ScreenShakeS2CPayload> CODEC = PacketCodec.tuple(
-            PacketCodecs.FLOAT, ScreenShakeS2CPayload::intensity,
-            PacketCodecs.VAR_INT, ScreenShakeS2CPayload::duration,
-            PacketCodecs.STRING, ScreenShakeS2CPayload::modId,
-            PacketCodecs.STRING, ScreenShakeS2CPayload::reason,
-            PacketCodecs./*? =1.21.1 {*/  /*BOOL *//*?} else {*/ BOOLEAN /*?}*/, ScreenShakeS2CPayload::shouldAutoOverride,
-            PacketCodecs./*? =1.21.1 {*/  /*BOOL *//*?} else {*/ BOOLEAN /*?}*/, ScreenShakeS2CPayload::shouldAddToQueue,
+public record ScreenShakeS2CPayload(float intensity, int duration, String modId, String reason, boolean shouldAutoOverride, boolean shouldAddToQueue) implements CustomPacketPayload {
+    public static final Type<ScreenShakeS2CPayload> ID = new Type<>(AtmosphericAPI.id("screen_shake_s2c"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ScreenShakeS2CPayload> CODEC = StreamCodec.composite(
+            ByteBufCodecs.FLOAT, ScreenShakeS2CPayload::intensity,
+            ByteBufCodecs.VAR_INT, ScreenShakeS2CPayload::duration,
+            ByteBufCodecs.STRING_UTF8, ScreenShakeS2CPayload::modId,
+            ByteBufCodecs.STRING_UTF8, ScreenShakeS2CPayload::reason,
+            ByteBufCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, ScreenShakeS2CPayload::shouldAutoOverride,
+            ByteBufCodecs./*? =1.21.1 {*/  BOOL /*?} else {*/ /*BOOLEAN *//*?}*/, ScreenShakeS2CPayload::shouldAddToQueue,
             ScreenShakeS2CPayload::new
     );
 
@@ -40,7 +40,7 @@ public record ScreenShakeS2CPayload(float intensity, int duration, String modId,
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
+    public Type<? extends CustomPacketPayload> type() {
         return ID;
     }
 }

@@ -2,7 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.compat.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 
 import static survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.ScreenShaker.DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK;
 
@@ -12,7 +12,7 @@ public class AtmosphericAPIModMenuCompat implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         // I do configs in resourcepacks :sungalses:
         return parent -> ConfigPackScreen.fromParent(parent,
-                Text.translatable("resourcePack.atmospheric_api.configscreen"),
+                Component.translatable("resourcePack.atmospheric_api.configscreen"),
                 DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK.toString());
     }
 }
