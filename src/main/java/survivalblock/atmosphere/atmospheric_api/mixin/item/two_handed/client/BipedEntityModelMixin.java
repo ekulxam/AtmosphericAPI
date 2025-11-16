@@ -6,6 +6,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 //? if >=1.21.2
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +21,7 @@ public class BipedEntityModelMixin {
 
     @WrapOperation(method = {"poseLeftArm", "poseRightArm"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/AnimationUtils;animateCrossbowHold(Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/model/geom/ModelPart;Z)V"))
     private void doSomeCursedLongswordPosing(
-            ModelPart holdingArm, ModelPart otherArm, ModelPart head, boolean rightArmed, Operation<Void> original, /*? =1.21.1 {*/  /*LivingEntity living *//*?} else {*/ HumanoidRenderState state /*?}*/
+            ModelPart holdingArm, ModelPart otherArm, ModelPart head, boolean rightArmed, Operation<Void> original, /*? =1.21.1 {*/ /*LivingEntity living *//*?} else {*/ HumanoidRenderState state /*?}*/
     ) {
         ItemStack twoHandedStack = null;
         TwoHandedItem twoHandedItem = null;

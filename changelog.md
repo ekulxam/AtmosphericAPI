@@ -1,3 +1,3 @@
-Atmospheric API 3.1.0
-- Fix EntityWithAttributesImpl not existing
-- Fix pseudo-registry APIs
+Atmospheric API 3.1.1
+- Port to mojmap
+- Add Masonry (multiversion utils)
