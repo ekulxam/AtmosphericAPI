@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface EntityAccessor {
 
     @Accessor("firstTick")
-    boolean atmospheric_api$isFirstUpdate();
+    boolean atmospheric_api$isFirstTick();
 
     @Accessor("firstTick")
-    void atmospheric_api$setFirstUpdate(boolean firstUpdate);
+    void atmospheric_api$setFirstTick(boolean firstTick);
 }

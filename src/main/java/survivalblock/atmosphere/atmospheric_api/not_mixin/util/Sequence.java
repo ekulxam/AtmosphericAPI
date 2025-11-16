@@ -3,11 +3,6 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-//? if =1.21.1 {
-/*import net.minecraft.util.FastColor;
- *///?} elif =1.21.8 {
-import net.minecraft.util.ARGB;
-//?}
 
 @SuppressWarnings("unused")
 public final class Sequence {
@@ -23,7 +18,7 @@ public final class Sequence {
             return original instanceof MutableComponent mutableText ? mutableText : original.copy();
         }
         long time = Util.getMillis();
-        MutableComponent text = Component.literal(string.substring(0, 1)).withColor(/*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.lerp(((time) % wrap) * reciprocalWrap, startColor, endColor));
+        MutableComponent text = Component.literal(string.substring(0, 1)).withColor(Masonry.ColorHelper.lerp(((time) % wrap) * reciprocalWrap, startColor, endColor));
         float incr = (float) wrap / length;
         for (int i = 1; i < length; i++) {
             float deltaHalfCalculated;
@@ -32,7 +27,7 @@ public final class Sequence {
             } else {
                 deltaHalfCalculated = time + (int) (incr * i);
             }
-            text.append(Component.literal(string.substring(i, i + 1)).withColor(/*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.lerp((deltaHalfCalculated % wrap) * reciprocalWrap, startColor, endColor)));
+            text.append(Component.literal(string.substring(i, i + 1)).withColor(Masonry.ColorHelper.lerp((deltaHalfCalculated % wrap) * reciprocalWrap, startColor, endColor)));
         }
         return text;
     }

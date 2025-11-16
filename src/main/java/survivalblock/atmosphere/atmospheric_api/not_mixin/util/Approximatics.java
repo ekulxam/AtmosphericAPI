@@ -3,6 +3,9 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 @SuppressWarnings("unused")
 public final class Approximatics {
 
+    /**
+     * @see com.mojang.math.Constants#EPSILON
+     */
     public static final double DEFAULT_ACCURACY = 0.001;
 
     private Approximatics() {

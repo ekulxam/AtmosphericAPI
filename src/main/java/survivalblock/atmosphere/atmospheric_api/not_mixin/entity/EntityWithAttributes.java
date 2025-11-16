@@ -58,7 +58,7 @@ public interface EntityWithAttributes {
     }
 
     /**
-     * @return a {@link AttributeSupplier} with the entity's default attribute values
+     * @return a {@link AttributeSupplier} with the entity's default attribute values. It is a good idea to cache this.
      */
     AttributeSupplier getDefaultAttributeContainer();
 

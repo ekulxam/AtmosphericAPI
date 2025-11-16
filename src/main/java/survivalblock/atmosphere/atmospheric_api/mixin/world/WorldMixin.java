@@ -38,7 +38,11 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
         return optional.flatMap(registry -> registry.get(key)).orElse(null);
     }
 
+    /**
+     * @deprecated {@link RegistryAccess#getOrThrow(ResourceKey)} now exists
+     */
     @Override
+    @Deprecated
     public <T> Holder.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
         return this.registryAccess().lookupOrThrow(dynamicRegistryRegistryKey).getOrThrow(key);
     }

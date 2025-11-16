@@ -13,12 +13,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.client.EmptyModelRenderer;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin {
     //? if =1.21.1 {
     
-    /*@SuppressWarnings({"rawtypes", "unchecked"})
-    @WrapOperation(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/EntityModel;renderToBuffer(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V"))
+    /*@WrapOperation(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/EntityModel;renderToBuffer(Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;III)V"))
     private <T extends LivingEntity> void renderEmpty(EntityModel<T> instance, PoseStack matrixStack, VertexConsumer vertexConsumer, int light, int overlay, int color, Operation<Void> original, @Local(argsOnly = true) T living, @Local(argsOnly = true)MultiBufferSource vertexConsumerProvider, @Local(argsOnly = true, ordinal = 1) float tickDelta) {
         if ((LivingEntityRenderer) (Object) this instanceof EmptyModelRenderer emptyModelRenderer) {
             emptyModelRenderer.renderWithEntityData(living, matrixStack, vertexConsumerProvider, tickDelta, light, overlay, color);

@@ -15,7 +15,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 public class AtmosphericAPIMixin {
 
     @Inject(method = "onInitialize", at = @At("RETURN"))
-    private void registerScreenShakePayload(CallbackInfo ci) {
+    private void registerDamageTypes(CallbackInfo ci) {
         AtmosphericDamageTypeGamerules.init();
     }
 }

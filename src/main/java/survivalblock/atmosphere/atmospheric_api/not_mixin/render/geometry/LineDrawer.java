@@ -18,6 +18,7 @@ public class LineDrawer {
 
     private static void drawLine(Vector3f offset, Vec3 rotationVec, PoseStack matrixStack, VertexConsumer lines, int color) {
         matrixStack.pushPose();
+        // see ShapeRendering.renderVector/VertexRendering.drawVector
         PoseStack.Pose entry = matrixStack.last();
         lines.addVertex(entry, offset).setColor(color).setNormal(entry, (float)rotationVec.x, (float)rotationVec.y, (float)rotationVec.z);
         lines.addVertex(entry, (float)(offset.x() + rotationVec.x), (float)(offset.y() + rotationVec.y), (float)(offset.z() + rotationVec.z))

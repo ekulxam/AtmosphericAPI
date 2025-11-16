@@ -9,12 +9,8 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-//? if =1.21.1 {
-/*import net.minecraft.util.FastColor;
- *///?} elif =1.21.8 {
-import net.minecraft.util.ARGB;
-//?}
 import net.minecraft.util.Mth;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Masonry;
 
 /**
  * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, float, long, int, int, int)
@@ -79,7 +75,7 @@ public final class BeaconLaserRenderer {
         q = outerRadius;
         t = -1.0f + h;
         u = (float) maxY * heightScale + t;
-        renderBeamLayer(matrices, vertexConsumers.getBuffer(RenderType.beaconBeam(textureId, true)), /*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.color(32, rgb), yOffset, i, j, k, l, m, n, o, p, q, 0.0f, 1.0f, u, t);
+        renderBeamLayer(matrices, vertexConsumers.getBuffer(RenderType.beaconBeam(textureId, true)), Masonry.ColorHelper.withAlpha(32, rgb), yOffset, i, j, k, l, m, n, o, p, q, 0.0f, 1.0f, u, t);
         matrices.popPose();
     }
 

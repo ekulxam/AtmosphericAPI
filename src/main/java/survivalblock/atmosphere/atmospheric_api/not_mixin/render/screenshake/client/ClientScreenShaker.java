@@ -94,7 +94,7 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
      * Sets the active instance to be this ScreenShaker
      */
     public void activate(Level world) {
-        if (!(world instanceof ClientLevel clientWorld)) {
+        if (!(world instanceof ClientLevel)) {
             throw new IllegalStateException("Cannot activate a ClientScreenShaker when not on the client! How did we even get here?");
         }
         if (active == null) {

@@ -7,7 +7,9 @@ import survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client.InGam
 @SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted"})
 public interface IAmASpyglassItem extends AlternateModelItem {
 
+    ResourceLocation SPYGLASS_OVERLAY = InGameHudAccessor.atmospheric_api$getSpyglassOverlay();
+
     default ResourceLocation getOverlay(ItemStack stack) {
-        return InGameHudAccessor.atmospheric_api$getSpyglassOverlay();
+        return SPYGLASS_OVERLAY;
     }
 }

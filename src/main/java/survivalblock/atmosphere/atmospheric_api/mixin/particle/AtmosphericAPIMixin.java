@@ -16,7 +16,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.particle.DirectionalPa
 public class AtmosphericAPIMixin {
 
     @Inject(method = "onInitialize", at = @At("RETURN"))
-    private void registerScreenShakePayload(CallbackInfo ci) {
+    private void registerDirectionalParticlePayload(CallbackInfo ci) {
         PayloadTypeRegistry.playS2C().register(DirectionalParticleS2CPayload.ID, DirectionalParticleS2CPayload.PACKET_CODEC);
     }
 }

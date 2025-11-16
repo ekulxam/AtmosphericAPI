@@ -18,9 +18,7 @@ import java.util.Objects;
 @Mixin(HumanoidModel.class)
 public class BipedEntityModelMixin {
 
-    @WrapOperation(method = {"poseLeftArm", "poseRightArm"}, at = @At(value = "INVOKE", target =
-            "Lnet/minecraft/client/model/AnimationUtils;animateCrossbowHold(Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/model/geom/ModelPart;Z)V"
-    ))
+    @WrapOperation(method = {"poseLeftArm", "poseRightArm"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/AnimationUtils;animateCrossbowHold(Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/model/geom/ModelPart;Lnet/minecraft/client/model/geom/ModelPart;Z)V"))
     private void doSomeCursedLongswordPosing(
             ModelPart holdingArm, ModelPart otherArm, ModelPart head, boolean rightArmed, Operation<Void> original, /*? =1.21.1 {*/  /*LivingEntity living *//*?} else {*/ HumanoidRenderState state /*?}*/
     ) {

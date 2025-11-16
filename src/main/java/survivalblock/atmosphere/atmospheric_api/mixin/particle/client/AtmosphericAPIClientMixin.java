@@ -22,7 +22,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.particle.DirectionalPa
 public class AtmosphericAPIClientMixin {
 
     @Inject(method = "onInitializeClient", at = @At("HEAD"))
-    private void invokeInitializeScreenShakers(CallbackInfo ci) {
+    private void handleDirectionalParticlePayloadReceiving(CallbackInfo ci) {
         ClientPlayNetworking.registerGlobalReceiver(DirectionalParticleS2CPayload.ID, (payload, context) -> {
             ClientLevel world = context.client().level;
             RandomSource random = world.getRandom();
