@@ -59,7 +59,7 @@ public class PersistentProjectileEntityMixin {
         if (stacklessPersistentProjectile.shouldAvoidEncodingStack()) {
             if (nbt.contains("item")) nbt.remove("item");
         }
-    }     *///?} elif =1.21.8 {
+    }     *///?} elif >=1.21.8 {
     
     @WrapOperation(method = "addAdditionalSaveData", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/ValueOutput;store(Ljava/lang/String;Lcom/mojang/serialization/Codec;Ljava/lang/Object;)V", ordinal = 0), slice = @Slice(from = @At(value = "FIELD", target = "Lnet/minecraft/world/item/ItemStack;CODEC:Lcom/mojang/serialization/Codec;")))
     private <T> void doNotEncodeIfStackIsEmpty(ValueOutput instance, String s, Codec<T> tCodec, T t, Operation<Void> original) {

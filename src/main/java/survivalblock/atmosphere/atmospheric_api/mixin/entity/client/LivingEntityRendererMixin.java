@@ -6,10 +6,17 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+//? if >=1.21.9
+/*import net.minecraft.client.renderer.SubmitNodeCollector;*/
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 //? if >=1.21.2
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+//? if >=1.21.9
+/*import net.minecraft.client.renderer.feature.ModelFeatureRenderer;*/
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,5 +44,14 @@ public class LivingEntityRendererMixin {
             original.call(instance, matrixStack, vertexConsumer, light, overlay, color);
         }
     }
-    //?}
+    //?} elif >=1.21.9 {
+    /*@WrapOperation(method = "submit(Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/CameraRenderState;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/SubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/RenderType;IIILnet/minecraft/client/renderer/texture/TextureAtlasSprite;ILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V"))
+    private <T extends LivingEntityRenderState> void renderEmpty(SubmitNodeCollector instance, Model model, Object o, PoseStack matrixStack, RenderType renderType, int light, int overlay, int color, TextureAtlasSprite textureAtlasSprite, int outlineColor, ModelFeatureRenderer.CrumblingOverlay crumblingOverlay, Operation<Void> original, @Local(argsOnly = true) T state) {
+        if ((LivingEntityRenderer) (Object) this instanceof EmptyModelRenderer emptyModelRenderer) {
+            emptyModelRenderer.renderWithEntityData(state, matrixStack, instance, light, overlay, color, outlineColor);
+        } else {
+            original.call(instance, model, o, matrixStack, renderType, light, overlay, color, textureAtlasSprite, outlineColor, crumblingOverlay);
+        }
+    }
+    *///?}
 }

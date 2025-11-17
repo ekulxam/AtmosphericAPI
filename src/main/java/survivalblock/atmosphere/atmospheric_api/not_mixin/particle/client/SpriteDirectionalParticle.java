@@ -1,10 +1,13 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 @SuppressWarnings("unused")
+@Environment(EnvType.CLIENT)
 public abstract class SpriteDirectionalParticle extends DirectionalParticle {
     protected TextureAtlasSprite sprite;
 

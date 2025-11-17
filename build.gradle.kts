@@ -54,6 +54,11 @@ stonecutter {
         direction = eval(current.version, ">1.21.10")
         replace("ResourceLocation", "Identifier")
     }
+
+    replacements.string {
+        direction = eval(current.version, ">1.21.8")
+        replace("PlayerRenderer", "AvatarRenderer")
+    }
 }
 
 fletchingTable {

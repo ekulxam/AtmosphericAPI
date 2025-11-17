@@ -3,6 +3,8 @@ package survivalblock.atmosphere.atmospheric_api.mixin.particle.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+//? if >=1.21.9
+/*import net.fabricmc.fabric.api.client.particle.v1.ParticleRendererRegistry;*/
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.RandomSource;
 import org.jetbrains.annotations.ApiStatus;
@@ -14,6 +16,8 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPIClient;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.particle.DirectionalParticleS2CPayload;
+//? if >=1.21.9
+/*import survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client.render.DirectionalParticleRenderer;*/
 
 @ApiStatus.Internal
 @ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
@@ -39,5 +43,7 @@ public class AtmosphericAPIClientMixin {
                 AtmosphericAPI.LOGGER.warn("Could not spawn particle effect {}", payload.particleEffect());
             }
         });
+        //? if >=1.21.9
+        /*ParticleRendererRegistry.register(DirectionalParticleRenderer.DIRECTIONAL, DirectionalParticleRenderer::new);*/
     }
 }

@@ -10,7 +10,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import survivalblock.atmosphere.atmospheric_api.access.WaitingOnFabricRenderState;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.TwoHandedItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AtmosphericSpecialItemRenderHandlerImpl;
 
@@ -25,12 +24,12 @@ public class BipedEntityModelMixin {
     ) {
         ItemStack twoHandedStack = null;
         TwoHandedItem twoHandedItem = null;
-        ItemStack mainHandStack = /*? =1.21.1 {*/  /*living.getMainHandItem() *//*?} else {*/ ((WaitingOnFabricRenderState) state).atmospheric_api$getMainHandStack() /*?}*/;
+        ItemStack mainHandStack = /*? =1.21.1 {*/  /*living.getMainHandItem() *//*?} else {*/ state.getData(AtmosphericSpecialItemRenderHandlerImpl.MAINHAND_STACK_KEY) /*?}*/;
         if (!mainHandStack.isEmpty() && mainHandStack.getItem() instanceof TwoHandedItem twoHandedItem1) {
             twoHandedItem = twoHandedItem1;
             twoHandedStack = mainHandStack;
         } else {
-            ItemStack offHandStack = /*? =1.21.1 {*/  /*living.getOffhandItem() *//*?} else {*/ ((WaitingOnFabricRenderState) state).atmospheric_api$getOffHandStack() /*?}*/;
+            ItemStack offHandStack = /*? =1.21.1 {*/  /*living.getOffhandItem() *//*?} else {*/ state.getData(AtmosphericSpecialItemRenderHandlerImpl.OFFHAND_STACK_KEY) /*?}*/;
             if (!offHandStack.isEmpty() && offHandStack.getItem() instanceof TwoHandedItem twoHandedItem1) {
                 twoHandedItem = twoHandedItem1;
                 twoHandedStack = offHandStack;

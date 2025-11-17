@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.injected_interface.AtmosphericPlayerAdvancementGranter;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Masonry;
 
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public abstract class ServerPlayerEntityMixin extends Player implements Atmosphe
     /*public ServerPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
-     *///?} elif =1.21.8 {
+     *///?} elif >=1.21.8 {
     public ServerPlayerEntityMixin(Level world, GameProfile profile) {
         super(world, profile);
     }
@@ -37,7 +38,7 @@ public abstract class ServerPlayerEntityMixin extends Player implements Atmosphe
     @Override
     public boolean atmospheric_api$grantAdvancement(ResourceLocation advancementId, boolean verboseLogging) {
         //noinspection DataFlowIssue (server should not be null already)
-        ServerAdvancementManager loader = this.getServer().getAdvancements();
+        ServerAdvancementManager loader = Masonry.getEntityServer(this).getAdvancements();
         AdvancementHolder advancementEntry = loader.get(advancementId);
         try {
             Objects.requireNonNull(advancementEntry, "Advancement entry cannot be null!");

@@ -54,7 +54,7 @@ public record RawVelocityUpdatePayload(int entityId, double velocityX, double ve
             if (entity == null) {
                 return;
             }
-            entity.lerpMotion(payload.velocityX(), payload.velocityY(), payload.velocityZ());
+            entity.lerpMotion(/*? >=1.21.9 {*/ /*new Vec3( *//*?}*/payload.velocityX(), payload.velocityY(), payload.velocityZ()/*? >=1.21.9 {*/ /*) *//*?}*/);
         }
     }
 }

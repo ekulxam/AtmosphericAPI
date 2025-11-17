@@ -29,7 +29,7 @@ public abstract class WorldMixin implements AtmosphericWorldRegistryShenanigans 
     public <T> Holder.Reference<T> atmospheric_api$getEntryFromKeyOrThrow(ResourceKey<? extends Registry<? extends T>> dynamicRegistryRegistryKey, ResourceKey<T> key) {
         return this.registryAccess().registryOrThrow(dynamicRegistryRegistryKey).getHolderOrThrow(key);
     }
-     *///?} elif =1.21.8 {
+     *///?} elif >=1.21.8 {
 
     @Override
     @Nullable

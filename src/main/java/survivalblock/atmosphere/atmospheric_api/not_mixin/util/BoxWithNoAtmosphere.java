@@ -205,17 +205,10 @@ public class BoxWithNoAtmosphere extends AABB {
         return this.zero;
     }
 
-    //? if =1.21.1 {
-    /*@Override
-    public Vec3 getBottomCenter() {
-        return this.zero;
-    }
-    *///?} elif =1.21.8 {
     @Override
     public Vec3 getBottomCenter() {
         return this.zero;
     }
-    //?}
 
     @Override
     public Vec3 getMinPosition() {

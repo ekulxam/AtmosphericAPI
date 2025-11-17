@@ -48,7 +48,7 @@ public abstract class EntityWithAttributesImpl extends Entity implements EntityW
     protected void addAdditionalSaveData(CompoundTag nbt) {
         nbt.put(ATTRIBUTES_NBT_KEY, this.getAttributes().save());
     }
-     *///?} elif =1.21.8 {
+     *///?} elif >=1.21.8 {
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {

@@ -32,9 +32,13 @@ public abstract class EntityTrackerEntryMixin {
 
 	@Shadow @Final private Entity entity;
 
-	@Shadow protected abstract void broadcastAndSend(Packet<?> packet);
+    //? if >=1.21.9 {
+    /*@Shadow @Final private ServerEntity.Synchronizer synchronizer;
+    *///?} else {
+    @Shadow protected abstract void broadcastAndSend(Packet<?> packet);
+    //?}
 
-	@Inject(method = "sendPairingData", at = @At("HEAD"))
+    @Inject(method = "sendPairingData", at = @At("HEAD"))
 	private void captureSender(ServerPlayer player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
 		senderRef.set(sender);
 	}
@@ -78,7 +82,7 @@ public abstract class EntityTrackerEntryMixin {
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
 			Set<AttributeInstance> set = entityWithAttributes.getAttributes().getAttributesToSync();
 			if (!set.isEmpty()) {
-				this.broadcastAndSend(new ClientboundUpdateAttributesPacket(this.entity.getId(), set));
+				this./*? >=1.21.9 {*/ /*synchronizer.sendToTrackingPlayersAndSelf *//*?} else {*/ broadcastAndSend /*?}*/(new ClientboundUpdateAttributesPacket(this.entity.getId(), set));
 			}
 			set.clear();
 		}

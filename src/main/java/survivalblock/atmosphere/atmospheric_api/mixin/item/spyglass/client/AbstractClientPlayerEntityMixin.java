@@ -19,7 +19,7 @@ public abstract class AbstractClientPlayerEntityMixin extends Player {
     /*public AbstractClientPlayerEntityMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
-     *///?} elif =1.21.8 {
+     *///?} elif >=1.21.8 {
     public AbstractClientPlayerEntityMixin(Level world, GameProfile profile) {
         super(world, profile);
     }

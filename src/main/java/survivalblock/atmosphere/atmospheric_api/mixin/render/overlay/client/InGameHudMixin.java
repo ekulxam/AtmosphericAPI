@@ -39,7 +39,7 @@ public abstract class InGameHudMixin {
         LayeredDraw alternateOverlayDrawer = new LayeredDraw().add((context, tickCounter) -> this.atmospheric_api$renderCustomOverlays(context, true));
         return original.call(instance, drawer, shouldRender).add(alternateOverlayDrawer, () -> !shouldRender.getAsBoolean());
     }
-     *///?} elif =1.21.8 {
+     *///?} elif >=1.21.8 {
     @ModifyExpressionValue(method = "render", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Options;hideGui:Z", ordinal = 0, opcode = Opcodes.GETFIELD))
     private boolean renderNonBypassable(boolean original, GuiGraphics context, DeltaTracker renderTickCounter) {
         if (original) {

@@ -7,7 +7,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.BaseCommandBlock;
 
 @SuppressWarnings("unused")
 public final class AtmosphericCommandDirector {
@@ -18,18 +17,6 @@ public final class AtmosphericCommandDirector {
     public static void runCommand(ServerLevel serverWorld, Entity entity, int level, String command) {
         runCommand(serverWorld.getServer(), new CommandSourceStack(/*? =1.21.1 {*/  /*entity *//*?} else {*/ entity instanceof ServerPlayer serverPlayer ? serverPlayer.commandSource() : CommandSource.NULL /*?}*/, entity.position(), entity.getRotationVector(), serverWorld, level,
                 entity.getName().getString(), entity.getDisplayName(), serverWorld.getServer(), entity), command);
-    }
-
-    public static void runCommand(BaseCommandBlock commandBlockExecutor) {
-        runCommand(commandBlockExecutor.getLevel().getServer(), commandBlockExecutor.createCommandSourceStack(), commandBlockExecutor.getCommand());
-    }
-
-    public static void runCommand(ServerLevel serverWorld, BaseCommandBlock commandBlockExecutor, String command) {
-        runCommand(serverWorld.getServer(), commandBlockExecutor.createCommandSourceStack(), command);
-    }
-
-    public static void runCommand(MinecraftServer server, BaseCommandBlock commandBlockExecutor, String command) {
-        runCommand(server, commandBlockExecutor.createCommandSourceStack(), command);
     }
 
     public static void runCommand(MinecraftServer server, CommandSourceStack serverCommandSource, String command) {

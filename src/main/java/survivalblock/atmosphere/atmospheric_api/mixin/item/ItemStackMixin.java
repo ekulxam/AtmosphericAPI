@@ -63,7 +63,7 @@ public abstract class ItemStackMixin implements DataComponentHolder, Atmospheric
         
         /*return this.getItem().atmospheric_api$isHorseArmor();
 
-         *///?} elif =1.21.8 {
+         *///?} elif >=1.21.8 {
         
         DataComponentMap map = this.getComponents();
         if (!map.has(DataComponents.EQUIPPABLE)) {
