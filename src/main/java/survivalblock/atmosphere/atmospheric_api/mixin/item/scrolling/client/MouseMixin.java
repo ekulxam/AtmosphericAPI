@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ScrollingItem;
 
+@SuppressWarnings("UnusedMixin")
 @Mixin(MouseHandler.class)
 public abstract class MouseMixin {
 

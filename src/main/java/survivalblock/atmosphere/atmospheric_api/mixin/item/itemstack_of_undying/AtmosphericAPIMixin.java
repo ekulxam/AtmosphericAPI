@@ -11,6 +11,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.ThisIsABadIdea;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemStackOfUndyingS2CPayload;
 
+@SuppressWarnings("UnusedMixin")
 @ApiStatus.Internal
 @ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
 @Mixin(value = AtmosphericAPI.class, remap = false)

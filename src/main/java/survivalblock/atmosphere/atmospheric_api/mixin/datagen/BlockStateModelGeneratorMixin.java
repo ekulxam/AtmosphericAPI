@@ -1,20 +1,19 @@
 //? if 1.21.1 {
 /*package survivalblock.atmosphere.atmospheric_api.mixin.datagen;
 
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import net.minecraft.data.models.BlockModelGenerators;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datagen.injected_interface.AtmosphericItemModelGenerationPreventer;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
-import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
 
-@Debug(export=true)
+@SuppressWarnings({"unused", "UnusedMixin"})
 @Mixin(BlockModelGenerators.class)
 public class BlockStateModelGeneratorMixin implements AtmosphericItemModelGenerationPreventer {
 

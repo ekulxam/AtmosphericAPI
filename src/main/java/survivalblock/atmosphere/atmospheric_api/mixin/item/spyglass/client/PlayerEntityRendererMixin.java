@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 
+@SuppressWarnings("UnusedMixin")
 @Mixin(PlayerRenderer.class)
 public class PlayerEntityRendererMixin {
 

@@ -21,6 +21,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
+@SuppressWarnings("UnusedMixin")
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {
 

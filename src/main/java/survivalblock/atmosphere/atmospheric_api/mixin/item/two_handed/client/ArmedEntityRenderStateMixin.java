@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AtmosphericSpecialItemRenderHandlerImpl;
 
+@SuppressWarnings("UnusedMixin")
 @Mixin(ArmedEntityRenderState.class)
 public class ArmedEntityRenderStateMixin {
 

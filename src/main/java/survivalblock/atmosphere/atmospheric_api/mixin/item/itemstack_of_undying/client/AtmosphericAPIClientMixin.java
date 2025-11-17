@@ -18,6 +18,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.ItemStackOfUndyin
 
 import java.util.Objects;
 
+@SuppressWarnings("UnusedMixin")
 @ApiStatus.Internal
 @ThisIsABadIdea(ThisIsABadIdea.LevelsOfHorrendousness.PROBABLY)
 @Environment(EnvType.CLIENT)

@@ -20,6 +20,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.AlternateI
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings("UnusedMixin")
 @Mixin(ModelBakery.class)
 public abstract class ModelLoaderMixin {
 

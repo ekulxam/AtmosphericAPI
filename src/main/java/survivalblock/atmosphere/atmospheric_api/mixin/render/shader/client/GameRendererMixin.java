@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client.AtmosphericShaderRegistryImpl;
 
+@SuppressWarnings("UnusedMixin")
 @Mixin(GameRenderer.class)
 public abstract class GameRendererMixin {
 
