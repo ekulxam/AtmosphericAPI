@@ -15,8 +15,10 @@ import net.minecraft.util.Mth;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Masonry;
 
 /**
- * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, float, long, int, int, int)
- * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#submitBeaconBeam(PoseStack, SubmitNodeCollector, float, float, int, int, int) 
+ * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, float, float, long, int, int, int)
+ * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, ResourceLocation, float, float, long, int, int, int, float, float)
+ * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#submitBeaconBeam(PoseStack, SubmitNodeCollector, float, float, int, int, int)
+ * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#submitBeaconBeam(PoseStack, SubmitNodeCollector, ResourceLocation, float, float, int, int, int, float, float)
  */
 @SuppressWarnings({"unused", "JavadocReference"})
 public final class BeaconLaserRenderer {
