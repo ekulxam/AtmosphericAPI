@@ -30,6 +30,7 @@
     "compat.modmenu.client.FabricIconHandlerMixin",
     "compat.modmenu.client.PackScreenMixin",
     "entity.client.AtmosphericAPIClientMixin",
+    "entity.client.ClientPlayerEntityMixin",
     "entity.client.ClientPlayNetworkHandlerMixin",
     "entity.client.LivingEntityRendererMixin",
     "item.spyglass.client.AbstractClientPlayerEntityMixin",
