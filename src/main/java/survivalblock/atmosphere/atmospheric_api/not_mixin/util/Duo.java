@@ -1,5 +1,6 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
+import it.unimi.dsi.fastutil.Pair;
 import org.jetbrains.annotations.NotNull;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.BadAtProgramming;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.DangerousAndOrUnstable;
@@ -18,7 +19,7 @@ import java.util.function.Predicate;
  */
 @BadAtProgramming
 @DangerousAndOrUnstable
-public class Duo<E> extends AbstractList<E> implements List<E>, RandomAccess {
+public class Duo<E> extends AbstractList<E> implements List<E>, Pair<E, E>, RandomAccess {
 
     public static final int SIZE = 2;
 
@@ -160,6 +161,16 @@ public class Duo<E> extends AbstractList<E> implements List<E>, RandomAccess {
     @Override
     public @NotNull Single<E> subList(int fromIndex, int toIndex) {
         return new Single<>(this, fromIndex, toIndex);
+    }
+
+    @Override
+    public E left() {
+        return this.first;
+    }
+
+    @Override
+    public E right() {
+        return this.second;
     }
 
     public sealed class DuoItr implements Iterator<E> permits DuoListItr {

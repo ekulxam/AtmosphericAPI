@@ -8,6 +8,10 @@ import net.minecraft.resources.ResourceKey;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @deprecated Just use FabricDynamicRegistryProvider
+ */
+@Deprecated(since = "3.1.4")
 @SuppressWarnings("unused")
 public abstract class AtmosphericDynamicRegistryProvider<T> extends FabricDynamicRegistryProvider {
 
