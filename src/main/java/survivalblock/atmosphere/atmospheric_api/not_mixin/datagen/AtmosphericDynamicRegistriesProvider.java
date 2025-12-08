@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class AtmosphericDynamicRegistriesProvider<T> extends FabricDynamicRegistryProvider {
+public class AtmosphericDynamicRegistriesProvider extends FabricDynamicRegistryProvider {
 
     protected final List<ResourceKey<? extends Registry<?>>> keys;
 

@@ -1,4 +1,2 @@
-Atmospheric API 3.1.4
-- Deprecate AtmosphericDynamicRegistryProvider
-- Add AtmosphericDynamicRegistriesProvider
-- Duo now implements `it.unimi.dsi.fastutil.Pair`
+Atmospheric API 3.1.5
+- Remove the generic type from AtmosphericDynamicRegistriesProvider
