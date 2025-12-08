@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceKey;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * @deprecated Just use FabricDynamicRegistryProvider
+ * @deprecated Just use {@linkplain FabricDynamicRegistryProvider} or {@linkplain AtmosphericDynamicRegistriesProvider}
  */
 @Deprecated(since = "3.1.4")
 @SuppressWarnings("unused")
