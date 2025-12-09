@@ -6,6 +6,8 @@ import net.minecraft.util.ARGB;
 //? if =1.21.1
 /*import net.minecraft.util.FastColor;*/
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemCooldowns;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -53,6 +55,25 @@ public class Masonry {
 
         public static int lerp(float delta, int color1, int color2) {
             return /*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.lerp(delta, color1, color2);
+        }
+    }
+
+    public static class ItemCooldownManager {
+
+        public static boolean isCoolingDown(ItemCooldowns manager, ItemStack stack) {
+            return manager.isOnCooldown(stack/*? <1.21.2 {*/ /*.getItem() *//*?}*/);
+        }
+
+        public static float getCooldownProgress(ItemCooldowns manager, ItemStack stack, float tickProgress) {
+            return manager.getCooldownPercent(stack/*? <1.21.2 {*/ /*.getItem() *//*?}*/, tickProgress);
+        }
+
+        public static void set(ItemCooldowns manager, ItemStack stack, int duration) {
+            manager.addCooldown(stack/*? <1.21.2 {*/ /*.getItem() *//*?}*/, duration);
+        }
+
+        public static void remove(ItemCooldowns manager, ItemStack stack) {
+            manager.removeCooldown(/*? <1.21.2 {*/ /*stack.getItem() *//*?} else {*/ manager.getCooldownGroup(stack) /*?}*/);
         }
     }
 }
