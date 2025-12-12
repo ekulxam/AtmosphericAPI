@@ -1,2 +1,2 @@
-Atmospheric API 3.1.6
-- Add Masonry$ItemCooldownManager
+Atmospheric API 3.1.7
+- Add ExtendableItemSettings

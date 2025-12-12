@@ -669,8 +669,13 @@ public interface AtmosphericPacketCodecs {
         };
     }
 
-    // you really need to know what you are doing
-    // this should be unlimited in theory, but there are always realistic constraints
+    /**
+     * You really need to know what you are doing
+     * This should be unlimited in theory, but there are always realistic constraints
+     * @param operation the decoder (sometimes the constructor) that creates C
+     * @param containers an array of containers that store the {@link StreamCodec}s and handle getting (see {@link com.mojang.serialization.MapCodec#forGetter(Function)})
+     * @return the networking codec
+     */
     @DangerousAndOrUnstable
     static <B, C> StreamCodec<B, C> unlimitedTuple(FunctionUnlimited<C> operation, PacketCodecAndValueGetterContainer<B, C, ?>... containers) {
         return new StreamCodec<>() {
