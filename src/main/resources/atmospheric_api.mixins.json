@@ -23,6 +23,7 @@
     "particle.AtmosphericAPIMixin",
     "registry.RegistriesAccessor",
     "render.screenshake.AtmosphericAPIMixin",
+    "world.MinecraftServerAccessor",
     "world.WorldMixin"
   ],
   "client": [
