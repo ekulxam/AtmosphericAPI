@@ -64,7 +64,23 @@ stonecutter {
 fletchingTable {
 	mixins.create("main") {
 		// Default matches the default value in the annotation
-		mixin("default", "atmospheric_api.mixins.json")
+		mixin("default", "atmospheric_api.mixins.json") {
+            val clientPackages : Array<String> = arrayOf(
+                "survivalblock.atmosphere.atmospheric_api.mixin.compat.modmenu.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.entity.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.item.itemstack_of_undying.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.item.render.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.particle.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.render.overlay.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.render.screenshake.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.render.shader.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.resourcepack.client"
+            )
+            env("CLIENT", *clientPackages)
+        }
 	}
 	mixins.all {
 		automatic = true
