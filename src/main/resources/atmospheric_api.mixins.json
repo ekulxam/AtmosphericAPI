@@ -46,7 +46,7 @@
     "render.overlay.client.InGameHudMixin",
     "render.screenshake.client.AtmosphericAPIClientMixin",
     "render.screenshake.client.WorldRendererMixin",
-    "resourcepack.client.MinecraftClientMixin"
+    "resource.client.MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

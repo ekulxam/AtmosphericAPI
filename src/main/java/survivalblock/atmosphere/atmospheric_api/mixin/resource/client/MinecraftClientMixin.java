@@ -1,4 +1,4 @@
-package survivalblock.atmosphere.atmospheric_api.mixin.resourcepack.client;
+package survivalblock.atmosphere.atmospheric_api.mixin.resource.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.packs.repository.Pack;

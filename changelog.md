@@ -1,2 +1,5 @@
-Atmospheric API 3.1.9
-- Fix fletching table adding client mixins to common
+Atmospheric API 3.2.0
+- Remove InGameHudAccessor calls from IAmASpyglassItem
+- Rename mixin package survivalblock.atmosphere.atmospheric_api.mixin.resourcepack to survivalblock.atmosphere.atmospheric_api.mixin.resource
+- Add AdditionalSplashTextRegistry
+- Add CreativeTabEnchantmentAdder

@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class CreativeEnchantmentAdder {
+public class CreativeTabEnchantmentAdder {
 
     private static void addEnchantedStack(Item item, CreativeModeTab.ItemDisplayParameters displayContext, String enchantmentId, CreativeModeTab.Output entries) {
         addEnchantedStack(item, displayContext, enchantmentId, entries, null);

@@ -77,7 +77,7 @@ fletchingTable {
                 "survivalblock.atmosphere.atmospheric_api.mixin.render.overlay.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.render.screenshake.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.render.shader.client",
-                "survivalblock.atmosphere.atmospheric_api.mixin.resourcepack.client"
+                "survivalblock.atmosphere.atmospheric_api.mixin.resource.client"
             )
             env("CLIENT", *clientPackages)
         }
