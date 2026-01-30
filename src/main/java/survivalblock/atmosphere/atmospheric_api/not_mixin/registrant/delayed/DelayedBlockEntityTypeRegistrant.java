@@ -1,6 +1,5 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.registrant.delayed;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityType;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -25,10 +24,6 @@ public class DelayedBlockEntityTypeRegistrant extends DelayedRegistrant<BlockEnt
 
     public DelayedBlockEntityTypeRegistrant(Function<String, ResourceLocation> idFunction) {
         this(idFunction, BuiltInRegistries.BLOCK_ENTITY_TYPE);
-    }
-
-    public <T extends BlockEntity> BlockEntityType<T> register(String name, FabricBlockEntityType.Builder<T> builder) {
-        return this.register(name, builder.build());
     }
 
     public <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> blockEntityType) {

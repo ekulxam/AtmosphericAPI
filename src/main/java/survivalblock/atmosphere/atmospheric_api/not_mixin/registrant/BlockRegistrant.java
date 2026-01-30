@@ -2,6 +2,7 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.registrant;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+//? if >=1.21.2
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
