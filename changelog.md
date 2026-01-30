@@ -1,2 +1,2 @@
-Atmospheric API 3.2.2
-- Add Registrant classes as an experiment
+Atmospheric API 3.2.3
+- Fix trying to create an identifier of an identifier for block item registration
