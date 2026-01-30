@@ -1,0 +1,32 @@
+package survivalblock.atmosphere.atmospheric_api.not_mixin.registrant.delayed;
+
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+
+import java.util.function.Function;
+
+@SuppressWarnings("unused")
+public class DelayedAttributeRegistrant extends DelayedRegistrant<Attribute> {
+    protected DelayedAttributeRegistrant(String modId, Registry<Attribute> registry) {
+        super(modId, registry);
+    }
+
+    protected DelayedAttributeRegistrant(Function<String, ResourceLocation> idFunction, Registry<Attribute> registry) {
+        super(idFunction, registry);
+    }
+
+    public DelayedAttributeRegistrant(String modId) {
+        this(modId, BuiltInRegistries.ATTRIBUTE);
+    }
+
+    public DelayedAttributeRegistrant(Function<String, ResourceLocation> idFunction) {
+        this(idFunction, BuiltInRegistries.ATTRIBUTE);
+    }
+
+    public Holder.Reference<Attribute> registerReference(String name, Attribute attribute) {
+        return Registry.registerForHolder(this.registry, this.idFunction.apply(name), attribute);
+    }
+}
