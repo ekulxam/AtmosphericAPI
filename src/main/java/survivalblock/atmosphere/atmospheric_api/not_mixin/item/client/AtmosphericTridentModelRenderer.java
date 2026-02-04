@@ -80,8 +80,8 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
             return MAP_CODEC;
         }
 
-        public SpecialModelRenderer<?> bake(EntityModelSet modelSet) {
-            return new AtmosphericTridentModelRenderer(new TridentModel(modelSet.bakeLayer(this.entityModelLayer)), this.texture);
+        public SpecialModelRenderer<?> bake(/*? >=1.21.9 {*/ /*BakingContext context *//*?} else {*/ EntityModelSet modelSet /*?}*/) {
+            return new AtmosphericTridentModelRenderer(new TridentModel(/*? >=1.21.9 {*/ /*context.entityModelSet() *//*?} else {*/ modelSet /*?}*/.bakeLayer(this.entityModelLayer)), this.texture);
         }
     }
 }
