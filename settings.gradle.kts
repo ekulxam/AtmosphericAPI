@@ -14,11 +14,20 @@ plugins {
 
 stonecutter {
 	kotlinController = true
-	centralScript = "build.gradle.kts"
 
 	// Subproject configuration
 	create(rootProject) {
-		versions("1.21.1", "1.21.8", "1.21.10")
-		vcsVersion = "1.21.8"
+        fun match(version: String, vararg loaders: String) = loaders.forEach {
+            if (it == "fabric" && stonecutter.eval(version, ">=26")) {
+                version("$version-$it", version).buildscript = "build.fabric_noremap.gradle.kts"
+            } else {
+                version("$version-$it", version).buildscript = "build.$it.gradle.kts"
+            }
+        }
+
+        match("1.21.1", "fabric")
+        match("1.21.8", "fabric")
+        match("1.21.10", "fabric")
+		vcsVersion = "1.21.8-fabric"
 	}
 }
