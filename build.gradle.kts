@@ -72,6 +72,7 @@ fletchingTable {
                 "survivalblock.atmosphere.atmospheric_api.mixin.item.render.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client",
+                "survivalblock.atmosphere.atmospheric_api.mixin.item.trident.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.item.two_handed.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.particle.client",
                 "survivalblock.atmosphere.atmospheric_api.mixin.render.overlay.client",

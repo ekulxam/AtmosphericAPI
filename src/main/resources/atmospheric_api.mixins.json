@@ -38,6 +38,7 @@
     "item.spyglass.client.InGameHudAccessor",
     "item.spyglass.client.InGameHudMixin",
     "item.spyglass.client.MouseMixin",
+    "item.trident.client.SpecialModelTypesMixin",
     "item.two_handed.client.BipedEntityModelMixin",
     "item.two_handed.client.CrossbowPosingMixin",
     "item.two_handed.client.HeldItemRendererMixin",
