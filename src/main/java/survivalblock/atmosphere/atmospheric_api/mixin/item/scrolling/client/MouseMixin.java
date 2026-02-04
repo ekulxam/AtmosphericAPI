@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 //? if >=1.21.8 {
 package survivalblock.atmosphere.atmospheric_api.mixin.item.scrolling.client;
 

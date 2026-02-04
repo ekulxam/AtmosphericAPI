@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.geometry;
 
 import com.mojang.blaze3d.vertex.PoseStack;

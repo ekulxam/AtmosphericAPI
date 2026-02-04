@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.mixin.resource.client;
 
 import net.minecraft.client.resources.SplashManager;

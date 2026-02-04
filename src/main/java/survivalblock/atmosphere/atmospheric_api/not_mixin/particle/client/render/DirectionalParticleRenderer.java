@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 //? if >=1.21.9 {
 /*package survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client.render;
 

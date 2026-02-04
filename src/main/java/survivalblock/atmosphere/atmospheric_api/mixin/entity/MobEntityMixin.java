@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.mixin.entity;
 
 import net.minecraft.world.entity.EntityType;

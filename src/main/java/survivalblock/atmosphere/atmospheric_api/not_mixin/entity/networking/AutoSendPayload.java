@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity.networking;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;

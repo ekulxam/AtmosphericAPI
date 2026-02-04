@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.damage_type;
 
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;

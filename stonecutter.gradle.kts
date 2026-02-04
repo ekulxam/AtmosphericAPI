@@ -14,7 +14,7 @@ spotless {
     lineEndings = com.diffplug.spotless.LineEnding.UNIX
 
     java {
-        licenseHeaderFile(rootProject.file("HEADER"))
+        licenseHeaderFile(rootProject.file("HEADER"), "(package|\\/\\/|\\/\\*)")
         target("src/**/*.java", "versions/*/src/**/*.java")
     }
 }

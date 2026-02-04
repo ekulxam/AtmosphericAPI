@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.access;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

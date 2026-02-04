@@ -1,3 +1,8 @@
+/*
+ * All Rights Reserved
+ *
+ * Copyright (c) 2024-present ekulxam
+ */
 package survivalblock.atmosphere.atmospheric_api.mixin.render.screenshake;
 
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
