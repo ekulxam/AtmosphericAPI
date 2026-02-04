@@ -9,7 +9,6 @@ plugins {
     kotlin("jvm")
     id("com.google.devtools.ksp")
     id("dev.kikugie.fletching-table.fabric")
-    id("com.diffplug.spotless")
 }
 
 version = "${project.property("mod_version")}+${stonecutter.current.version}"
@@ -181,14 +180,6 @@ tasks.jar {
 
     from("LICENSE") {
         rename { "${it}_${base.archivesName}"}
-    }
-}
-
-spotless {
-    lineEndings = com.diffplug.spotless.LineEnding.UNIX
-
-    java {
-        licenseHeaderFile(rootProject.file("LICENSE"))
     }
 }
 
