@@ -34,4 +34,9 @@ public class StatusEffectRegistrant extends Registrant<MobEffect> {
     public Holder.Reference<MobEffect> registerReference(String name, MobEffect effect) {
         return Registry.registerForHolder(this.registry, this.idFunction.apply(name), effect);
     }
+
+    @Override
+    public String getTranslationKey(MobEffect effect) {
+        return effect.getDescriptionId();
+    }
 }

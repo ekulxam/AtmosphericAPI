@@ -40,4 +40,9 @@ public class EntityTypeRegistrant extends Registrant<EntityType<?>> {
     public <T extends Entity> EntityType<T> register(String name, EntityType<T> entityType) {
         return super.register(name, entityType);
     }
+
+    @Override
+    public String getTranslationKey(EntityType<?> entityType) {
+        return entityType.getDescriptionId();
+    }
 }

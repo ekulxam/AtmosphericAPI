@@ -50,4 +50,9 @@ public class DelayedItemRegistrant extends DelayedRegistrant<Item> {
     public <T extends Item, S extends Item.Properties> T register(Block block, Function<S, T> itemFunction, S settings) {
         return this.register(block.builtInRegistryHolder().getRegisteredName(), itemFunction, settings);
     }
+
+    @Override
+    public String getTranslationKey(Item item) {
+        return item.getDescriptionId();
+    }
 }
