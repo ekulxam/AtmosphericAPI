@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Contract;
 import org.joml.Vector3f;
 
 /**
@@ -26,46 +27,55 @@ public class BoxWithNoAtmosphere extends AABB {
         super(0, 0, 0, 0, 0, 0);
     }
 
+    @Contract(pure = true)
     @Override
     public AABB setMinX(double minX) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB setMinY(double minY) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB setMinZ(double minZ) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB setMaxX(double maxX) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB setMaxY(double maxY) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB setMaxZ(double maxZ) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public double min(Direction.Axis axis) {
         return 0;
     }
 
+    @Contract(pure = true)
     @Override
     public double max(Direction.Axis axis) {
         return 0;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -85,6 +95,7 @@ public class BoxWithNoAtmosphere extends AABB {
         }
     }
 
+    @Contract(pure = true)
     @Override
     public int hashCode() {
         int i = Double.hashCode(this.minX);
@@ -95,131 +106,157 @@ public class BoxWithNoAtmosphere extends AABB {
         return 31 * i + Double.hashCode(this.maxZ);
     }
 
+    @Contract(pure = true)
     @Override
     public AABB contract(double x, double y, double z) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB expandTowards(Vec3 scale) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB expandTowards(double x, double y, double z) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB inflate(double x, double y, double z) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB inflate(double value) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB intersect(AABB box) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB minmax(AABB box) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB move(double x, double y, double z) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB move(BlockPos blockPos) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB move(Vec3 vec) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB move(Vector3f offset) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean intersects(AABB box) {
         return false;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean intersects(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         return false;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean intersects(Vec3 pos1, Vec3 pos2) {
         return false;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean contains(Vec3 pos) {
         return false;
     }
 
+    @Contract(pure = true)
     @Override
     public boolean contains(double x, double y, double z) {
         return false;
     }
 
+    @Contract(pure = true)
     @Override
     public double getSize() {
         return 0;
     }
 
+    @Contract(pure = true)
     @Override
     public double getXsize() {
         return 0;
     }
 
+    @Contract(pure = true)
     @Override
     public double getYsize() {
         return 0;
     }
 
+    @Contract(pure = true)
     @Override
     public double getZsize() {
         return 0;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB deflate(double x, double y, double z) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public AABB deflate(double value) {
         return this;
     }
 
+    @Contract(pure = true)
     @Override
     public Vec3 getCenter() {
         return this.zero;
     }
 
+    @Contract(pure = true)
     @Override
     public Vec3 getBottomCenter() {
         return this.zero;
     }
 
+    @Contract(pure = true)
     @Override
     public Vec3 getMinPosition() {
         return this.zero;
     }
 
+    @Contract(pure = true)
     @Override
     public Vec3 getMaxPosition() {
         return this.zero;

@@ -5,8 +5,7 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer;
 
-import com.mojang.datafixers.util.Function3;
-import com.mojang.datafixers.util.Function4;
+import com.mojang.datafixers.util.*;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -84,6 +83,94 @@ public interface AtmosphericCodecs {
                             codec2.forGetter(from2),
                             codec3.forGetter(from3),
                             codec4.forGetter(from4)
+                    ).apply(instance, to)
+            );
+        }
+
+        static <O, F1, F2, F3, F4, F5> MapCodec<O> tuple(
+                MapCodec<F1> codec1, Function<O, F1> from1,
+                MapCodec<F2> codec2, Function<O, F2> from2,
+                MapCodec<F3> codec3, Function<O, F3> from3,
+                MapCodec<F4> codec4, Function<O, F4> from4,
+                MapCodec<F5> codec5, Function<O, F5> from5,
+                Function5<F1, F2, F3, F4, F5, O> to
+        ) {
+            return RecordCodecBuilder.mapCodec(
+                    instance -> instance.group(
+                            codec1.forGetter(from1),
+                            codec2.forGetter(from2),
+                            codec3.forGetter(from3),
+                            codec4.forGetter(from4),
+                            codec5.forGetter(from5)
+                    ).apply(instance, to)
+            );
+        }
+
+        static <O, F1, F2, F3, F4, F5, F6> MapCodec<O> tuple(
+                MapCodec<F1> codec1, Function<O, F1> from1,
+                MapCodec<F2> codec2, Function<O, F2> from2,
+                MapCodec<F3> codec3, Function<O, F3> from3,
+                MapCodec<F4> codec4, Function<O, F4> from4,
+                MapCodec<F5> codec5, Function<O, F5> from5,
+                MapCodec<F6> codec6, Function<O, F6> from6,
+                Function6<F1, F2, F3, F4, F5, F6, O> to
+        ) {
+            return RecordCodecBuilder.mapCodec(
+                    instance -> instance.group(
+                            codec1.forGetter(from1),
+                            codec2.forGetter(from2),
+                            codec3.forGetter(from3),
+                            codec4.forGetter(from4),
+                            codec5.forGetter(from5),
+                            codec6.forGetter(from6)
+                    ).apply(instance, to)
+            );
+        }
+
+        static <O, F1, F2, F3, F4, F5, F6, F7> MapCodec<O> tuple(
+                MapCodec<F1> codec1, Function<O, F1> from1,
+                MapCodec<F2> codec2, Function<O, F2> from2,
+                MapCodec<F3> codec3, Function<O, F3> from3,
+                MapCodec<F4> codec4, Function<O, F4> from4,
+                MapCodec<F5> codec5, Function<O, F5> from5,
+                MapCodec<F6> codec6, Function<O, F6> from6,
+                MapCodec<F7> codec7, Function<O, F7> from7,
+                Function7<F1, F2, F3, F4, F5, F6, F7, O> to
+        ) {
+            return RecordCodecBuilder.mapCodec(
+                    instance -> instance.group(
+                            codec1.forGetter(from1),
+                            codec2.forGetter(from2),
+                            codec3.forGetter(from3),
+                            codec4.forGetter(from4),
+                            codec5.forGetter(from5),
+                            codec6.forGetter(from6),
+                            codec7.forGetter(from7)
+                    ).apply(instance, to)
+            );
+        }
+
+        static <O, F1, F2, F3, F4, F5, F6, F7, F8> MapCodec<O> tuple(
+                MapCodec<F1> codec1, Function<O, F1> from1,
+                MapCodec<F2> codec2, Function<O, F2> from2,
+                MapCodec<F3> codec3, Function<O, F3> from3,
+                MapCodec<F4> codec4, Function<O, F4> from4,
+                MapCodec<F5> codec5, Function<O, F5> from5,
+                MapCodec<F6> codec6, Function<O, F6> from6,
+                MapCodec<F7> codec7, Function<O, F7> from7,
+                MapCodec<F8> codec8, Function<O, F8> from8,
+                Function8<F1, F2, F3, F4, F5, F6, F7, F8, O> to
+        ) {
+            return RecordCodecBuilder.mapCodec(
+                    instance -> instance.group(
+                            codec1.forGetter(from1),
+                            codec2.forGetter(from2),
+                            codec3.forGetter(from3),
+                            codec4.forGetter(from4),
+                            codec5.forGetter(from5),
+                            codec6.forGetter(from6),
+                            codec7.forGetter(from7),
+                            codec8.forGetter(from8)
                     ).apply(instance, to)
             );
         }
