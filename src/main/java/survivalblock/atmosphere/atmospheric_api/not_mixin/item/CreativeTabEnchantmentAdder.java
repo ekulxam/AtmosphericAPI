@@ -23,7 +23,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-public class CreativeTabEnchantmentAdder {
+public final class CreativeTabEnchantmentAdder {
+    private CreativeTabEnchantmentAdder() {
+    }
 
     public static void addEnchantedStack(Item item, CreativeModeTab.ItemDisplayParameters displayContext, String enchantment, CreativeModeTab.Output entries) {
         addEnchantedStack(item, displayContext, enchantment, entries, null);

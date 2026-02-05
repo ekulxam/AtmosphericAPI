@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements.SpawnPredicate;
 
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 @SuppressWarnings("unused")
@@ -41,5 +42,10 @@ public final class FunctionOperations {
     public static <T extends Entity> SpawnPredicate<T> combine(SpawnPredicate<T> one, SpawnPredicate<T> two, BiFunction<Boolean, Boolean, Boolean> operator) {
         return (type, world, spawnReason, blockPos, random) ->
                 operator.apply(one.test(type, world, spawnReason, blockPos, random), two.test(type, world, spawnReason, blockPos, random));
+    }
+
+    public static <T> T consumeAndReturn(T obj, Consumer<T> consumer) {
+        consumer.accept(obj);
+        return obj;
     }
 }

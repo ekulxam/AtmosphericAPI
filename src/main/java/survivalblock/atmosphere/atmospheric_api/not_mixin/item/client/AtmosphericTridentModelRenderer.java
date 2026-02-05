@@ -29,6 +29,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericCodecs;
 
 import java.util.Set;
 
@@ -66,19 +67,15 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
 
     @Environment(EnvType.CLIENT)
     public record Unbaked(ResourceLocation texture, ModelLayerLocation entityModelLayer) implements SpecialModelRenderer.Unbaked {
-        public static final Codec<ModelLayerLocation> MODEL_LAYER_CODEC = RecordCodecBuilder.create(
-                instance -> instance.group(
-                        ResourceLocation.CODEC.fieldOf("model").forGetter(ModelLayerLocation::model),
-                        Codec.STRING.optionalFieldOf("layer", "main").forGetter(ModelLayerLocation::layer)
-                    )
-                    .apply(instance, ModelLayerLocation::new)
-        );
-        public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(
-                instance -> instance.group(
-                        ResourceLocation.CODEC.fieldOf("texture").forGetter(unbaked -> unbaked.texture),
-						MODEL_LAYER_CODEC.optionalFieldOf("entityModelLayer", ModelLayers.TRIDENT).forGetter(unbaked -> unbaked.entityModelLayer)
-					)
-                    .apply(instance, Unbaked::new)
+        public static final Codec<ModelLayerLocation> MODEL_LAYER_CODEC = AtmosphericCodecs.RCB.tuple(
+                ResourceLocation.CODEC.fieldOf("model"), ModelLayerLocation::model,
+                Codec.STRING.optionalFieldOf("layer", "main"), ModelLayerLocation::layer,
+                ModelLayerLocation::new
+        ).codec();
+        public static final MapCodec<Unbaked> MAP_CODEC = AtmosphericCodecs.RCB.tuple(
+                ResourceLocation.CODEC.fieldOf("texture"), unbaked -> unbaked.texture,
+                MODEL_LAYER_CODEC.optionalFieldOf("entityModelLayer", ModelLayers.TRIDENT), unbaked -> unbaked.entityModelLayer,
+                Unbaked::new
         );
 
         public MapCodec<Unbaked> type() {
