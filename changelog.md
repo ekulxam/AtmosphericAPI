@@ -1,15 +1,8 @@
-Atmospheric API 3.3.0
-- Allow `AutoSendPayload#send` to accept a sync predicate
-- Create `FunctionOperations`
-- Custom Trident API
-  - Create `AtmosphericTridentRegistry` (1.21.1)
-  - Create `AtmosphericTridentModelRenderer` (1.21.4+) which can be accessed in json via `atmospheric_api:trident`
-- Allow `CreativeTabEnchantmentAdder` to accept a key of the enchantment
-  - Make `CreativeTabEnchantmentAdder` final and add a private constructor
-- Prepare for porting to 26+
-- Add spotless
-- Fix issue.yml typos
-- Add `DynamicRegistrant`s
-- Deprecate `RegistryEntryLookupContainer`
-- Add `AtmosphericCodecs$RCB` which provides `tuple` methods to create `MapCodec`s in a similar structure to `PacketCodec.tuple`/`StreamCodec.composite`
-  - Currently, this provides up to `Function4`
+Atmospheric API 3.3.1
+- Fix publishing 
+- Fix permissions.md formatting 
+- Add `@Contract(pure = true)` to most methods in `BoxWithNoAtmosphere`
+- Add up to Function8 for `AtmosphericCodecs$RCB`
+- Add getTranslationKey overrides for `DelayedRegistrant`s
+- Add `Creator` interface and implementation for `DynamicRegistrant`s
+  - `DynamicRegistrant$CreatorImpl` caches lookup calls

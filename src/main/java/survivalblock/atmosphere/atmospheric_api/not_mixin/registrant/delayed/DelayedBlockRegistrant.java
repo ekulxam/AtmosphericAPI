@@ -37,4 +37,9 @@ public class DelayedBlockRegistrant extends DelayedRegistrant<Block> {
         T block = blockFunction.apply(/*? >=1.21.2 {*/(S)/*?}*/ settings /*? >=1.21.2 {*/.setId(ResourceKey.create(this.registry.key(), this.idFunction.apply(name))) /*?}*/);
         return this.register(name, block);
     }
+
+    @Override
+    public String getTranslationKey(Block block) {
+        return block.getDescriptionId();
+    }
 }

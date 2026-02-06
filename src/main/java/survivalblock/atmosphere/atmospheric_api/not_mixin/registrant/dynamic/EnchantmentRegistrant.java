@@ -55,15 +55,14 @@ public class EnchantmentRegistrant extends DynamicRegistrant<Enchantment> {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    public interface EnchantmentCreator {
-        BootstrapContext<Enchantment> registerable();
+    public interface EnchantmentCreator extends Creator<Enchantment> {
 
         default HolderGetter<Item> itemLookup() {
-            return this.registerable().lookup(Registries.ITEM);
+            return this.lookup(Registries.ITEM);
         }
 
         default HolderGetter<Enchantment> enchantmentLookup() {
-            return this.registerable().lookup(Registries.ENCHANTMENT);
+            return this.lookup(Registries.ENCHANTMENT);
         }
 
         @AllowsForChaining
@@ -87,18 +86,12 @@ public class EnchantmentRegistrant extends DynamicRegistrant<Enchantment> {
         EnchantmentCreator modify(UnaryOperator<Enchantment.Builder> unaryOperator);
     }
 
-    public static final class EnchantmentCreatorImpl implements EnchantmentCreator {
-        private final BootstrapContext<Enchantment> registerable;
+    public class EnchantmentCreatorImpl extends CreatorImpl implements EnchantmentCreator {
         @Nullable
         private Enchantment.Builder builder = null;
 
         public EnchantmentCreatorImpl(BootstrapContext<Enchantment> registerable) {
-            this.registerable = registerable;
-        }
-
-        @Override
-        public BootstrapContext<Enchantment> registerable() {
-            return this.registerable;
+            super(registerable);
         }
 
         @Override
@@ -116,6 +109,7 @@ public class EnchantmentRegistrant extends DynamicRegistrant<Enchantment> {
             return this;
         }
 
+        @Override
         public Enchantment build(ResourceKey<Enchantment> key) {
             return Objects.requireNonNull(this.builder).build(key.location());
         }
