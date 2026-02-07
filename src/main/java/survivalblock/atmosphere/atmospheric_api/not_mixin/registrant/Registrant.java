@@ -5,7 +5,6 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.registrant;
 
-import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
@@ -26,10 +25,5 @@ public class Registrant<T> {
 
     public <U extends T> U register(String name, U obj) {
         return Registry.register(this.registry, this.idFunction.apply(name), obj);
-    }
-
-    @SuppressWarnings("unused")
-    public String getTranslationKey(T obj) {
-        return Util.makeDescriptionId(this.registry.key().location().getPath(), this.registry.getKey(obj));
     }
 }

@@ -54,9 +54,4 @@ public class DelayedItemRegistrant extends DelayedRegistrant<Item> {
         }
         return item;
     }
-
-    @Override
-    public String getTranslationKey(Item item) {
-        return item.getDescriptionId();
-    }
 }

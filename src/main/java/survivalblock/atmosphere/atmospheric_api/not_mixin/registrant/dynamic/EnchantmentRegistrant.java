@@ -54,10 +54,6 @@ public class EnchantmentRegistrant extends DynamicRegistrant<Enchantment> {
         return key;
     }
 
-    public String getDescriptionKey(ResourceKey<Enchantment> key) {
-        return this.getTranslationKeyWithSuffix(key, "desc");
-    }
-
     @SuppressWarnings("UnusedReturnValue")
     public interface EnchantmentCreator extends Creator<Enchantment> {
 

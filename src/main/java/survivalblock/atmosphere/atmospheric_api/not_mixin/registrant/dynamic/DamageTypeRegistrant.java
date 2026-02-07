@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageType;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
@@ -38,18 +37,5 @@ public class DamageTypeRegistrant extends DynamicRegistrant<DamageType> {
 
     public ResourceKey<DamageType> register(String path, String message, float exhaustion) {
         return this.register(path, new DamageType(message, exhaustion));
-    }
-
-    @Override
-    public String getTranslationKey(ResourceKey<DamageType> key) {
-        return "death.attack." + Objects.requireNonNull(this.registered.get(key)).msgId();
-    }
-
-    public String getTranslationKeyPlayer(ResourceKey<DamageType> key) {
-        return this.getTranslationKeyWithSuffix(key, "player");
-    }
-
-    public String getTranslationKeyItem(ResourceKey<DamageType> key) {
-        return this.getTranslationKeyWithSuffix(key, "item");
     }
 }

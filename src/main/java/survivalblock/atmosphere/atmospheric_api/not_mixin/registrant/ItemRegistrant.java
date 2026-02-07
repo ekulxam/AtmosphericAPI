@@ -54,9 +54,4 @@ public class ItemRegistrant extends Registrant<Item> {
         }
         return item;
     }
-
-    @Override
-    public String getTranslationKey(Item item) {
-        return item.getDescriptionId();
-    }
 }
