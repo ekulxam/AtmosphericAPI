@@ -29,7 +29,6 @@ public class Masonry {
     }
 
     public static class ColorHelper {
-
         public static int getRed(int color) {
             return /*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.red(color);
         }
@@ -64,7 +63,6 @@ public class Masonry {
     }
 
     public static class ItemCooldownManager {
-
         public static boolean isCoolingDown(ItemCooldowns manager, ItemStack stack) {
             return manager.isOnCooldown(stack/*? <1.21.2 {*/ /*.getItem() *//*?}*/);
         }

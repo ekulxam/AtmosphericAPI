@@ -8,6 +8,8 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.datagen.language;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider.TranslationBuilder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+//? if =1.21.1
+/*import net.minecraft.core.registries.Registries;*/
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -32,7 +34,7 @@ public record AtmosphericTranslationBuilder(TranslationBuilder delegate) impleme
     }
 
     public String getDamageTypeTranslationKey(HolderLookup.Provider lookup, ResourceKey<DamageType> key) {
-        return "death.attack." + lookup.getOrThrow(key).value().msgId();
+        return "death.attack." + lookup/*? =1.21.1 {*/ /*.lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(key) *//*?} else {*/ .getOrThrow(key) /*?}*/.value().msgId();
     }
 
     @SuppressWarnings("unused")
