@@ -1,3 +1,2 @@
-Atmospheric API 3.3.2
-- Call BlockItem#registerBlocks/appendBlocks
-- Cleanup translation nonsense
+Atmospheric API 3.3.3
+- Fix AtmosphericTranslationBuilder#addDamageType passing the wrong strings for player and item

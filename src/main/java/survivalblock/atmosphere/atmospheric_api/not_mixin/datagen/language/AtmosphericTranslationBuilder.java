@@ -50,10 +50,10 @@ public record AtmosphericTranslationBuilder(TranslationBuilder delegate) impleme
         String translation = this.getDamageTypeTranslationKey(lookup, key);
         this.add(translation, value);
         if (player != null) {
-            this.add(translation + ".player", value);
+            this.add(translation + ".player", player);
         }
         if (item != null) {
-            this.add(translation + ".item", value);
+            this.add(translation + ".item", item);
         }
     }
 
