@@ -6,6 +6,7 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.registrant.dynamic;
 
 import net.fabricmc.fabric.impl.datagen.FabricDataGenHelper;
+import net.minecraft.Util;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistrySetBuilder;
@@ -16,7 +17,6 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.registrant.Registrant;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -29,6 +29,7 @@ public class DynamicRegistrant<T> {
     protected final ResourceKey<? extends Registry<T>> registry;
 
     protected final Map<ResourceKey<T>, Function<BootstrapContext<T>, T>> toRegister = new HashMap<>();
+    protected final Map<ResourceKey<T>, T> registered = new HashMap<>();
 
     public DynamicRegistrant(String modId, ResourceKey<? extends Registry<T>> registry) {
         this(path -> ResourceLocation.fromNamespaceAndPath(modId, path), registry);
@@ -67,9 +68,21 @@ public class DynamicRegistrant<T> {
     @SuppressWarnings("unused")
     public void bootstrap(BootstrapContext<T> registerable) {
         for (Map.Entry<ResourceKey<T>, Function<BootstrapContext<T>, T>> entry : this.toRegister.entrySet()) {
-            registerable.register(entry.getKey(), entry.getValue().apply(registerable));
+            ResourceKey<T> key = entry.getKey();
+            T value = entry.getValue().apply(registerable);
+
+            registerable.register(key, value);
+            this.registered.put(key, value);
         }
         this.toRegister.clear();
+    }
+
+    public String getTranslationKey(ResourceKey<T> key) {
+        return Util.makeDescriptionId(key.registry().getPath(), key.location());
+    }
+    
+    protected String getTranslationKeyWithSuffix(ResourceKey<T> key, String suffix) {
+        return this.getTranslationKey(key) + "." + suffix;
     }
 
     public interface Creator<T> {

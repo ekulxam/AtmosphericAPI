@@ -48,7 +48,11 @@ public class ItemRegistrant extends Registrant<Item> {
     }
 
     public <T extends Item, S extends Item.Properties> T register(Block block, Function<S, T> itemFunction, S settings) {
-        return this.register(block.builtInRegistryHolder().key().location().getPath(), itemFunction, settings);
+        T item = this.register(block.builtInRegistryHolder().key().location().getPath(), itemFunction, settings);
+        if (item instanceof BlockItem blockItem) {
+            blockItem.registerBlocks(Item.BY_BLOCK, blockItem);
+        }
+        return item;
     }
 
     @Override
