@@ -1,2 +1,2 @@
-Atmospheric API 3.3.3
-- Fix AtmosphericTranslationBuilder#addDamageType passing the wrong strings for player and item
+Atmospheric API 3.3.4
+- Remove SpecialModelTypesMixin from mixins.json
