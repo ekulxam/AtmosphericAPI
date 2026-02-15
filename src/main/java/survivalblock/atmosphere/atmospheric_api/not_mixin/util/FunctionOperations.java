@@ -27,6 +27,9 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class FunctionOperations {
+    private static final Supplier NULL_SUPPLIER = lazySupplier(null);
+    private static final Function IDENTITY_FUNCTION = Function.identity();
+
     private FunctionOperations() {
     }
 
@@ -34,8 +37,14 @@ public final class FunctionOperations {
         return Consumers.nop();
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> Function<T, T> identityFunction() {
-        return Function.identity();
+        return IDENTITY_FUNCTION;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Supplier<T> nullSupplier() {
+        return NULL_SUPPLIER;
     }
 
     public static <T> Supplier<T> lazySupplier(T obj) {
