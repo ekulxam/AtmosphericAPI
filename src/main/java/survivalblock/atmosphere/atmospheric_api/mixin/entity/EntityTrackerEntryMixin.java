@@ -63,15 +63,8 @@ public abstract class EntityTrackerEntryMixin {
 					String methodName = "accept";
 					Class<?>[] parameterTypes = new Class[]{AtmosphericAPI.isConnectorLoaded ? Packet.class : Object.class};
 					ReflectionCacher.MethodDescription desc = new ReflectionCacher.MethodDescription(clazz, methodName, parameterTypes);
-					Method acceptMethod = ReflectionCacher.METHODS.computeIfAbsent(desc, desc1 -> {
-						try {
-							return clazz.getMethod(methodName, parameterTypes);
-						} catch (NoSuchMethodException noSuchMethodException) {
-							return null;
-						}
-					});
-					acceptMethod.invoke(sender, new ClientboundUpdateAttributesPacket(this.entity.getId(), collection));
-				} catch (Throwable throwable) {
+                    ReflectionCacher.methodHandle(desc).invoke(sender, new ClientboundUpdateAttributesPacket(this.entity.getId(), collection));
+                } catch (Throwable throwable) {
 					AtmosphericAPI.LOGGER.error("Error while doing reflection to get a EntityWithAttributes's attributes!", throwable);
 				}
 			}

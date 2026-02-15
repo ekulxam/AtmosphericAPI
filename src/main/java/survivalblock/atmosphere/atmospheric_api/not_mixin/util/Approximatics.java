@@ -31,4 +31,20 @@ public final class Approximatics {
     public static boolean isBasicallyEqual(float value, float original) {
         return isBasicallyEqual(value, original, (float) DEFAULT_ACCURACY);
     }
+
+    public static int clampAbs(long value, int max) {
+        return Math.clamp(value, -max, max);
+    }
+
+    public static long clampAbs(long value, long max) {
+        return Math.clamp(value, -max, max);
+    }
+
+    public static float clampAbs(float value, float max) {
+        return Math.clamp(value, -max, max);
+    }
+
+    public static double clampAbs(double value, double max) {
+        return Math.clamp(value, -max, max);
+    }
 }
