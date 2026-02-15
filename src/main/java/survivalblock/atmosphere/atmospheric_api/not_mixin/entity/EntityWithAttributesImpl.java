@@ -5,8 +5,10 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
+//? if <1.21.6 {
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+//?}
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -23,7 +25,8 @@ import java.util.Optional;
 
 /**
  * A basic implementation of {@link EntityWithAttributes}.
- * Entities that must implement {@link EntityWithAttributes} and do not need to extend classes other than {@link Entity} itself should extend this class
+ * Entities that must implement {@link EntityWithAttributes} and do not need to extend
+ * classes other than {@link Entity} itself should extend this class
  */
 @SuppressWarnings("unused")
 public abstract class EntityWithAttributesImpl extends Entity implements EntityWithAttributes {

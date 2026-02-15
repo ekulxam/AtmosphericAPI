@@ -7,7 +7,8 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
 /**
  * Originally from ATTA-V
- * reference to the ShieldboardEntity from my mod Shield Surfing
+ * <p>
+ * This is a reference to the {@code ShieldboardEntity} from Shield Surfing
  */
 public interface ControlBoarder {
 

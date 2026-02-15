@@ -17,9 +17,12 @@ import java.util.function.Predicate;
 /**
  * A Pair* that stores two elements of the same type.
  * This class expects the programmer to know what they are doing
- * because this class does not support any of the {@link List#add(Object)} and {@link List#remove(Object)} methods and will instead throw an exception.
- * This is probably not a very good design choice by the author, but I guess people will have to deal with it (who is even going to use this?)
- * <p>*Why are there so many different Pair classes??
+ * because this class does not support any of the {@link List#add(Object)}
+ * and {@link List#remove(Object)} methods and will instead throw an exception.
+ * This is probably not a very good design choice by the author, but I suppose
+ * people will have to deal with it (who is even going to use this?).
+ * <p>
+ * *Why are there so many different Pair classes??
  * @param <E> the type of the elements of the {@link Duo}
  */
 @BadAtProgramming

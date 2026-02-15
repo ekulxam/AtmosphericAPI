@@ -44,6 +44,7 @@ public interface EntityWithAttributes {
      * In vanilla code, {@link net.minecraft.server.level.ServerEntity#sendPairingData(ServerPlayer, Consumer)} handles attribute syncing between server and client.
      * A mixin has been created with allows instances {@link EntityWithAttributes} to have their attributes synced like this.
      * @return whether the attributes should be synced using {@link net.minecraft.server.level.ServerEntity}
+     * @see survivalblock.atmosphere.atmospheric_api.mixin.entity.EntityTrackerEntryMixin
      */
     default boolean shouldAutoSyncAttributes() {
         return true;

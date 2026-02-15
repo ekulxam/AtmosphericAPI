@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This is used when a public static field should only be changed by the project
+ * This is used when a public (static) field should only be changed by the project
  * that it is defined in and should be treated as final elsewhere
  */
 @SuppressWarnings("unused")

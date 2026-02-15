@@ -26,7 +26,8 @@ import java.util.Optional;
 
 /^*
  * Originally written as the PantsOfUndyingPacket for Enchancement Unbound
- * Used as an S2C payload to tell the client to display a floating item, limit to an activated totem of undying
+ * <p>
+ * Used as an S2C payload to tell the client to display a floating item, not limited to an activated totem of undying
  * @see net.minecraft.client.renderer.GameRenderer#floatingItem
  * @see net.minecraft.client.renderer.GameRenderer#displayItemActivation(ItemStack)
  * @see net.minecraft.client.renderer.GameRenderer#renderItemActivationAnimation(GuiGraphics, float)
@@ -34,6 +35,7 @@ import java.util.Optional;
  * @param entityId the id of the entity
  * @param particleEffectHolder
  * @param soundEventHolder
+ * @see net.minecraft.world.entity.EntityEvent#TALISMAN_ACTIVATE
  ^/
 @SuppressWarnings({"unused", "JavadocReference"})
 public record ItemStackOfUndyingS2CPayload(ItemStack stack, int entityId, ParticleEffectHolder particleEffectHolder, SoundEventHolder soundEventHolder) implements CustomPacketPayload {

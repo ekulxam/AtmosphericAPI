@@ -19,8 +19,7 @@ public interface ScreenShaker {
     float getIntensity();
 
     /**
-     * Gets the duration of the ScreenShaker
-     * @return the duration of the ScreenShaker in ticks
+     * @return the duration of the {@linkplain ScreenShaker} in ticks
      */
     int getDuration();
 

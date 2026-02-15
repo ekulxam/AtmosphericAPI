@@ -31,7 +31,9 @@ import java.util.Objects;
 public class ClientScreenShaker extends BasicScreenShaker implements QueueingScreenShaker {
 
     /**
-     * Stores the ScreenShakers that are waiting to be activated. This list is cleared upon leaving the world.
+     * Stores the {@linkplain ClientScreenShaker}s that are waiting to be activated.
+     * <p>
+     * This list is cleared upon leaving the world.
      */
     private static final List<ClientScreenShaker> QUEUE = new ArrayList<>();
     protected static ClientScreenShaker active = null;
@@ -110,7 +112,8 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
     }
 
     /**
-     * Ticks the active ScreenShaker. This fails if this instance is not the active instance or if this instance has ended.
+     * Ticks the active ScreenShaker. This fails if this instance is not the
+     * active instance or if this instance has ended.
      */
     @Override
     public void tick(Level world) {

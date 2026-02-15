@@ -14,6 +14,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface PositionContainer {
-
     List<Vec3> positions();
 }

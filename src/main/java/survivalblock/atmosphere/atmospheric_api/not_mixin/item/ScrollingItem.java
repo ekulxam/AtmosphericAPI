@@ -15,11 +15,11 @@ public interface ScrollingItem {
 	/**
 	 * Allows item to perform custom logic when the user scrolls in the hotbar.
 	 * In vanilla, this should always be called on the client.
-	 * @param world The world
-	 * @param player The player using the item
-	 * @param stack The itemstack
-	 * @param scrollAmount The amount scrolled
-	 * @return false to cancel default logic, true to allow
+	 * @param world the world
+	 * @param player the player using the item
+	 * @param stack the itemstack instance
+	 * @param scrollAmount the amount scrolled
+	 * @return true to allow scrolling (vanilla), false to cancel
 	 */
 	boolean onScroll(Level world, Player player, ItemStack stack, double scrollAmount);
 }

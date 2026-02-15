@@ -9,7 +9,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Alternate names: AllowsForChainingForFun,
+ * Alternate names:
+ * AllowsForChainingForFun,
  * AllowsForChainingForWhateverReason,
  * AllowsForChainingForSomeReason,
  * AllowsForChainingForNoReason,
