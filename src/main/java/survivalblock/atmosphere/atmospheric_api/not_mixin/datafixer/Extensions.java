@@ -10,12 +10,15 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.codec.StreamCodec;
+import org.apache.commons.lang3.function.Consumers;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.util.FunctionOperations;
 
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 @SuppressWarnings("unused")
@@ -24,6 +27,10 @@ public class Extensions {
     public static final Logger LOGGER = AtmosphericAPI.LOGGER;
 
     public static <B, C, T1> StreamCodec<B, C> extend(StreamCodec<B, C> original, StreamCodec<B, T1> addon, Function<C, @Nullable T1> from, BiConsumer<C, T1> to) {
+        return extend(original, addon, from, to, FunctionOperations.voidConsumer());
+    }
+
+    public static <B, C, T1> StreamCodec<B, C> extend(StreamCodec<B, C> original, StreamCodec<B, T1> addon, Function<C, @Nullable T1> from, BiConsumer<C, T1> to, Consumer<Throwable> decodingErrorHandler) {
         return new StreamCodec<>() {
             @Override
             public C decode(B buf) {
@@ -32,7 +39,7 @@ public class Extensions {
                     T1 object = addon.decode(buf);
                     to.accept(c, object);
                 } catch (Throwable throwable) {
-                    // implement error handling
+                    decodingErrorHandler.accept(throwable);
                 }
                 return c;
             }
