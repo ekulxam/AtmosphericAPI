@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.WeakHashMap;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public final class ReflectionCacher {
@@ -127,6 +128,17 @@ public final class ReflectionCacher {
                     Arrays.hashCode(this.parameterTypes)
             );
         }
+
+        @Override
+        public String toString() {
+            return this.getClass().getName()
+                    + "{reference='" + this.clazz.getName() + "." + this.name + "'"
+                    + ", returnType=" + (this.returnType == null ? "null" : this.returnType.getName())
+                    + ", parameterTypes=" + Arrays.stream(this.parameterTypes)
+                        .map(Class::getName)
+                        .collect(Collectors.joining(", "))
+                    + '}';
+        }
     }
 
     /**
@@ -152,6 +164,14 @@ public final class ReflectionCacher {
                     this.name,
                     this.explicit
             );
+        }
+
+        @Override
+        public String toString() {
+            return this.getClass().getName()
+                    + "{reference='" + this.clazz.getName() + "." + this.name + "'"
+                    + ", explicit=" + this.explicit
+                    + '}';
         }
     }
 }

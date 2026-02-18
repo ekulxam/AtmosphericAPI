@@ -10,6 +10,7 @@ import net.minecraft.util.VisibleForDebug;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SpawnPlacements.SpawnPredicate;
 import org.apache.commons.lang3.function.Consumers;
+import survivalblock.atmosphere.atmospheric_api.not_mixin.funny.IsThisEvenNecessary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,20 +34,24 @@ public final class FunctionOperations {
     private FunctionOperations() {
     }
 
+    @IsThisEvenNecessary(IsThisEvenNecessary.Levels.PROBABLY_NOT)
     public static <T> Consumer<T> voidConsumer() {
         return Consumers.nop();
     }
 
+    @IsThisEvenNecessary(IsThisEvenNecessary.Levels.PROBABLY_NOT)
     @SuppressWarnings("unchecked")
     public static <T> Function<T, T> identityFunction() {
         return IDENTITY_FUNCTION;
     }
 
+    @IsThisEvenNecessary(IsThisEvenNecessary.Levels.PROBABLY_NOT)
     @SuppressWarnings("unchecked")
     public static <T> Supplier<T> nullSupplier() {
         return NULL_SUPPLIER;
     }
 
+    @IsThisEvenNecessary
     public static <T> Supplier<T> lazySupplier(T obj) {
         return () -> obj;
     }
