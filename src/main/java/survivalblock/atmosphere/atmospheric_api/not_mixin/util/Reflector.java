@@ -15,58 +15,48 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.WeakHashMap;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
-public final class ReflectionCacher {
+public final class Reflector {
 
-    public static final WeakHashMap<MethodDescription, MethodHandle> METHOD_HANDLES = new WeakHashMap<>();
-    public static final WeakHashMap<MethodDescription, Method> METHODS = new WeakHashMap<>();
-    public static final WeakHashMap<FieldDescription, Field> FIELDS = new WeakHashMap<>();
-
-    private ReflectionCacher() {
+    private Reflector() {
     }
 
     /**
-     * Obtains the {@link Field} described by the given {@link FieldDescription} from {@link ReflectionCacher#FIELDS} or finds it if absent ({@link WeakHashMap#computeIfAbsent(Object, Function)})
-     * @param fieldDescription the required metadata to obtain the {@link Field}
+     * Obtains the {@link Field} described by the given {@link FieldDescription}
+     * @param desc the required metadata to obtain the {@link Field}
      * @return the field, or {@code null} if a {@link NoSuchFieldException} was thrown
      */
     @Nullable
-    public static Field field(FieldDescription fieldDescription) {
-        return FIELDS.computeIfAbsent(fieldDescription, desc -> {
-            try {
-                return desc.explicit
-                        ? desc.clazz.getDeclaredField(desc.name)
-                        : desc.clazz.getField(desc.name);
-            } catch (NoSuchFieldException e) {
-                AtmosphericAPI.LOGGER.error("Error while using reflection to get the field {}.{}", desc.clazz.getName(), desc.name, e);
-                return null;
-            }
-        });
+    public static Field field(FieldDescription desc) {
+        try {
+            return desc.explicit
+                    ? desc.clazz.getDeclaredField(desc.name)
+                    : desc.clazz.getField(desc.name);
+        } catch (NoSuchFieldException e) {
+            AtmosphericAPI.LOGGER.error("Error while using reflection to get the field {}.{}", desc.clazz.getName(), desc.name, e);
+            return null;
+        }
     }
 
     /**
-     * Obtains the {@link Method} described by the given {@link MethodDescription} from {@link ReflectionCacher#METHODS} or finds it if absent ({@link WeakHashMap#computeIfAbsent(Object, Function)})
-     * @param methodDescription the required metadata to obtain the {@link Method}
+     * Obtains the {@link Method} described by the given {@link MethodDescription}
+     * @param desc the required metadata to obtain the {@link Method}
      * @return the field, or {@code null} if a {@link NoSuchMethodException} was thrown
      */
     @Nullable
-    public static Method method(MethodDescription methodDescription) {
-        return METHODS.computeIfAbsent(methodDescription, desc -> {
-            try {
-                return desc.clazz.getMethod(desc.name, desc.parameterTypes);
-            } catch (NoSuchMethodException e) {
-                AtmosphericAPI.LOGGER.error("Error while using reflection to get the method {}.{}", desc.clazz.getName(), desc.name, e);
-                return null;
-            }
-        });
+    public static Method method(MethodDescription desc) {
+        try {
+            return desc.clazz.getMethod(desc.name, desc.parameterTypes);
+        } catch (NoSuchMethodException e) {
+            AtmosphericAPI.LOGGER.error("Error while using reflection to get the method {}.{}", desc.clazz.getName(), desc.name, e);
+            return null;
+        }
     }
 
     /**
-     * Obtains the {@link MethodHandle} associated with the given {@link MethodDescription} from {@link ReflectionCacher#METHOD_HANDLES} or finds it if absent ({@link WeakHashMap#computeIfAbsent(Object, Function)})
+     * Obtains the {@link MethodHandle} associated with the given {@link MethodDescription}
      * @param methodDescription the required metadata to obtain the {@link MethodHandle}
      * @return the method, or {@code null} if a {@link NoSuchMethodException} or {@link IllegalAccessException} was thrown
      */
@@ -76,25 +66,23 @@ public final class ReflectionCacher {
     }
 
     /**
-     * Obtains the {@link MethodHandle} associated with the given {@link MethodDescription} from {@link ReflectionCacher#METHOD_HANDLES} or finds it if absent ({@link WeakHashMap#computeIfAbsent(Object, Function)})
-     * @param methodDescription the required metadata to obtain the {@link MethodHandle}
+     * Obtains the {@link MethodHandle} associated with the given {@link MethodDescription}
+     * @param desc the required metadata to obtain the {@link MethodHandle}
      * @param lookup the lookup used to find the {@link MethodHandle} if absent
      * @return the method, or {@code null} if a {@link NoSuchMethodException} or {@link IllegalAccessException} was thrown
      */
     @Nullable
-    public static MethodHandle methodHandle(MethodDescription methodDescription, MethodHandles.Lookup lookup) {
-        return METHOD_HANDLES.computeIfAbsent(methodDescription, desc -> {
-            try {
-                return lookup.findVirtual(
-                        desc.clazz,
-                        desc.name,
-                        MethodType.methodType(Objects.requireNonNull(desc.returnType), desc.parameterTypes)
-                );
-            } catch (NoSuchMethodException | IllegalAccessException e) {
-                AtmosphericAPI.LOGGER.error("Error while using MethodHandles to get {}.{}", desc.clazz.getName(), desc.name, e);
-                return null;
-            }
-        });
+    public static MethodHandle methodHandle(MethodDescription desc, MethodHandles.Lookup lookup) {
+        try {
+            return lookup.findVirtual(
+                    desc.clazz,
+                    desc.name,
+                    MethodType.methodType(Objects.requireNonNull(desc.returnType), desc.parameterTypes)
+            );
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            AtmosphericAPI.LOGGER.error("Error while using MethodHandles to get {}.{}", desc.clazz.getName(), desc.name, e);
+            return null;
+        }
     }
 
     /**

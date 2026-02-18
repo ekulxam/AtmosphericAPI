@@ -16,21 +16,29 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+//? if <=1.21.7
+/*import org.jetbrains.annotations.Nullable;*/
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+//? if <=1.21.7
+/*import org.spongepowered.asm.mixin.Unique;*/
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
+//? if <=1.21.7
+/*import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;*/
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.EntityWithAttributes;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.util.ReflectionCacher;
+//? if <=1.21.7
+/*import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Reflector;*/
 
-import java.lang.reflect.Method;
+//? if <=1.21.7
+/*import java.lang.invoke.MethodHandle;*/
 import java.util.Collection;
 import java.util.Set;
+import java.util.function.Consumer;
 
 @Mixin(ServerEntity.class)
 public abstract class EntityTrackerEntryMixin {
@@ -42,6 +50,36 @@ public abstract class EntityTrackerEntryMixin {
     *///?} else {
     @Shadow protected abstract void broadcastAndSend(Packet<?> packet);
     //?}
+
+    //? if <=1.21.7 {
+    /*@Nullable
+    @Unique
+    private static final MethodHandle atmospheric_api$PACKET_ACCEPTOR;
+
+    static {
+        boolean consumer = true;
+        Class<?> clazz = Consumer.class;
+        if (AtmosphericAPI.isConnectorLoaded) {
+            try {
+                clazz = Class.forName("net.neoforged.neoforge.network.bundle.PacketAndPayloadAcceptor");
+                consumer = false;
+            } catch (ClassNotFoundException ignored) {
+            }
+        }
+        if (consumer) {
+            atmospheric_api$PACKET_ACCEPTOR = null;
+        } else {
+            atmospheric_api$PACKET_ACCEPTOR = Reflector.methodHandle(
+                    new Reflector.MethodDescription(
+                            clazz,
+                            "accept",
+                            clazz, // returns itself on neo
+                            new Class[]{Packet.class}
+                    )
+            );
+        }
+    }
+    *///?}
 
     @Inject(method = "sendPairingData", at = @At("HEAD"))
 	private void captureSender(ServerPlayer player, @Coerce Object sender, CallbackInfo ci, @Share("sender") LocalRef<Object> senderRef) {
@@ -56,17 +94,20 @@ public abstract class EntityTrackerEntryMixin {
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
 			Collection<AttributeInstance> collection = entityWithAttributes.getAttributes().getSyncableAttributes();
 			if (!collection.isEmpty()) {
-				try {
-					// neoforge changes the type of the sender parameter
-					Object sender = senderRef.get();
-					Class<?> clazz = sender.getClass();
-					String methodName = "accept";
-					Class<?>[] parameterTypes = new Class[]{AtmosphericAPI.isConnectorLoaded ? Packet.class : Object.class};
-					ReflectionCacher.MethodDescription desc = new ReflectionCacher.MethodDescription(clazz, methodName, parameterTypes);
-                    ReflectionCacher.methodHandle(desc).invoke(sender, new ClientboundUpdateAttributesPacket(this.entity.getId(), collection));
-                } catch (Throwable throwable) {
-					AtmosphericAPI.LOGGER.error("Error while doing reflection to get a EntityWithAttributes's attributes!", throwable);
-				}
+                ClientboundUpdateAttributesPacket packet = new ClientboundUpdateAttributesPacket(this.entity.getId(), collection);
+                //? if <=1.21.7 {
+                /*if (AtmosphericAPI.isConnectorLoaded) {
+                    try {
+                        atmospheric_api$PACKET_ACCEPTOR.invokeExact(senderRef.get(), packet);
+                    } catch (Throwable throwable) {
+                        AtmosphericAPI.LOGGER.error("Error while doing reflection to get a EntityWithAttributes's attributes!", throwable);
+                    }
+                } else {
+                *///?}
+                    //noinspection unchecked
+                    ((Consumer<Packet<?>>) senderRef.get()).accept(packet);
+                //? if <=1.21.7
+                /*}*/
 			}
 		}
 		return false;

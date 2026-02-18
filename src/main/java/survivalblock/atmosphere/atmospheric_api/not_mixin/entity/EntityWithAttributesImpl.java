@@ -6,9 +6,9 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
 //? if <1.21.6 {
-import net.minecraft.nbt.CompoundTag;
+/*import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-//?}
+*///?}
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
