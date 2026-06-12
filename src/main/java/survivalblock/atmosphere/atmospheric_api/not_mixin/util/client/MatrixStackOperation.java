@@ -1,16 +1,41 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util.client;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.resources.ResourceLocation;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericCodecs;
 
 import java.util.function.Consumer;
 
+@SuppressWarnings("unused")
 public abstract class MatrixStackOperation implements Consumer<PoseStack> {
+    private static final BiMap<ResourceLocation, MapCodec<? extends MatrixStackOperation>> REGISTRY = HashBiMap.create(5);
+    private static final Codec<MapCodec<? extends MatrixStackOperation>> NESTED_CODEC = ResourceLocation.CODEC
+            .comapFlatMap(
+                    id -> {
+                        MapCodec<? extends MatrixStackOperation> codec = REGISTRY.get(id);
+                        if (codec == null) {
+                            return DataResult.error(() -> "No such operation exists!");
+                        }
+                        return DataResult.success(codec);
+                        },
+                    codec -> REGISTRY.inverse().get(codec));
+    // why do I need to separate these (I love generics)
+    public static final Codec<MatrixStackOperation> CODEC = NESTED_CODEC.dispatch(MatrixStackOperation::getCodec, codec -> codec);
+
+    public static void register(ResourceLocation id, MapCodec<? extends MatrixStackOperation> codec) {
+        REGISTRY.put(id, codec);
+    }
 
     @Override
     public abstract void accept(PoseStack matrices);
+
+    public abstract MapCodec<? extends MatrixStackOperation> getCodec();
 
     public abstract static class XYZ extends MatrixStackOperation {
         protected final float x;
@@ -25,12 +50,12 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
     }
 
     public static class Translate extends XYZ {
-        public static final Codec<Translate> CODEC = AtmosphericCodecs.RCB.tuple(
+        public static final MapCodec<Translate> CODEC = AtmosphericCodecs.RCB.tuple(
                 Codec.FLOAT.fieldOf("x"), translate -> translate.x,
                 Codec.FLOAT.fieldOf("y"), translate -> translate.y,
                 Codec.FLOAT.fieldOf("z"), translate -> translate.z,
                 Translate::new
-        ).codec();
+        );
 
         public Translate(float x, float y, float z) {
             super(x, y, z);
@@ -40,15 +65,20 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         public void accept(PoseStack matrices) {
             matrices.translate(this.x, this.y, this.z);
         }
+
+        @Override
+        public MapCodec<? extends MatrixStackOperation> getCodec() {
+            return CODEC;
+        }
     }
 
     public static class Scale extends XYZ {
-        public static final Codec<Scale> CODEC = AtmosphericCodecs.RCB.tuple(
+        public static final MapCodec<Scale> CODEC = AtmosphericCodecs.RCB.tuple(
                 Codec.FLOAT.fieldOf("x"), scale -> scale.x,
                 Codec.FLOAT.fieldOf("y"), scale -> scale.y,
                 Codec.FLOAT.fieldOf("z"), scale -> scale.z,
                 Scale::new
-        ).codec();
+        );
 
         public Scale(float x, float y, float z) {
             super(x, y, z);
@@ -58,14 +88,19 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         public void accept(PoseStack matrices) {
             matrices.scale(this.x, this.y, this.z);
         }
+
+        @Override
+        public MapCodec<? extends MatrixStackOperation> getCodec() {
+            return CODEC;
+        }
     }
 
     public static class Multiply extends MatrixStackOperation {
-        public static final Codec<Multiply> CODEC = AtmosphericCodecs.RCB.tuple(
+        public static final MapCodec<Multiply> CODEC = AtmosphericCodecs.RCB.tuple(
                 IdentifiableAxis.CODEC.flatComapMap(identifiableAxis -> identifiableAxis.axis, IdentifiableAxis::fromAxis).fieldOf("axis"), multiply -> multiply.axis,
                 Codec.FLOAT.fieldOf("degrees"), multiply -> multiply.degrees,
                 Multiply::new
-        ).codec();
+        );
 
         protected final Axis axis;
         protected final float degrees;
@@ -79,25 +114,40 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         public void accept(PoseStack matrices) {
             matrices.mulPose(this.axis.rotationDegrees(this.degrees));
         }
+
+        @Override
+        public MapCodec<? extends MatrixStackOperation> getCodec() {
+            return CODEC;
+        }
     }
 
     public static class Push extends MatrixStackOperation {
         public static final Push INSTANCE = new Push();
-        public static final Codec<Push> CODEC = Codec.unit(INSTANCE);
+        public static final MapCodec<Push> CODEC = MapCodec.unit(INSTANCE);
 
         @Override
         public void accept(PoseStack matrices) {
             matrices.pushPose();
         }
+
+        @Override
+        public MapCodec<? extends MatrixStackOperation> getCodec() {
+            return CODEC;
+        }
     }
 
     public static class Pop extends MatrixStackOperation {
         public static final Pop INSTANCE = new Pop();
-        public static final Codec<Pop> CODEC = Codec.unit(INSTANCE);
+        public static final MapCodec<Pop> CODEC = MapCodec.unit(INSTANCE);
 
         @Override
         public void accept(PoseStack matrices) {
             matrices.popPose();
+        }
+
+        @Override
+        public MapCodec<? extends MatrixStackOperation> getCodec() {
+            return CODEC;
         }
     }
 }
