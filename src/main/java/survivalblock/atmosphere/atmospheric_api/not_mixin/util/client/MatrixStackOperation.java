@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericCodecs;
 
 import java.util.function.Consumer;
@@ -27,6 +28,11 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
                     codec -> REGISTRY.inverse().get(codec));
     // why do I need to separate these (I love generics)
     public static final Codec<MatrixStackOperation> CODEC = NESTED_CODEC.dispatch(MatrixStackOperation::getCodec, codec -> codec);
+
+    @ApiStatus.Internal
+    public static void register(String name, MapCodec<? extends MatrixStackOperation> codec) {
+        register(ResourceLocation.withDefaultNamespace(name), codec);
+    }
 
     public static void register(ResourceLocation id, MapCodec<? extends MatrixStackOperation> codec) {
         REGISTRY.put(id, codec);
@@ -70,6 +76,10 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         public MapCodec<? extends MatrixStackOperation> getCodec() {
             return CODEC;
         }
+
+        static {
+            register("translate", CODEC);
+        }
     }
 
     public static class Scale extends XYZ {
@@ -92,6 +102,10 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         @Override
         public MapCodec<? extends MatrixStackOperation> getCodec() {
             return CODEC;
+        }
+
+        static {
+            register("scale", CODEC);
         }
     }
 
@@ -119,6 +133,10 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         public MapCodec<? extends MatrixStackOperation> getCodec() {
             return CODEC;
         }
+
+        static {
+            register("multiply", CODEC);
+        }
     }
 
     public static class Push extends MatrixStackOperation {
@@ -134,6 +152,10 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         public MapCodec<? extends MatrixStackOperation> getCodec() {
             return CODEC;
         }
+
+        static {
+            register("push", CODEC);
+        }
     }
 
     public static class Pop extends MatrixStackOperation {
@@ -148,6 +170,10 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
         @Override
         public MapCodec<? extends MatrixStackOperation> getCodec() {
             return CODEC;
+        }
+
+        static {
+            register("pop", CODEC);
         }
     }
 }
