@@ -195,7 +195,7 @@ modrinth {
     token = providers.environmentVariable("MODRINTH_TOKEN")
     projectId = project.base.archivesName
     version = project.version
-    uploadFile.set(tasks.named<Jar>("remapJar").get().archiveFile)
+    uploadFile.set(tasks.named<Jar>("jar").get().archiveFile)
     additionalFiles.add(tasks.named<Jar>("sourcesJar").get().archiveFile)
     gameVersions.addAll("${project.property("deps.compatibleVersions")}".split(", ").toList())
     loaders.addAll("${project.property("deps.compatibleLoaders")}".split(", ").toList())
