@@ -9,8 +9,10 @@ pluginManagement {
 }
 
 plugins {
-	id("dev.kikugie.stonecutter") version "0.7.10"
+    id("dev.kikugie.stonecutter") version "0.9.6"
 }
+
+rootProject.name = "atmospheric_api"
 
 stonecutter {
 	kotlinController = true
@@ -28,6 +30,7 @@ stonecutter {
         match("1.21.1", "fabric")
         match("1.21.8", "fabric")
         match("1.21.10", "fabric")
+        match("26.1.2", "fabric")
 		vcsVersion = "1.21.8-fabric"
 	}
 }
