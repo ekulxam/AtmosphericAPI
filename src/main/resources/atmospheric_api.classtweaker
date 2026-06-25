@@ -2,7 +2,7 @@ classTweaker v1 official
 
 # net/minecraft/class_4910
 #~ if >=1.21.4 'minecraft/data/models' -> 'minecraft/client/data/models'
-transitive-inject-interface net/minecraft/data/models/BlockModelGenerators survivalblock/atmosphere/atmospheric_api/not_mixin/datagen/injected_interface/AtmosphericItemModelGenerationPreventer
+transitive-inject-interface net/minecraft/client/data/models/BlockModelGenerators survivalblock/atmosphere/atmospheric_api/not_mixin/datagen/injected_interface/AtmosphericItemModelGenerationPreventer
 
 # net/minecraft/class_1297
 transitive-inject-interface net/minecraft/world/entity/Entity survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericEntityDaylightGetter

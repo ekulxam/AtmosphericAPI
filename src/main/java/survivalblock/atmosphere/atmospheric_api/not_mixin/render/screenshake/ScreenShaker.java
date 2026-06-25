@@ -14,7 +14,8 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 public interface ScreenShaker {
 
     Identifier DISABLE_ALL_SCREENSHAKERS_RESOURCE_PACK = AtmosphericAPI.id("disableallscreenshakers");
-    RandomSource RANDOM = RandomSource.createNewThreadLocalInstance();
+    //~ if >=26 'createNewThreadLocalInstance' -> 'createThreadLocalInstance'
+    RandomSource RANDOM = RandomSource.createThreadLocalInstance();
 
     float getIntensity();
 

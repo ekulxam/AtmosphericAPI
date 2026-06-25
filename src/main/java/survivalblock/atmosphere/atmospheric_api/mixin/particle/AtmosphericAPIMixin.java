@@ -22,6 +22,7 @@ public class AtmosphericAPIMixin {
 
     @Inject(method = "onInitialize", at = @At("RETURN"))
     private void registerDirectionalParticlePayload(CallbackInfo ci) {
+        //~ if >=26 'playS2C' -> 'clientboundPlay'
         PayloadTypeRegistry.playS2C().register(DirectionalParticleS2CPayload.ID, DirectionalParticleS2CPayload.PACKET_CODEC);
     }
 }

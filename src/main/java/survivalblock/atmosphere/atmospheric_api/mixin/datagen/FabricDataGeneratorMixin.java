@@ -34,9 +34,15 @@ public abstract class FabricDataGeneratorMixin extends DataGenerator implements 
 
     @Shadow public abstract FabricDataGenerator.Pack createBuiltinResourcePack(Identifier id);
 
+    //? if <26 {
     public FabricDataGeneratorMixin(Path outputPath, WorldVersion gameVersion, boolean ignoreCache) {
         super(outputPath, gameVersion, ignoreCache);
     }
+    //?} else {
+    public FabricDataGeneratorMixin(Path outputPath) {
+        super(outputPath);
+    }
+    //?}
 
     // https://discord.com/channels/507304429255393322/507982478276034570/1316872891383681145
     @WrapOperation(method = "createBuiltinResourcePack", at = @At(value = "INVOKE", target = "Ljava/nio/file/Path;resolve(Ljava/lang/String;)Ljava/nio/file/Path;"))

@@ -76,7 +76,7 @@ public abstract class ItemStackMixin implements DataComponentHolder, Atmospheric
         }
         Equippable component = map.get(DataComponents.EQUIPPABLE);
         // this seems to be the best I can do, given the component changes
-        return EquipmentSlot.BODY == component.slot() && component.canBeEquippedBy(EntityType.HORSE);
+        return EquipmentSlot.BODY == component.slot() && component.canBeEquippedBy(EntityType.HORSE/*? >=26 {*/ .builtInRegistryHolder() /*?}*/);
         //?}
     }
 

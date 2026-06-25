@@ -22,6 +22,7 @@ public class AtmosphericAPIMixin {
 
     @Inject(method = "onInitialize", at = @At("RETURN"))
     private void registerRawVelocityUpdatePayload(CallbackInfo ci) {
-        PayloadTypeRegistry.playS2C().register(RawVelocityUpdatePayload.ID, RawVelocityUpdatePayload.CODEC);
+        //~ if >=26 'playS2C' -> 'clientboundPlay'
+        PayloadTypeRegistry.clientboundPlay().register(RawVelocityUpdatePayload.ID, RawVelocityUpdatePayload.CODEC);
     }
 }
