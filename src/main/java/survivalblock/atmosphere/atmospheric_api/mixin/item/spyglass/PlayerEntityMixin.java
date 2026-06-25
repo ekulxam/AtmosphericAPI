@@ -21,7 +21,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @ModifyExpressionValue(method = "isScoping", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
+    //~ if >=26 'Lnet/minecraft/world/item/Item;' -> 'Ljava/lang/Object;'
+    @ModifyExpressionValue(method = "isScoping", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
     private boolean isOfKaleidoscope(boolean original) {
         return original || this.getUseItem().getItem() instanceof IAmASpyglassItem;
     }
