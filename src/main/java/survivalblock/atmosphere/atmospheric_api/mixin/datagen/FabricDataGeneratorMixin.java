@@ -35,10 +35,10 @@ public abstract class FabricDataGeneratorMixin extends DataGenerator implements 
     @Shadow public abstract FabricDataGenerator.Pack createBuiltinResourcePack(Identifier id);
 
     //? if <26 {
-    public FabricDataGeneratorMixin(Path outputPath, WorldVersion gameVersion, boolean ignoreCache) {
+    /*public FabricDataGeneratorMixin(Path outputPath, WorldVersion gameVersion, boolean ignoreCache) {
         super(outputPath, gameVersion, ignoreCache);
     }
-    //?} else {
+    *///?} else {
     public FabricDataGeneratorMixin(Path outputPath) {
         super(outputPath);
     }

@@ -23,6 +23,6 @@ public class AtmosphericAPIMixin {
     @Inject(method = "onInitialize", at = @At("RETURN"))
     private void registerScreenShakePayload(CallbackInfo ci) {
         //~ if >=26 'playS2C' -> 'clientboundPlay'
-        PayloadTypeRegistry.playS2C().register(ScreenShakeS2CPayload.ID, ScreenShakeS2CPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(ScreenShakeS2CPayload.ID, ScreenShakeS2CPayload.CODEC);
     }
 }

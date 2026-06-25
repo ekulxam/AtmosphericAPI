@@ -41,7 +41,9 @@ public final class CreativeTabEnchantmentAdder {
     }
 
     public static void addEnchantedStack(Item item, CreativeModeTab.ItemDisplayParameters displayContext, ResourceKey<Enchantment> enchantment, CreativeModeTab.Output entries, @Nullable Consumer<ItemStack> stackModifier) {
-        addEnchantedStack(item, displayContext, reference -> reference.is(enchantment), () -> enchantment.location().toString(), entries, stackModifier);
+        //~ if >=1.21.11 'location()' -> 'identifier()' {
+        addEnchantedStack(item, displayContext, reference -> reference.is(enchantment), () -> enchantment.identifier().toString(), entries, stackModifier);
+        //~}
     }
 
     public static void addEnchantedStack(Item item, CreativeModeTab.ItemDisplayParameters displayContext, Predicate<Holder.Reference<Enchantment>> enchantmentChecker, Supplier<String> idSupplierOnError, CreativeModeTab.Output entries, @Nullable Consumer<ItemStack> stackModifier) {
