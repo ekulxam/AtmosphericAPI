@@ -1,0 +1,30 @@
+classTweaker v1 official
+
+# net/minecraft/class_4910
+#~ if >=1.21.4 'minecraft/data/models' -> 'minecraft/client/data/models'
+transitive-inject-interface net/minecraft/data/models/BlockModelGenerators survivalblock/atmosphere/atmospheric_api/not_mixin/datagen/injected_interface/AtmosphericItemModelGenerationPreventer
+
+# net/minecraft/class_1297
+transitive-inject-interface net/minecraft/world/entity/Entity survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericEntityDaylightGetter
+
+# net/minecraft/class_3222
+transitive-inject-interface	net/minecraft/server/level/ServerPlayer survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericPlayerAdvancementGranter
+
+# net/minecraft/class_3218
+transitive-inject-interface	net/minecraft/server/level/ServerLevel survivalblock/atmosphere/atmospheric_api/not_mixin/entity/injected_interface/AtmosphericServerWorldEntityCollector
+
+# net/minecraft/class_1792
+transitive-inject-interface	net/minecraft/world/item/Item survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericHorseArmorItem
+transitive-inject-interface	net/minecraft/world/item/Item survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemDamager
+
+# net/minecraft/class_1799
+transitive-inject-interface	net/minecraft/world/item/ItemStack survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericEnchantmentLevelObtainer
+transitive-inject-interface	net/minecraft/world/item/ItemStack survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericHorseArmorItem
+transitive-inject-interface	net/minecraft/world/item/ItemStack survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemStackComponentCreator
+transitive-inject-interface	net/minecraft/world/item/ItemStack survivalblock/atmosphere/atmospheric_api/not_mixin/item/injected_interface/AtmosphericItemStackDamager
+
+# net/minecraft/class_1799
+transitive-inject-interface	net/minecraft/client/Minecraft survivalblock/atmosphere/atmospheric_api/not_mixin/resource/client/injected_interface/AtmosphericClientResourcePackFinder
+
+# net/minecraft/class_1937
+transitive-inject-interface	net/minecraft/world/level/Level survivalblock/atmosphere/atmospheric_api/not_mixin/world/injected_interface/AtmosphericWorldRegistryShenanigans

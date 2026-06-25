@@ -70,6 +70,11 @@ stonecutter {
         direction = eval(minecraft, ">=26")
         replace("FabricDataOutput", "FabricPackOutput")
     }
+
+    replacements.string {
+        direction = eval(minecraft, ">=26")
+        replace("classTweaker v1 named", "classTweaker v1 official")
+    }
 }
 
 fletchingTable {
@@ -149,6 +154,11 @@ loom {
     }
 
     fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json")
+
+    accessWidenerPath = stonecutter.process(
+        rootProject.file("src/main/resources/atmospheric_api.classtweaker"),
+        "build/processed.classtweaker"
+    )
 }
 
 tasks.withType<JavaCompile>().configureEach {
