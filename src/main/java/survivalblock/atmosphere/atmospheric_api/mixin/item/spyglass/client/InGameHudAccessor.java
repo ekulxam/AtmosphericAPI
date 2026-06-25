@@ -6,7 +6,7 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.item.spyglass.client;
 
 import net.minecraft.client.gui.Gui;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -15,7 +15,7 @@ public interface InGameHudAccessor {
 
     @SuppressWarnings("unused")
     @Accessor("SPYGLASS_SCOPE_LOCATION")
-    static ResourceLocation atmospheric_api$getSpyglassOverlay() {
+    static Identifier atmospheric_api$getSpyglassOverlay() {
         throw new UnsupportedOperationException();
     }
 }

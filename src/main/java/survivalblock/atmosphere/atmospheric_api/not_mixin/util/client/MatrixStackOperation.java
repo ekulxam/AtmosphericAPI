@@ -12,7 +12,7 @@ import com.mojang.math.Axis;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericCodecs;
 
@@ -20,8 +20,8 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
 public abstract class MatrixStackOperation implements Consumer<PoseStack> {
-    private static final BiMap<ResourceLocation, MapCodec<? extends MatrixStackOperation>> REGISTRY = HashBiMap.create(5);
-    private static final Codec<MapCodec<? extends MatrixStackOperation>> NESTED_CODEC = ResourceLocation.CODEC
+    private static final BiMap<Identifier, MapCodec<? extends MatrixStackOperation>> REGISTRY = HashBiMap.create(5);
+    private static final Codec<MapCodec<? extends MatrixStackOperation>> NESTED_CODEC = Identifier.CODEC
             .comapFlatMap(
                     id -> {
                         MapCodec<? extends MatrixStackOperation> codec = REGISTRY.get(id);
@@ -36,10 +36,10 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
 
     @ApiStatus.Internal
     public static void register(String name, MapCodec<? extends MatrixStackOperation> codec) {
-        register(ResourceLocation.withDefaultNamespace(name), codec);
+        register(Identifier.withDefaultNamespace(name), codec);
     }
 
-    public static void register(ResourceLocation id, MapCodec<? extends MatrixStackOperation> codec) {
+    public static void register(Identifier id, MapCodec<? extends MatrixStackOperation> codec) {
         REGISTRY.put(id, codec);
     }
 

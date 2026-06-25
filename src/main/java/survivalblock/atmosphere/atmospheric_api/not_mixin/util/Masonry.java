@@ -9,7 +9,7 @@ import net.minecraft.server.MinecraftServer;
 //? if >1.21.1
 import net.minecraft.util.ARGB;
 //? if =1.21.1
-/*import net.minecraft.util.FastColor;*/
+//import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemCooldowns;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +25,7 @@ public class Masonry {
 
     @Nullable
     public static MinecraftServer getEntityServer(Entity entity) {
-        return entity/*? >=1.21.9 {*/ /*.level() *//*?}*/.getServer();
+        return entity/*? >=1.21.9 {*/ .level() /*?}*/.getServer();
     }
 
     public static class ColorHelper {
@@ -58,7 +58,9 @@ public class Masonry {
         }
 
         public static int lerp(float delta, int color1, int color2) {
-            return /*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.lerp(delta, color1, color2);
+            //~ if >=1.21.11 'lerp' -> 'srgbLerp' {
+            return /*? =1.21.1 {*/ /*FastColor.ARGB32 *//*?} else {*/ ARGB /*?}*/.srgbLerp(delta, color1, color2);
+            //~}
         }
     }
 

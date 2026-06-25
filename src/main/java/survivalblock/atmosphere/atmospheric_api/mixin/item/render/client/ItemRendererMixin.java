@@ -21,7 +21,7 @@ import java.util.Map;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +37,7 @@ public class ItemRendererMixin {
             index = 8, argsOnly = true)
     private BakedModel getCustomSpyglassInventoryModel(BakedModel value, @Local(argsOnly = true) ItemStack stack) {
         if (stack.getItem() instanceof IAmASpyglassItem spyglass) {
-            Map<AlternateModelItem, ModelResourceLocation> models = AlternateItemModelRegistryImpl.getModels();
+            Map<AlternateModelItem, ModelIdentifier> models = AlternateItemModelRegistryImpl.getModels();
             return this.itemModelShaper.getModelManager().getModel(models.get(spyglass));
         }
         return value;
@@ -49,7 +49,7 @@ public class ItemRendererMixin {
     private BakedModel getAlternateInventoryModel(BakedModel value, @Local(argsOnly = true) ItemDisplayContext renderMode, @Local(argsOnly = true) ItemStack stack) {
         Item item = stack.getItem();
         if (item instanceof AlternateModelItem alternateModelItem && !(item instanceof IAmASpyglassItem) && renderMode.equals(ItemDisplayContext.GUI)) {
-            Map<AlternateModelItem, ModelResourceLocation> models = AlternateItemModelRegistryImpl.getModels();
+            Map<AlternateModelItem, ModelIdentifier> models = AlternateItemModelRegistryImpl.getModels();
             return this.itemModelShaper.getModelManager().getModel(models.get(alternateModelItem));
         }
         return value;
@@ -58,7 +58,7 @@ public class ItemRendererMixin {
     @ModifyExpressionValue(method = "getModel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/ItemModelShaper;getItemModel(Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/client/resources/model/BakedModel;"))
     private BakedModel getCustomSpyglassHandheldModel(BakedModel original, @Local(argsOnly = true) ItemStack stack) {
         if (stack.getItem() instanceof IAmASpyglassItem spyglass) {
-            Map<IAmASpyglassItem, ModelResourceLocation> spyglassModels = AlternateItemModelRegistryImpl.getSpyglassModels();
+            Map<IAmASpyglassItem, ModelIdentifier> spyglassModels = AlternateItemModelRegistryImpl.getSpyglassModels();
             return this.itemModelShaper.getModelManager().getModel(spyglassModels.get(spyglass));
         }
         return original;

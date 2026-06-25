@@ -110,7 +110,7 @@ public class Extensions {
     }
 
     public static void load() {
-        test(new BannerPattern(ResourceLocation.ofVanilla("test"), "minecraft"), BannerPattern.CODEC, b -> 3);
+        test(new BannerPattern(Identifier.ofVanilla("test"), "minecraft"), BannerPattern.CODEC, b -> 3);
         test(new StatusEffectInstance(StatusEffects.POISON, 10, 0), StatusEffectInstance.CODEC, StatusEffectInstance::getDuration);
     }
 

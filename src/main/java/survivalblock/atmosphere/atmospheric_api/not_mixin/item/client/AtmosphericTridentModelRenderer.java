@@ -19,13 +19,13 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 //? if <1.21.9
-import net.minecraft.client.renderer.MultiBufferSource;
+//import net.minecraft.client.renderer.MultiBufferSource;
 //? if >=1.21.9
-/*import net.minecraft.client.renderer.SubmitNodeCollector;*/
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
@@ -36,25 +36,25 @@ import java.util.Set;
 @SuppressWarnings("ClassCanBeRecord")
 @Environment(EnvType.CLIENT)
 public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRenderer {
-    public static final ResourceLocation ID = AtmosphericAPI.id("trident");
+    public static final Identifier ID = AtmosphericAPI.id("trident");
     private final Model model;
-    private final ResourceLocation texture;
+    private final Identifier texture;
 
-    public AtmosphericTridentModelRenderer(Model model, ResourceLocation texture) {
+    public AtmosphericTridentModelRenderer(Model model, Identifier texture) {
         this.model = model;
         this.texture = texture;
     }
 
     @Override
-    public void /*? >=1.21.9 {*/ /*submit *//*?} else {*/ render /*?}*/(ItemDisplayContext displayContext, PoseStack matrices,/*? >=1.21.9 {*/ /*SubmitNodeCollector renderQueue *//*?} else {*/ MultiBufferSource bufferSource /*?}*/, int packedLight, int packedOverlay, boolean hasFoil/*? >=1.21.9 {*/ /*, int outlineColor *//*?}*/) {
+    public void /*? >=1.21.9 {*/ submit /*?} else {*/ /*render *//*?}*/(ItemDisplayContext displayContext, PoseStack matrices,/*? >=1.21.9 {*/ SubmitNodeCollector renderQueue /*?} else {*/ /*MultiBufferSource bufferSource *//*?}*/, int packedLight, int packedOverlay, boolean hasFoil/*? >=1.21.9 {*/ , int outlineColor /*?}*/) {
         matrices.pushPose();
         matrices.scale(1.0F, -1.0F, -1.0F);
         //? if <1.21.9 {
-        VertexConsumer vertexConsumer = ItemRenderer.getFoilBuffer(bufferSource, this.model.renderType(this.texture), false, hasFoil);
+        /*VertexConsumer vertexConsumer = ItemRenderer.getFoilBuffer(bufferSource, this.model.renderType(this.texture), false, hasFoil);
         this.model.renderToBuffer(matrices, vertexConsumer, packedLight, packedOverlay);
-        //?} else {
-        /*renderQueue.submitModelPart(this.model.root(), matrices, this.model.renderType(this.texture), packedLight, packedOverlay, null, false, hasFoil, -1, null, outlineColor);
-        *///?}
+        *///?} else {
+        renderQueue.submitModelPart(this.model.root(), matrices, this.model.renderType(this.texture), packedLight, packedOverlay, null, false, hasFoil, -1, null, outlineColor);
+        //?}
         matrices.popPose();
     }
 
@@ -66,14 +66,14 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
     }
 
     @Environment(EnvType.CLIENT)
-    public record Unbaked(ResourceLocation texture, ModelLayerLocation entityModelLayer) implements SpecialModelRenderer.Unbaked {
+    public record Unbaked(Identifier texture, ModelLayerLocation entityModelLayer) implements SpecialModelRenderer.Unbaked {
         public static final Codec<ModelLayerLocation> MODEL_LAYER_CODEC = AtmosphericCodecs.RCB.tuple(
-                ResourceLocation.CODEC.fieldOf("model"), ModelLayerLocation::model,
+                Identifier.CODEC.fieldOf("model"), ModelLayerLocation::model,
                 Codec.STRING.optionalFieldOf("layer", "main"), ModelLayerLocation::layer,
                 ModelLayerLocation::new
         ).codec();
         public static final MapCodec<Unbaked> MAP_CODEC = AtmosphericCodecs.RCB.tuple(
-                ResourceLocation.CODEC.fieldOf("texture"), unbaked -> unbaked.texture,
+                Identifier.CODEC.fieldOf("texture"), unbaked -> unbaked.texture,
                 MODEL_LAYER_CODEC.optionalFieldOf("entityModelLayer", ModelLayers.TRIDENT), unbaked -> unbaked.entityModelLayer,
                 Unbaked::new
         );
@@ -82,8 +82,8 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
             return MAP_CODEC;
         }
 
-        public SpecialModelRenderer<?> bake(/*? >=1.21.9 {*/ /*BakingContext context *//*?} else {*/ EntityModelSet modelSet /*?}*/) {
-            return new AtmosphericTridentModelRenderer(new TridentModel(/*? >=1.21.9 {*/ /*context.entityModelSet() *//*?} else {*/ modelSet /*?}*/.bakeLayer(this.entityModelLayer)), this.texture);
+        public SpecialModelRenderer<?> bake(/*? >=1.21.9 {*/ BakingContext context /*?} else {*/ /*EntityModelSet modelSet *//*?}*/) {
+            return new AtmosphericTridentModelRenderer(new TridentModel(/*? >=1.21.9 {*/ context.entityModelSet() /*?} else {*/ /*modelSet *//*?}*/.bakeLayer(this.entityModelLayer)), this.texture);
         }
     }
 }

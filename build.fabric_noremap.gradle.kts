@@ -55,6 +55,11 @@ stonecutter {
         direction = eval(current.version, ">1.21.8")
         replace("PlayerRenderer", "AvatarRenderer")
     }
+
+    replacements.string {
+        direction = eval(minecraft, ">=26")
+        replace("FabricDataOutput", "FabricPackOutput")
+    }
 }
 
 fletchingTable {

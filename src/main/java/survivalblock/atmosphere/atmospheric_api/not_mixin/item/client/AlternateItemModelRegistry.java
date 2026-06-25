@@ -8,7 +8,7 @@
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.minecraft.world.item.Item;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.AlternateModelItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
@@ -20,18 +20,18 @@ public final class AlternateItemModelRegistry {
     private AlternateItemModelRegistry() {
     }
 
-    public static void register(Item item, ModelResourceLocation modelResourceLocation) {
+    public static void register(Item item, ModelIdentifier modelIdentifier) {
         if (!(item instanceof AlternateModelItem alternateModelItem)) {
             throw new IllegalArgumentException("The item must be an instance of AlternateModelItem!");
         }
-        AlternateItemModelRegistryImpl.register(alternateModelItem, modelResourceLocation);
+        AlternateItemModelRegistryImpl.register(alternateModelItem, modelIdentifier);
     }
 
-    public static void registerSpyglass(Item item, ModelResourceLocation modelResourceLocation) {
+    public static void registerSpyglass(Item item, ModelIdentifier modelIdentifier) {
         if (!(item instanceof IAmASpyglassItem spyglass)) {
             throw new IllegalArgumentException("The item must be an instance of IAmASpyglassItem!");
         }
-        AlternateItemModelRegistryImpl.registerSpyglass(spyglass, modelResourceLocation);
+        AlternateItemModelRegistryImpl.registerSpyglass(spyglass, modelIdentifier);
     }
 }
 *///?}

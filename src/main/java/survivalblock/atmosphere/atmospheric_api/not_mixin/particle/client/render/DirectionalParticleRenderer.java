@@ -4,7 +4,7 @@
  * Copyright (c) 2024-present ekulxam
  */
 //? if >=1.21.9 {
-/*package survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client.render;
+package survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client.render;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -40,9 +40,9 @@ public class DirectionalParticleRenderer extends ParticleGroup<DirectionalPartic
         this(engine, DIRECTIONAL);
     }
 
-    /^*
+    /**
      * @see net.minecraft.client.particle.QuadParticleGroup#extractRenderState(Frustum, Camera, float)
-     ^/
+     */
     @Override
     public ParticleGroupRenderState extractRenderState(Frustum frustum, Camera camera, float tickProgress) {
         for (DirectionalParticle directionalParticle : this.particles) {
@@ -62,4 +62,4 @@ public class DirectionalParticleRenderer extends ParticleGroup<DirectionalPartic
         return this.renderState;
     }
 }
-*///?}
+//?}

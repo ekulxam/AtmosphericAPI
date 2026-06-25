@@ -20,9 +20,9 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.Item;
@@ -39,20 +39,20 @@ public class AtmosphericTridentRegistryImpl {
 
     public static final Map<Item, Renderer> TRIDENTS = new HashMap<>();
 
-    static void register(Item item, ResourceLocation texture) {
-        register(item, texture, ModelResourceLocation.inventory(BuiltInRegistries.ITEM.getKey(item)));
+    static void register(Item item, Identifier texture) {
+        register(item, texture, ModelIdentifier.inventory(BuiltInRegistries.ITEM.getKey(item)));
     }
 
-    public static void register(Item item, ResourceLocation texture, ModelResourceLocation modelResourceLocation) {
-        register(item, texture, modelResourceLocation, new ModelLayerLocation(BuiltInRegistries.ITEM.getKey(item), "main"));
+    public static void register(Item item, Identifier texture, ModelIdentifier modelIdentifier) {
+        register(item, texture, modelIdentifier, new ModelLayerLocation(BuiltInRegistries.ITEM.getKey(item), "main"));
     }
 
-    public static void register(Item item, ResourceLocation texture, ModelLayerLocation modelLayerLocation) {
-        register(item, texture, ModelResourceLocation.inventory(BuiltInRegistries.ITEM.getKey(item)), modelLayerLocation);
+    public static void register(Item item, Identifier texture, ModelLayerLocation modelLayerLocation) {
+        register(item, texture, ModelIdentifier.inventory(BuiltInRegistries.ITEM.getKey(item)), modelLayerLocation);
     }
 
-    public static void register(Item item, ResourceLocation texture, ModelResourceLocation modelResourceLocation, ModelLayerLocation modelLayerLocation) {
-        Renderer renderer = new Renderer(texture, modelResourceLocation, modelLayerLocation);
+    public static void register(Item item, Identifier texture, ModelIdentifier modelIdentifier, ModelLayerLocation modelLayerLocation) {
+        Renderer renderer = new Renderer(texture, modelIdentifier, modelLayerLocation);
 
         BuiltinItemRendererRegistry.INSTANCE.register(item, renderer);
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(renderer);
@@ -62,14 +62,14 @@ public class AtmosphericTridentRegistryImpl {
 
     public static class Renderer implements BuiltinItemRendererRegistry.DynamicItemRenderer, SimpleSynchronousResourceReloadListener {
         private Model modelTrident;
-        private final ResourceLocation texture;
-        public final ModelResourceLocation modelResourceLocation;
+        private final Identifier texture;
+        public final ModelIdentifier modelIdentifier;
         public final ModelLayerLocation modelLayerLocation;
-        private final ResourceLocation id;
+        private final Identifier id;
 
-        public Renderer(ResourceLocation texture, ModelResourceLocation modelResourceLocation, ModelLayerLocation modelLayerLocation) {
+        public Renderer(Identifier texture, ModelIdentifier modelIdentifier, ModelLayerLocation modelLayerLocation) {
             this.texture = texture;
-            this.modelResourceLocation = modelResourceLocation;
+            this.modelIdentifier = modelIdentifier;
             this.modelLayerLocation = modelLayerLocation;
             this.id = modelLayerLocation.getModel().withPath(path -> path + "_item_renderer");
         }
@@ -86,7 +86,7 @@ public class AtmosphericTridentRegistryImpl {
         }
 
         @Override
-        public ResourceLocation getFabricId() {
+        public Identifier getFabricId() {
             return this.id;
         }
 

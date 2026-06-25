@@ -10,8 +10,8 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.resources.model.BlockStateModelLoader;
 import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.profiling.ProfilerFiller;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,12 +29,12 @@ import java.util.Map;
 @Mixin(ModelBakery.class)
 public abstract class ModelLoaderMixin {
 
-    @Shadow protected abstract void loadSpecialItemModelAndDependencies(ModelResourceLocation id);
+    @Shadow protected abstract void loadSpecialItemModelAndDependencies(ModelIdentifier id);
 
-    @Inject(method = "<init>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;SPYGLASS_IN_HAND_MODEL:Lnet/minecraft/client/resources/model/ModelResourceLocation;", shift = At.Shift.AFTER))
-    private void loadKaleidoscopeInHandModel(BlockColors blockColors, ProfilerFiller profiler, Map<ResourceLocation, BlockModel> jsonUnbakedModels, Map<ResourceLocation, List<BlockStateModelLoader.LoadedJson>> blockStates, CallbackInfo ci) {
-        Map<IAmASpyglassItem, ModelResourceLocation> spyglassModels = AlternateItemModelRegistryImpl.getSpyglassModels();
-        for (Map.Entry<AlternateModelItem, ModelResourceLocation> entry : AlternateItemModelRegistryImpl.getModels().entrySet()) {
+    @Inject(method = "<init>", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/entity/ItemRenderer;SPYGLASS_IN_HAND_MODEL:Lnet/minecraft/client/resources/model/ModelIdentifier;", shift = At.Shift.AFTER))
+    private void loadKaleidoscopeInHandModel(BlockColors blockColors, ProfilerFiller profiler, Map<Identifier, BlockModel> jsonUnbakedModels, Map<Identifier, List<BlockStateModelLoader.LoadedJson>> blockStates, CallbackInfo ci) {
+        Map<IAmASpyglassItem, ModelIdentifier> spyglassModels = AlternateItemModelRegistryImpl.getSpyglassModels();
+        for (Map.Entry<AlternateModelItem, ModelIdentifier> entry : AlternateItemModelRegistryImpl.getModels().entrySet()) {
             if (entry.getKey() instanceof IAmASpyglassItem spyglass) {
                 this.loadSpecialItemModelAndDependencies(spyglassModels.get(spyglass));
             } else {

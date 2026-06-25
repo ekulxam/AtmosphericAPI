@@ -1,8 +1,4 @@
-Atmospheric API 3.4.0
-- Add clampAbs methods to Approximatics
-- Fix/add javadocs where appropriate
-- Add up to Function16 for `AtmosphericCodecs$RCB`
-- Add error handling for PacketCodec extensions
-- Add more misc functional interface utils to `FunctionOperations`
-- Add `BooleanOperations` enum
-- Fix EntityTrackerEntryMixin reflection
+Atmospheric API 4.0.0
+- Update to 26.1.2 (first deobf build for this library)
+- GameRules have now been snake cased instead of camel cased.
+- 

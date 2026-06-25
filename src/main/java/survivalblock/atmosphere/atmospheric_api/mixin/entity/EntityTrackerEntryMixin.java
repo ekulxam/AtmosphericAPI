@@ -17,25 +17,25 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 //? if <=1.21.7
-/*import org.jetbrains.annotations.Nullable;*/
+//import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 //? if <=1.21.7
-/*import org.spongepowered.asm.mixin.Unique;*/
+//import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? if <=1.21.7
-/*import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;*/
+//import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.entity.EntityWithAttributes;
 //? if <=1.21.7
-/*import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Reflector;*/
+//import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Reflector;
 
 //? if <=1.21.7
-/*import java.lang.invoke.MethodHandle;*/
+//import java.lang.invoke.MethodHandle;
 import java.util.Collection;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -46,10 +46,10 @@ public abstract class EntityTrackerEntryMixin {
 	@Shadow @Final private Entity entity;
 
     //? if >=1.21.9 {
-    /*@Shadow @Final private ServerEntity.Synchronizer synchronizer;
-    *///?} else {
-    @Shadow protected abstract void broadcastAndSend(Packet<?> packet);
-    //?}
+    @Shadow @Final private ServerEntity.Synchronizer synchronizer;
+    //?} else {
+    /*@Shadow protected abstract void broadcastAndSend(Packet<?> packet);
+    *///?}
 
     //? if <=1.21.7 {
     /*@Nullable
@@ -107,7 +107,7 @@ public abstract class EntityTrackerEntryMixin {
                     //noinspection unchecked
                     ((Consumer<Packet<?>>) senderRef.get()).accept(packet);
                 //? if <=1.21.7
-                /*}*/
+                //}
 			}
 		}
 		return false;
@@ -121,7 +121,7 @@ public abstract class EntityTrackerEntryMixin {
 		if (this.entity instanceof EntityWithAttributes entityWithAttributes && entityWithAttributes.shouldAutoSyncAttributes()) {
 			Set<AttributeInstance> set = entityWithAttributes.getAttributes().getAttributesToSync();
 			if (!set.isEmpty()) {
-				this./*? >=1.21.9 {*/ /*synchronizer.sendToTrackingPlayersAndSelf *//*?} else {*/ broadcastAndSend /*?}*/(new ClientboundUpdateAttributesPacket(this.entity.getId(), set));
+				this./*? >=1.21.9 {*/ synchronizer.sendToTrackingPlayersAndSelf /*?} else {*/ /*broadcastAndSend *//*?}*/(new ClientboundUpdateAttributesPacket(this.entity.getId(), set));
 			}
 			set.clear();
 		}

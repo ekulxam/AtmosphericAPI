@@ -5,10 +5,11 @@
  */
 package survivalblock.atmosphere.atmospheric_api.mixin.compat.modmenu.client;
 
+//~ if >=26 'ClientCommandManager' -> 'ClientCommands' {
 import com.terraformersmc.modmenu.gui.ModsScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.ApiStatus;
@@ -28,7 +29,7 @@ public class AtmosphericAPIClientMixin {
     @Inject(method = "onInitializeClient", at = @At("HEAD"))
     private void createModmenuScreenCommand(CallbackInfo ci) {
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
-            dispatcher.register(ClientCommandManager.literal("open_modmenu_screen").executes(context -> {
+            dispatcher.register(ClientCommands.literal("open_modmenu_screen").executes(context -> {
                 Minecraft client = context.getSource().getClient();
                 client./*? =1.21.1 {*/ /*tell *//*?} else {*/ schedule /*?}*/(() -> client.setScreen(new ModsScreen(null)));
                 return 1;
@@ -36,3 +37,4 @@ public class AtmosphericAPIClientMixin {
         });
     }
 }
+//~}

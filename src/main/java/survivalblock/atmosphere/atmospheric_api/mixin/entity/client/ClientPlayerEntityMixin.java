@@ -10,11 +10,14 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 //? if >=1.21.3
 import net.minecraft.client.player.ClientInput;
 //? if <=1.21.2
-/*import net.minecraft.client.player.Input;*/
+//import net.minecraft.client.player.Input;
 import net.minecraft.client.player.LocalPlayer;
+//~ if >=26 'net.minecraft.world.entity.vehicle.AbstractBoat' -> 'net.minecraft.world.entity.vehicle.boat.AbstractBoat' {
 //? if >=1.21.3
-import net.minecraft.world.entity.vehicle.AbstractBoat;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+//~}
+//? if <=1.21.2
+//import net.minecraft.world.entity.vehicle.Boat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -26,7 +29,8 @@ public class ClientPlayerEntityMixin {
     @Shadow
     public /*? <=1.21.2 {*/ /*Input *//*?} else {*/ ClientInput /*?}*/ input;
 
-    @WrapOperation(method = "rideTick", constant = @Constant(classValue = /*? <=1.21.2 {*/ /*Boat *//*?} else {*/ AbstractBoat /*?}*/.class, ordinal = 0))
+    //~ if >1.21.2 'Boat' -> 'AbstractBoat'
+    @WrapOperation(method = "rideTick", constant = @Constant(classValue = AbstractBoat.class, ordinal = 0))
     private boolean controlBoard(Object obj, Operation<Boolean> original) {
         if (original.call(obj)) {
             return true;

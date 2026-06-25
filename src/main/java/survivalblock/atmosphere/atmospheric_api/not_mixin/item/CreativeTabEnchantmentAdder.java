@@ -9,7 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +32,7 @@ public final class CreativeTabEnchantmentAdder {
     }
 
     public static void addEnchantedStack(Item item, CreativeModeTab.ItemDisplayParameters displayContext, String enchantment, CreativeModeTab.Output entries, @Nullable Consumer<ItemStack> stackModifier) {
-        ResourceLocation enchantmentId = ResourceLocation.tryParse(enchantment);
+        Identifier enchantmentId = Identifier.tryParse(enchantment);
         addEnchantedStack(item, displayContext, reference -> reference.is(enchantmentId), () -> enchantment, entries, stackModifier);
     }
 

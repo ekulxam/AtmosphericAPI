@@ -5,7 +5,7 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -22,7 +22,7 @@ public abstract class AtmosphericDynamicRegistryProvider<T> extends FabricDynami
 
     protected final ResourceKey<? extends Registry<T>> registryRef;
 
-    public AtmosphericDynamicRegistryProvider(FabricDataOutput output, ResourceKey<? extends Registry<T>> registryRef, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public AtmosphericDynamicRegistryProvider(FabricPackOutput output, ResourceKey<? extends Registry<T>> registryRef, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
         this.registryRef = registryRef;
     }

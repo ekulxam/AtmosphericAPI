@@ -13,23 +13,23 @@ import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 //? if >=1.21.9
-/*import net.minecraft.client.renderer.SubmitNodeCollector;*/
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.util.Masonry;
 
 /**
  * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, float, float, long, int, int, int)
- * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, ResourceLocation, float, float, long, int, int, int, float, float)
+ * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#renderBeaconBeam(PoseStack, MultiBufferSource, Identifier, float, float, long, int, int, int, float, float)
  * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#submitBeaconBeam(PoseStack, SubmitNodeCollector, float, float, int, int, int)
- * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#submitBeaconBeam(PoseStack, SubmitNodeCollector, ResourceLocation, float, float, int, int, int, float, float)
+ * @see net.minecraft.client.renderer.blockentity.BeaconRenderer#submitBeaconBeam(PoseStack, SubmitNodeCollector, Identifier, float, float, int, int, int, float, float)
  */
 @SuppressWarnings({"unused", "JavadocReference"})
 public final class BeaconLaserRenderer {
 
-    public static void renderBeamTheRealWay(PoseStack matrices, /*? >=1.21.9 {*/ /*SubmitNodeCollector renderQueue *//*?} else {*/ MultiBufferSource vertexConsumers /*?}*/, ResourceLocation textureId, float tickDelta, float heightScale, long worldTime, double yOffset, double maxY, int rgb, float innerRadius, float outerRadius) {
-        renderBeamTheRealWay(matrices, /*? >=1.21.9 {*/ /*renderQueue *//*?} else {*/ vertexConsumers /*?}*/, textureId, tickDelta, heightScale, worldTime, yOffset, maxY, rgb, innerRadius, outerRadius, false, Int2IntFunction.identity());
+    public static void renderBeamTheRealWay(PoseStack matrices, /*? >=1.21.9 {*/ SubmitNodeCollector renderQueue /*?} else {*/ /*MultiBufferSource vertexConsumers *//*?}*/, Identifier textureId, float tickDelta, float heightScale, long worldTime, double yOffset, double maxY, int rgb, float innerRadius, float outerRadius) {
+        renderBeamTheRealWay(matrices, /*? >=1.21.9 {*/ renderQueue /*?} else {*/ /*vertexConsumers *//*?}*/, textureId, tickDelta, heightScale, worldTime, yOffset, maxY, rgb, innerRadius, outerRadius, false, Int2IntFunction.identity());
     }
 
     /**
@@ -46,7 +46,7 @@ public final class BeaconLaserRenderer {
      * @param innerWithAlpha default just returns rgb
      */
     @SuppressWarnings("CodeBlock2Expr")
-    public static void renderBeamTheRealWay(PoseStack matrices, /*? >=1.21.9 {*/ /*SubmitNodeCollector renderQueue *//*?} else {*/ MultiBufferSource vertexConsumers /*?}*/, ResourceLocation textureId, float tickDelta, float heightScale, long worldTime, double yOffset, double maxY, int rgb, float innerRadius, float outerRadius, boolean middleOfBlock, Int2IntFunction innerWithAlpha) {
+    public static void renderBeamTheRealWay(PoseStack matrices, /*? >=1.21.9 {*/ SubmitNodeCollector renderQueue /*?} else {*/ /*MultiBufferSource vertexConsumers *//*?}*/, Identifier textureId, float tickDelta, float heightScale, long worldTime, double yOffset, double maxY, int rgb, float innerRadius, float outerRadius, boolean middleOfBlock, Int2IntFunction innerWithAlpha) {
         double i = yOffset + maxY;
         matrices.pushPose();
 
@@ -65,23 +65,23 @@ public final class BeaconLaserRenderer {
         final float u = (float) maxY * heightScale * (0.5f / innerRadius) + t;
         RenderType innerLayer = RenderType.beaconBeam(textureId, false);
         //? if <=1.21.8 {
-        renderBeamLayer(matrices.last(), vertexConsumers.getBuffer(innerLayer), innerWithAlpha.apply(rgb), yOffset, i, 0.0f, innerRadius, innerRadius, 0.0f, -innerRadius, 0.0f, 0.0f, -innerRadius, 0.0f, 1.0f, u, t);
-        //?} else {
-        /*renderQueue.submitCustomGeometry(matrices, innerLayer, (entry, vertexConsumer) -> {
+        /*renderBeamLayer(matrices.last(), vertexConsumers.getBuffer(innerLayer), innerWithAlpha.apply(rgb), yOffset, i, 0.0f, innerRadius, innerRadius, 0.0f, -innerRadius, 0.0f, 0.0f, -innerRadius, 0.0f, 1.0f, u, t);
+        *///?} else {
+        renderQueue.submitCustomGeometry(matrices, innerLayer, (entry, vertexConsumer) -> {
             renderBeamLayer(entry, vertexConsumer, innerWithAlpha.apply(rgb), yOffset, i, 0.0f, innerRadius, innerRadius, 0.0f, -innerRadius, 0.0f, 0.0f, -innerRadius, 0.0f, 1.0f, u, t);
         });
-        *///?}
+        //?}
         matrices.popPose();
 
         final float u2 = (float) maxY * heightScale + t;
         RenderType outerLayer = RenderType.beaconBeam(textureId, true);
         //? if <=1.21.8 {
-        renderBeamLayer(matrices.last(), vertexConsumers.getBuffer(outerLayer), Masonry.ColorHelper.withAlpha(32, rgb), yOffset, i, -outerRadius, -outerRadius, outerRadius, -outerRadius, -outerRadius, outerRadius, outerRadius, outerRadius, 0.0f, 1.0f, u2, t);
-         //?} else {
-        /*renderQueue.submitCustomGeometry(matrices, innerLayer, (entry, vertexConsumer) -> {
+        /*renderBeamLayer(matrices.last(), vertexConsumers.getBuffer(outerLayer), Masonry.ColorHelper.withAlpha(32, rgb), yOffset, i, -outerRadius, -outerRadius, outerRadius, -outerRadius, -outerRadius, outerRadius, outerRadius, outerRadius, 0.0f, 1.0f, u2, t);
+         *///?} else {
+        renderQueue.submitCustomGeometry(matrices, innerLayer, (entry, vertexConsumer) -> {
             renderBeamLayer(entry, vertexConsumer, Masonry.ColorHelper.withAlpha(32, rgb), yOffset, i, -outerRadius, -outerRadius, outerRadius, -outerRadius, -outerRadius, outerRadius, outerRadius, outerRadius, 0.0f, 1.0f, u2, t);
         });
-        *///?}
+        //?}
         matrices.popPose();
     }
 

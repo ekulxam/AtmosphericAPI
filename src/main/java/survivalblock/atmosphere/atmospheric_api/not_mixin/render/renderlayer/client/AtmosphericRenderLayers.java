@@ -9,7 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("unused")
@@ -21,7 +21,7 @@ public final class AtmosphericRenderLayers {
     }
 
     @Nullable
-    public static RenderType getArtificialLifeRenderLayer(boolean showBody, boolean translucent, boolean showOutline, ResourceLocation texture, Model model) {
+    public static RenderType getArtificialLifeRenderLayer(boolean showBody, boolean translucent, boolean showOutline, Identifier texture, Model model) {
         if (showOutline) {
             return RenderType.outline(texture);
         }

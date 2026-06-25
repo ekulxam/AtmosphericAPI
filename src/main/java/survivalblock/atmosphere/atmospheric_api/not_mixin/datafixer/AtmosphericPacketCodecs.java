@@ -11,7 +11,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -45,7 +45,7 @@ public interface AtmosphericPacketCodecs {
                     box -> new Duo<>(box.getMinPosition(), box.getMaxPosition()));
 
     static <V> StreamCodec<ByteBuf, V> viaId(Registry<V> registry) {
-        return ResourceLocation.STREAM_CODEC.map(registry::/*? =1.21.1 {*/ /*get *//*?} else {*/ getValue /*?}*/, registry::getKey);
+        return Identifier.STREAM_CODEC.map(registry::/*? =1.21.1 {*/ /*get *//*?} else {*/ getValue /*?}*/, registry::getKey);
     }
 
     static <B extends ByteBuf, V> StreamCodec<B, Duo<V>> duo(StreamCodec<? super B, V> elementCodec) {

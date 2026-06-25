@@ -7,27 +7,27 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.render.shader.client;
 
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("ClassCanBeRecord")
 public class ShaderApplier implements Comparable<ShaderApplier> {
 
-    protected final ResourceLocation postEffectId;
+    protected final Identifier postEffectId;
     protected final PostEffectCondition condition;
     protected final int priority;
 
-    public ShaderApplier(ResourceLocation id, PostEffectCondition condition) {
+    public ShaderApplier(Identifier id, PostEffectCondition condition) {
         this(id, condition, 1000);
     }
 
-    public ShaderApplier(ResourceLocation id, PostEffectCondition condition, int priority) {
+    public ShaderApplier(Identifier id, PostEffectCondition condition, int priority) {
         this.postEffectId = id;
         this.condition = condition;
         this.priority = priority;
     }
 
-    public ResourceLocation getPostEffectId() {
+    public Identifier getPostEffectId() {
         return this.postEffectId;
     }
 

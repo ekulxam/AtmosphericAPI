@@ -9,7 +9,7 @@
 import java.util.HashMap;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelIdentifier;
 import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.AlternateModelItem;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
@@ -20,25 +20,25 @@ public final class AlternateItemModelRegistryImpl {
     private AlternateItemModelRegistryImpl() {
     }
 
-    private static final HashMap<AlternateModelItem, ModelResourceLocation> models = new HashMap<>();
+    private static final HashMap<AlternateModelItem, ModelIdentifier> models = new HashMap<>();
 
-    private static final HashMap<IAmASpyglassItem, ModelResourceLocation> spyglassModels = new HashMap<>();
+    private static final HashMap<IAmASpyglassItem, ModelIdentifier> spyglassModels = new HashMap<>();
 
     @ApiStatus.Internal
-    static void register(AlternateModelItem item, ModelResourceLocation modelResourceLocation) {
-        models.put(item, modelResourceLocation);
+    static void register(AlternateModelItem item, ModelIdentifier modelIdentifier) {
+        models.put(item, modelIdentifier);
     }
 
     @ApiStatus.Internal
-    static void registerSpyglass(IAmASpyglassItem item, ModelResourceLocation modelResourceLocation) {
-        spyglassModels.put(item, modelResourceLocation);
+    static void registerSpyglass(IAmASpyglassItem item, ModelIdentifier modelIdentifier) {
+        spyglassModels.put(item, modelIdentifier);
     }
 
-    public static HashMap<AlternateModelItem, ModelResourceLocation> getModels() {
+    public static HashMap<AlternateModelItem, ModelIdentifier> getModels() {
         return models;
     }
 
-    public static HashMap<IAmASpyglassItem, ModelResourceLocation> getSpyglassModels() {
+    public static HashMap<IAmASpyglassItem, ModelIdentifier> getSpyglassModels() {
         return spyglassModels;
     }
 }

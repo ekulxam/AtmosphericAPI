@@ -9,7 +9,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerPlayer;
@@ -41,7 +41,7 @@ public abstract class ServerPlayerEntityMixin extends Player implements Atmosphe
 
 
     @Override
-    public boolean atmospheric_api$grantAdvancement(ResourceLocation advancementId, boolean verboseLogging) {
+    public boolean atmospheric_api$grantAdvancement(Identifier advancementId, boolean verboseLogging) {
         //noinspection DataFlowIssue (server should not be null already)
         ServerAdvancementManager loader = Masonry.getEntityServer(this).getAdvancements();
         AdvancementHolder advancementEntry = loader.get(advancementId);

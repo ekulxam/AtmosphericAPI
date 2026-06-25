@@ -6,7 +6,7 @@
 package survivalblock.atmosphere.atmospheric_api.mixin.registry;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -18,7 +18,7 @@ public interface RegistriesAccessor {
 
     @SuppressWarnings("unused")
     @Accessor("LOADERS")
-    static Map<ResourceLocation, Supplier<?>> atmospheric_api$getDefaultEntries() {
+    static Map<Identifier, Supplier<?>> atmospheric_api$getDefaultEntries() {
         throw new UnsupportedOperationException();
     }
 }

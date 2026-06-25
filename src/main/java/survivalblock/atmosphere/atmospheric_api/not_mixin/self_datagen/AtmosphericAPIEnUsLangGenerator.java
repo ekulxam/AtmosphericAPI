@@ -5,7 +5,7 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.self_datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.damage_type.AtmosphericDamageTypeGamerules;
@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class AtmosphericAPIEnUsLangGenerator extends FabricLanguageProvider {
 
-    public AtmosphericAPIEnUsLangGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public AtmosphericAPIEnUsLangGenerator(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

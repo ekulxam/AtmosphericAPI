@@ -9,7 +9,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 //? if >=1.21.2
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -21,7 +21,7 @@ public class BlockRegistrant extends Registrant<Block> {
         super(modId, registry);
     }
 
-    protected BlockRegistrant(Function<String, ResourceLocation> idFunction, Registry<Block> registry) {
+    protected BlockRegistrant(Function<String, Identifier> idFunction, Registry<Block> registry) {
         super(idFunction, registry);
     }
 
@@ -29,7 +29,7 @@ public class BlockRegistrant extends Registrant<Block> {
         this(modId, BuiltInRegistries.BLOCK);
     }
 
-    public BlockRegistrant(Function<String, ResourceLocation> idFunction) {
+    public BlockRegistrant(Function<String, Identifier> idFunction) {
         this(idFunction, BuiltInRegistries.BLOCK);
     }
 

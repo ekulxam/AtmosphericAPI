@@ -10,7 +10,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.WorldVersion;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,7 +32,7 @@ public abstract class FabricDataGeneratorMixin extends DataGenerator implements 
     @Unique
     protected String atmospheric_api$alternatePath = "";
 
-    @Shadow public abstract FabricDataGenerator.Pack createBuiltinResourcePack(ResourceLocation id);
+    @Shadow public abstract FabricDataGenerator.Pack createBuiltinResourcePack(Identifier id);
 
     public FabricDataGeneratorMixin(Path outputPath, WorldVersion gameVersion, boolean ignoreCache) {
         super(outputPath, gameVersion, ignoreCache);
@@ -52,13 +52,13 @@ public abstract class FabricDataGeneratorMixin extends DataGenerator implements 
     }
 
     @Override
-    public FabricDataGenerator.Pack atmospheric_api$createBuiltinDataPack(ResourceLocation id) {
+    public FabricDataGenerator.Pack atmospheric_api$createBuiltinDataPack(Identifier id) {
         this.atmospheric_api$isGeneratingDatapack = true;
         return createBuiltinResourcePack(id);
     }
 
     @Override
-    public FabricDataGenerator.Pack atmospheric_api$generateSomethingUnderAlternatePath(String path, ResourceLocation id) {
+    public FabricDataGenerator.Pack atmospheric_api$generateSomethingUnderAlternatePath(String path, Identifier id) {
         this.atmospheric_api$isUsingAlternatePath = true;
         this.atmospheric_api$alternatePath = path;
         return createBuiltinResourcePack(id);
