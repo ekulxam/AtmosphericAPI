@@ -14,7 +14,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.TridentModel;
+//~ if >=1.21.11 'model.TridentModel' -> 'model.object.projectile.TridentModel'
+import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -22,16 +23,19 @@ import net.minecraft.client.model.geom.ModelLayers;
 //import net.minecraft.client.renderer.MultiBufferSource;
 //? if >=1.21.9
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+//? if <1.21.9
+//import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.special.NoDataSpecialModelRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericCodecs;
 
 import java.util.Set;
+import java.util.function.Consumer;
 
 @SuppressWarnings("ClassCanBeRecord")
 @Environment(EnvType.CLIENT)
@@ -46,7 +50,8 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
     }
 
     @Override
-    public void /*? >=1.21.9 {*/ submit /*?} else {*/ /*render *//*?}*/(ItemDisplayContext displayContext, PoseStack matrices,/*? >=1.21.9 {*/ SubmitNodeCollector renderQueue /*?} else {*/ /*MultiBufferSource bufferSource *//*?}*/, int packedLight, int packedOverlay, boolean hasFoil/*? >=1.21.9 {*/ , int outlineColor /*?}*/) {
+    //~ if >=1.21.9 'render(' -> 'submit('
+    public void submit(/*? <26 {*/ /*ItemDisplayContext displayContext, *//*?}*/ PoseStack matrices,/*? >=1.21.9 {*/ SubmitNodeCollector renderQueue /*?} else {*/ /*MultiBufferSource bufferSource *//*?}*/, int packedLight, int packedOverlay, boolean hasFoil/*? >=1.21.9 {*/ , int outlineColor /*?}*/) {
         matrices.pushPose();
         matrices.scale(1.0F, -1.0F, -1.0F);
         //? if <1.21.9 {
@@ -59,7 +64,8 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
     }
 
     @Override
-    public void getExtents(Set<Vector3f> output) {
+    //~ if >=1.21.11 'Set<Vector3f>' -> 'Consumer<Vector3fc>'
+    public void getExtents(Consumer<Vector3fc> output) {
         PoseStack matrices = new PoseStack();
         matrices.scale(1.0F, -1.0F, -1.0F);
         this.model.root().getExtentsForGui(matrices, output);

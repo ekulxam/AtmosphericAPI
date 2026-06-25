@@ -13,7 +13,8 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 //? if >=1.21.9 {
 import net.minecraft.client.particle.SingleQuadParticle;
-import net.minecraft.client.renderer.state.QuadParticleRenderState;
+//~ if >=26 'state.QuadParticleRenderState' -> 'state.level.QuadParticleRenderState'
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
 //?}
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
@@ -63,7 +64,11 @@ public abstract class DirectionalParticle extends Particle {
                 // TODO: fix this
                 Vec3 particleDirection = Vec3.directionFromRotation(this.yaw, this.pitch).normalize();
                 //Vec3d view = camera.getPos().subtract(this.x, this.y, this.z).normalize();
-                Vec3 view = Vec3.directionFromRotation(camera.getXRot(), camera.getYRot()).normalize();
+                //~ if >=1.21.11 'getXRot' -> 'xRot' {
+                //~ if >=1.21.11 'getYRot' -> 'yRot' {
+                Vec3 view = Vec3.directionFromRotation(camera.xRot(), camera.yRot()).normalize();
+                //~}
+                //~}
                 double dotProduct = view.dot(particleDirection);
                 if (dotProduct < 0) {
                     quaternionf.rotateY((float) Math.PI);
@@ -76,7 +81,8 @@ public abstract class DirectionalParticle extends Particle {
     }
 
     protected void render(/*? >=1.21.9 {*/ QuadParticleRenderState state /*?} else {*/ /*VertexConsumer vertexConsumer *//*?}*/, Camera camera, Quaternionf quaternionf, float tickProgress) {
-        Vec3 vec3d = camera.getPosition();
+        //~ if >=1.21.11 'getPosition()' -> 'position()'
+        Vec3 vec3d = camera.position();
         float x = (float)(Mth.lerp(tickProgress, this.xo, this.x) - vec3d.x());
         float y = (float)(Mth.lerp(tickProgress, this.yo, this.y) - vec3d.y());
         float z = (float)(Mth.lerp(tickProgress, this.zo, this.z) - vec3d.z());
@@ -89,7 +95,8 @@ public abstract class DirectionalParticle extends Particle {
         float maxU = this.getMaxU();
         float minV = this.getMinV();
         float maxV = this.getMaxV();
-        int brightness = this.getLightColor(tickProgress);
+        //~ if >=26 'getLightColor' -> 'getLightCoords'
+        int brightness = this.getLightCoords(tickProgress);
         //? if >=1.21.9 {
         state.add(this.getLayer(), x, y, z, quaternionf.x, quaternionf.y, quaternionf.z, quaternionf.w, size, minU, maxU, minV, maxV, Masonry.ColorHelper.fromFloats(this.alpha, this.red, this.green, this.blue), brightness);
         //?} else {

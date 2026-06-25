@@ -9,11 +9,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+//~ if >=1.21.11 'renderer.RenderType' -> 'renderer.rendertype.RenderType'
+import net.minecraft.client.renderer.rendertype.RenderType;
 //? if >=1.21.9
 import net.minecraft.client.renderer.SubmitNodeCollector;
+//? if >=1.21.11
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
@@ -45,6 +47,7 @@ public final class BeaconLaserRenderer {
      * @param middleOfBlock good for beacons, bad for entities
      * @param innerWithAlpha default just returns rgb
      */
+    //~ if >=1.21.11 'RenderType.beaconBeam' -> 'RenderTypes.beaconBeam' {
     @SuppressWarnings("CodeBlock2Expr")
     public static void renderBeamTheRealWay(PoseStack matrices, /*? >=1.21.9 {*/ SubmitNodeCollector renderQueue /*?} else {*/ /*MultiBufferSource vertexConsumers *//*?}*/, Identifier textureId, float tickDelta, float heightScale, long worldTime, double yOffset, double maxY, int rgb, float innerRadius, float outerRadius, boolean middleOfBlock, Int2IntFunction innerWithAlpha) {
         double i = yOffset + maxY;
@@ -63,7 +66,7 @@ public final class BeaconLaserRenderer {
 
         final float t = -1.0f + h;
         final float u = (float) maxY * heightScale * (0.5f / innerRadius) + t;
-        RenderType innerLayer = RenderType.beaconBeam(textureId, false);
+        RenderType innerLayer = RenderTypes.beaconBeam(textureId, false);
         //? if <=1.21.8 {
         /*renderBeamLayer(matrices.last(), vertexConsumers.getBuffer(innerLayer), innerWithAlpha.apply(rgb), yOffset, i, 0.0f, innerRadius, innerRadius, 0.0f, -innerRadius, 0.0f, 0.0f, -innerRadius, 0.0f, 1.0f, u, t);
         *///?} else {
@@ -74,7 +77,7 @@ public final class BeaconLaserRenderer {
         matrices.popPose();
 
         final float u2 = (float) maxY * heightScale + t;
-        RenderType outerLayer = RenderType.beaconBeam(textureId, true);
+        RenderType outerLayer = RenderTypes.beaconBeam(textureId, true);
         //? if <=1.21.8 {
         /*renderBeamLayer(matrices.last(), vertexConsumers.getBuffer(outerLayer), Masonry.ColorHelper.withAlpha(32, rgb), yOffset, i, -outerRadius, -outerRadius, outerRadius, -outerRadius, -outerRadius, outerRadius, outerRadius, outerRadius, 0.0f, 1.0f, u2, t);
          *///?} else {
@@ -84,6 +87,7 @@ public final class BeaconLaserRenderer {
         //?}
         matrices.popPose();
     }
+    //~}
 
     public static void renderBeamLayer(PoseStack.Pose entry, VertexConsumer vertices, int color, double yOffset, double height, float x1, float z1, float x2, float z2, float x3, float z3, float x4, float z4, float u1, float u2, float v1, float v2) {
         renderBeamFace(entry, vertices, color, yOffset, height, x1, z1, x2, z2, u1, u2, v1, v2);
@@ -100,6 +104,6 @@ public final class BeaconLaserRenderer {
     }
 
     public static void renderBeamVertex(PoseStack.Pose matrix, VertexConsumer vertices, int color, double y, float x, float z, float u, float v) {
-        vertices.addVertex(matrix, x, (float)y, z).setColor(color).setUv(u, v).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LightTexture.FULL_BRIGHT).setNormal(matrix, 0.0f, 1.0f, 0.0f);
+        vertices.addVertex(matrix, x, (float)y, z).setColor(color).setUv(u, v).setOverlay(OverlayTexture.NO_OVERLAY).setLight(15728880).setNormal(matrix, 0.0f, 1.0f, 0.0f);
     }
 }

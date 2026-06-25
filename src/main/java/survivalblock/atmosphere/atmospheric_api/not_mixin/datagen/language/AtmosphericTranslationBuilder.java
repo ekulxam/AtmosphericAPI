@@ -14,7 +14,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.level.GameRules;
+//? if <=1.21.11 {
+/*import net.minecraft.world.level.GameRules;
+*///?} else {
+import net.minecraft.world.level.gamerules.GameRule;
+//?}
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("NonExtendableApiUsage") // this is fineeee
@@ -29,7 +33,8 @@ public record AtmosphericTranslationBuilder(TranslationBuilder delegate) impleme
         this.add(BuiltInRegistries.CREATIVE_MODE_TAB.getResourceKey(itemGroup).orElseThrow(() -> new IllegalStateException("ItemGroup " + value + " was not found in the registry!")), value);
     }
 
-    public void add(GameRules.Key<?> rule, String value) {
+    //~ if >=1.21.11 'GameRules.Key' -> 'GameRule'
+    public void add(GameRule<?> rule, String value) {
         this.add(rule.getDescriptionId(), value);
     }
 
@@ -59,6 +64,7 @@ public record AtmosphericTranslationBuilder(TranslationBuilder delegate) impleme
 
     @SuppressWarnings("unused")
     public void addEnchantment(ResourceKey<Enchantment> key, String value) {
-        this.add("enchantment." + key.location().toLanguageKey(), value);
+        //~ if >=1.21.11 'location()' -> 'identifier()'
+        this.add("enchantment." + key.identifier().toLanguageKey(), value);
     }
 }

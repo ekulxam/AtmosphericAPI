@@ -18,7 +18,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-//~ if >=26 'net.minecraft.world.entity.projectile.AbstractArrow' -> 'net.minecraft.world.entity.projectile.arrow.AbstractArrow'
+//~ if >=1.21.11 'net.minecraft.world.entity.projectile.AbstractArrow' -> 'net.minecraft.world.entity.projectile.arrow.AbstractArrow'
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 //? if >=1.21.6
@@ -82,7 +82,7 @@ public class PersistentProjectileEntityMixin {
         return true;
     }
 
-    //~ if >=26 'projectile/AbstractArrow' -> 'projectile/arrow/AbstractArrow'
+    //~ if >=1.21.11 'projectile/AbstractArrow' -> 'projectile/arrow/AbstractArrow'
     @WrapOperation(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSources;arrow(Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;Lnet/minecraft/world/entity/Entity;)Lnet/minecraft/world/damagesource/DamageSource;"))
     private DamageSource customDamageType(DamageSources instance, AbstractArrow source, Entity attacker, Operation<DamageSource> original) {
         if ((AbstractArrow) (Object) this instanceof DamagingPersistentProjectile damagingPersistentProjectile) {

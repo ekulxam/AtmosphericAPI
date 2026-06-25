@@ -5,7 +5,8 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
-import net.minecraft.Util;
+//~ if >=1.21.11 'minecraft.Util' -> 'minecraft.util.Util'
+import net.minecraft.util.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 

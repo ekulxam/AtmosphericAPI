@@ -15,7 +15,8 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 //? if <1.21.9
 //import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.minecraft.Util;
+//~ if >=1.21.11 'minecraft.Util' -> 'minecraft.util.Util'
+import net.minecraft.util.Util;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.Identifier;
 //? if >=1.21.9

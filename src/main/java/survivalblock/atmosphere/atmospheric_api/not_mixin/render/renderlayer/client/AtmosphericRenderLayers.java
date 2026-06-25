@@ -8,7 +8,10 @@ package survivalblock.atmosphere.atmospheric_api.not_mixin.render.renderlayer.cl
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.renderer.RenderType;
+//~ if >=1.21.11 'renderer.RenderType' -> 'renderer.rendertype.RenderType'
+import net.minecraft.client.renderer.rendertype.RenderType;
+//? if >=1.21.11
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.Nullable;
 
@@ -17,13 +20,21 @@ import org.jetbrains.annotations.Nullable;
 public final class AtmosphericRenderLayers {
 
     public static RenderType getEndShader(){
-        return RenderType.endPortal();
+        //? if <1.21.11 {
+        /*return RenderType.endPortal();
+        *///?} else {
+        return RenderTypes.endPortal();
+        //?}
     }
 
     @Nullable
     public static RenderType getArtificialLifeRenderLayer(boolean showBody, boolean translucent, boolean showOutline, Identifier texture, Model model) {
         if (showOutline) {
-            return RenderType.outline(texture);
+            //? if <1.21.11 {
+            /*return RenderType.outline(texture);
+             *///?} else {
+            return RenderTypes.outline(texture);
+            //?}
         }
         if (translucent) {
             return null;

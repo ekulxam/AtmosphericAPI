@@ -5,14 +5,16 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.entity;
 
-import net.minecraft.world.entity.projectile.AbstractArrow;
+//~ if >=1.21.11 'projectile.AbstractArrow' -> 'projectile.arrow.AbstractArrow' {
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * A {@link net.minecraft.world.entity.projectile.AbstractArrow} that can/should have null or
+ * A {@link net.minecraft.world.entity.projectile.arrow.AbstractArrow} that can/should have null or
  * {@link net.minecraft.world.item.ItemStack#EMPTY} as the return value of {@link AbstractArrow#getPickupItemStackOrigin()}
  * @see survivalblock.atmosphere.atmospheric_api.mixin.entity.PersistentProjectileEntityMixin
  */
+//~}
 public interface StacklessPersistentProjectile {
 
     default boolean shouldAvoidEncodingStack() {

@@ -16,8 +16,10 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleGroup;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.renderer.culling.Frustum;
-import net.minecraft.client.renderer.state.ParticleGroupRenderState;
-import net.minecraft.client.renderer.state.QuadParticleRenderState;
+//~ if >=26 'renderer.state' -> 'renderer.state.level' {
+import net.minecraft.client.renderer.state.level.ParticleGroupRenderState;
+import net.minecraft.client.renderer.state.level.QuadParticleRenderState;
+//~}
 import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.particle.client.DirectionalParticle;
 
