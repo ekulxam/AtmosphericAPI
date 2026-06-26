@@ -20,7 +20,7 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.Atmospheri
 public class ArmedEntityRenderStateMixin {
 
     @Inject(method = "extractArmedEntityRenderState", at = @At(value = "HEAD"))
-    private static void updateHandStacks(LivingEntity entity, ArmedEntityRenderState state, ItemModelResolver itemModelResolver, CallbackInfo ci) {
+    private static void updateHandStacks(LivingEntity entity, ArmedEntityRenderState state, ItemModelResolver itemModelResolver, /*? >=1.21.11 {*/ float tickProgress, /*?}*/ CallbackInfo ci) {
         state.setData(AtmosphericSpecialItemRenderHandlerImpl.MAINHAND_STACK_KEY, entity.getMainHandItem());
         state.setData(AtmosphericSpecialItemRenderHandlerImpl.OFFHAND_STACK_KEY, entity.getOffhandItem());
     }

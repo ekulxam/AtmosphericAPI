@@ -17,12 +17,13 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.client.Atmospheri
 @Mixin(ItemInHandRenderer.class)
 public class HeldItemRendererMixin {
 
-    @ModifyExpressionValue(method = "selectionUsingItemWhileHoldingBowLike", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z", ordinal = 1))
+    //~ if >=26 'Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z' -> 'Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z' {
+    @ModifyExpressionValue(method = "selectionUsingItemWhileHoldingBowLike", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 1))
     private static boolean usingLongswordRenderType(boolean original, @Local ItemStack stack){
         return original || (stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack));
     }
 
-    @ModifyExpressionValue(method = "evaluateWhichHandsToRender", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z", ordinal = 3))
+    @ModifyExpressionValue(method = "evaluateWhichHandsToRender", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 3))
     private static boolean longswordIsACrossbowToo(boolean original, @Local(ordinal = 0) ItemStack itemStack, @Local(ordinal = 1) ItemStack itemStack2){
         if (original) {
             return true;
@@ -38,7 +39,7 @@ public class HeldItemRendererMixin {
         return original || (itemStack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(itemStack));
     }
 
-    @ModifyExpressionValue(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z", ordinal = /*? =1.21.1 {*/  /*1 *//*?} else {*/ 0 /*?}*/))
+    @ModifyExpressionValue(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = /*? =1.21.1 {*/  /*1 *//*?} else {*/ 0 /*?}*/))
     private boolean renderFirstPersonLongsword(boolean original, @Local(argsOnly = true) ItemStack stack){
         return original || (stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack));
     }
@@ -47,4 +48,5 @@ public class HeldItemRendererMixin {
     private boolean noLongswordDrawbackAnimation(boolean original, @Local(argsOnly = true) ItemStack stack){
         return !(stack.getItem() instanceof TwoHandedItem twoHandedItem && AtmosphericSpecialItemRenderHandlerImpl.getTwoHandedHandler().get(twoHandedItem).apply(stack)) && original;
     }
+    //~}
 }

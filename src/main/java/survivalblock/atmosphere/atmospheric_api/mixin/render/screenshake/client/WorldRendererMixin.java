@@ -17,7 +17,10 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.render.screenshake.cli
 @Mixin(LevelRenderer.class)
 public class WorldRendererMixin {
 
-    @ModifyExpressionValue(method = "renderLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;getPosition()Lnet/minecraft/world/phys/Vec3;"))
+    //~ if >=1.21.11 'getPosition()' -> 'position()' {
+    //~ if >=1.21.11 'renderLevel' -> 'extractLevel'
+    @ModifyExpressionValue(method = "extractLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Camera;position()Lnet/minecraft/world/phys/Vec3;"))
+    //~}
     private Vec3 shakeCamera(Vec3 original) {
         ClientScreenShaker clientScreenShaker = ClientScreenShaker.getActiveInstance();
         if (clientScreenShaker == null || !clientScreenShaker.shouldShake()) {
