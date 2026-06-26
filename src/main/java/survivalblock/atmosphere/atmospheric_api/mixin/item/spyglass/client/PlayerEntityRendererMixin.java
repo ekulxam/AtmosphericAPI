@@ -19,7 +19,8 @@ import survivalblock.atmosphere.atmospheric_api.not_mixin.item.IAmASpyglassItem;
 public class PlayerEntityRendererMixin {
 
     @ModifyExpressionValue(method =/*? >1.21.8 {*/ "extractRenderState(Lnet/minecraft/world/entity/Avatar;Lnet/minecraft/client/renderer/entity/state/AvatarRenderState;F)V" /*?} else {*/ /*"extractRenderState(Lnet/minecraft/client/player/AbstractClientPlayer;Lnet/minecraft/client/renderer/entity/state/PlayerRenderState;F)V" *//*?}*/,
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/world/item/Item;)Z"))
+            //~ if >=26 'Lnet/minecraft/world/item/Item;' -> 'Ljava/lang/Object;'
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z"))
     private boolean isOfKaleidoscope(boolean original, @Local ItemStack stack) {
         return original || stack.getItem() instanceof IAmASpyglassItem;
     }
