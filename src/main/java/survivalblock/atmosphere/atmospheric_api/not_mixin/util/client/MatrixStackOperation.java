@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 public abstract class MatrixStackOperation implements Consumer<PoseStack> {
     private static final BiMap<Identifier, MapCodec<? extends MatrixStackOperation>> REGISTRY = HashBiMap.create(5);
     private static final Codec<MapCodec<? extends MatrixStackOperation>> NESTED_CODEC = Identifier.CODEC
-            .comapFlatMap(
+            .flatXmap(
                     id -> {
                         MapCodec<? extends MatrixStackOperation> codec = REGISTRY.get(id);
                         if (codec == null) {
@@ -30,7 +30,13 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
                         }
                         return DataResult.success(codec);
                         },
-                    codec -> REGISTRY.inverse().get(codec));
+                    codec -> {
+                        var inverse = REGISTRY.inverse();
+                        if (inverse.containsKey(codec)) {
+                            return DataResult.success(inverse.get(codec));
+                        }
+                        return DataResult.error(() -> "The operation with codec " + codec + " was not registered!");
+                    });
     // why do I need to separate these (I love generics)
     public static final Codec<MatrixStackOperation> CODEC = NESTED_CODEC.dispatch(MatrixStackOperation::getCodec, codec -> codec);
 
