@@ -72,9 +72,6 @@ public abstract class DirectionalParticle extends Particle {
                 if (dotProduct < 0) {
                     quaternionf.rotateY((float) Math.PI);
                 }
-                if (dotProduct < 0) {
-                    quaternionf.rotateY((float) Math.PI);
-                }
                 this.render(/*? >=1.21.9 {*/ state /*?} else {*/ /*vertexConsumer *//*?}*/, camera, quaternionf, tickProgress);
             }
             case null, default -> {
