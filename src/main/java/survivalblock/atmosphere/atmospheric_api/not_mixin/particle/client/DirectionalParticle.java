@@ -61,15 +61,17 @@ public abstract class DirectionalParticle extends Particle {
                 this.render(/*? >=1.21.9 {*/ state /*?} else {*/ /*vertexConsumer *//*?}*/, camera, quaternionf, tickProgress);
             }
             case FRONTFACE -> {
-                // TODO: fix this
-                Vec3 particleDirection = Vec3.directionFromRotation(this.yaw, this.pitch).normalize();
-                //Vec3d view = camera.getPos().subtract(this.x, this.y, this.z).normalize();
-                //~ if >=1.21.11 'getXRot' -> 'xRot' {
-                //~ if >=1.21.11 'getYRot' -> 'yRot' {
-                Vec3 view = Vec3.directionFromRotation(camera.xRot(), camera.yRot()).normalize();
-                //~}
-                //~}
+                Vec3 particleDirection = Vec3.directionFromRotation(this.pitch, this.yaw).normalize();
+                //~ if >=1.21.11 'getPosition()' -> 'position()'
+                Vec3 view = camera.position().subtract(
+                        Mth.lerp(tickProgress, this.xo, this.x),
+                        Mth.lerp(tickProgress, this.yo, this.y),
+                        Mth.lerp(tickProgress, this.zo, this.z)
+                ).normalize();
                 double dotProduct = view.dot(particleDirection);
+                if (dotProduct < 0) {
+                    quaternionf.rotateY((float) Math.PI);
+                }
                 if (dotProduct < 0) {
                     quaternionf.rotateY((float) Math.PI);
                 }
@@ -179,11 +181,7 @@ public abstract class DirectionalParticle extends Particle {
          * Similar to backface culling for optimization. Because the particle only
          * renders once by default, this value allows the quaternion to rotate
          * according to the camera before rendering.
-         *
-         * @deprecated This currently doesn't work.
          */
-        @BadAtProgramming
-        @Deprecated
         FRONTFACE
     }
 }
