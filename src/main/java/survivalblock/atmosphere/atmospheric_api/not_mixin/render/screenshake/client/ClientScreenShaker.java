@@ -10,6 +10,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.Level;
@@ -180,5 +182,17 @@ public class ClientScreenShaker extends BasicScreenShaker implements QueueingScr
     @Override
     public boolean shouldShake() {
         return super.shouldShake() && !this.hasEnded() && !Minecraft.getInstance().isPaused();
+    }
+
+    public interface IntensityMultiplier {
+        Event<IntensityMultiplier> MODIFY_EVENT = EventFactory.createArrayBacked(IntensityMultiplier.class, listeners -> (screenShaker) -> {
+            float mul = 1;
+            for (IntensityMultiplier listener : listeners) {
+                mul *= listener.getIntensityPercentage(screenShaker);
+            }
+            return mul;
+        });
+
+        float getIntensityPercentage(ClientScreenShaker clientScreenShaker);
     }
 }

@@ -5,6 +5,7 @@
  */
 package survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.*;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.Registry;
@@ -714,10 +715,8 @@ public interface AtmosphericPacketCodecs {
         }
 
         // what is this class name lol
-        public ArrayList<PacketCodecAndValueGetterContainer<B, C, V>> createList() {
-            ArrayList<PacketCodecAndValueGetterContainer<B, C, V>> list = new ArrayList<>();
-            list.add(this);
-            return list;
+        public static ImmutableList.Builder<PacketCodecAndValueGetterContainer<?, ?, ?>> listBuilder() {
+            return new ImmutableList.Builder<>();
         }
     }
 }

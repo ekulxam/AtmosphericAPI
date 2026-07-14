@@ -1,3 +1,4 @@
-Atmospheric API 4.0.4
-- Actually fix `DirectionalParticle.RenderMode.FRONTFACE`
-  - Oops accidentally rotated the particle 360 degrees
+Atmospheric API 4.0.5
+- Added `DirectionalParticle#constructFromRotation` which returns the rotated `Quaternionf`
+- Fix screenshake
+- Minor `FabricDataGeneratorMixin` changes

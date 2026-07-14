@@ -52,8 +52,7 @@ public abstract class DirectionalParticle extends Particle {
     //? if <1.21.9
     //@Override
     public void render(/*? >=1.21.9 {*/ QuadParticleRenderState state /*?} else {*/ /*VertexConsumer vertexConsumer *//*?}*/, Camera camera, float tickProgress) {
-        Quaternionf quaternionf = new Quaternionf()
-                .rotationYXZ(-this.yaw * Mth.DEG_TO_RAD, this.pitch * Mth.DEG_TO_RAD, 0);
+        Quaternionf quaternionf = this.constructFromRotation();
         switch (this.getRenderMode()) {
             case RENDER_TWICE -> {
                 this.render(/*? >=1.21.9 {*/ state /*?} else {*/ /*vertexConsumer *//*?}*/, camera, quaternionf, tickProgress);
@@ -77,6 +76,10 @@ public abstract class DirectionalParticle extends Particle {
             case null, default -> {
             }
         }
+    }
+
+    protected Quaternionf constructFromRotation() {
+        return new Quaternionf().rotationYXZ(-this.yaw * Mth.DEG_TO_RAD, this.pitch * Mth.DEG_TO_RAD, 0);
     }
 
     protected void render(/*? >=1.21.9 {*/ QuadParticleRenderState state /*?} else {*/ /*VertexConsumer vertexConsumer *//*?}*/, Camera camera, Quaternionf quaternionf, float tickProgress) {
