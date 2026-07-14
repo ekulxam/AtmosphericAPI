@@ -48,7 +48,6 @@
     "particle.client.AtmosphericAPIClientMixin",
     "render.overlay.client.InGameHudMixin",
     "render.screenshake.client.AtmosphericAPIClientMixin",
-    "render.screenshake.client.WorldRendererMixin",
     "resource.client.MinecraftClientMixin"
   ],
   "injectors": {
