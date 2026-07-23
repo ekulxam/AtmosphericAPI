@@ -39,12 +39,12 @@ import java.util.function.Consumer;
 
 @SuppressWarnings("ClassCanBeRecord")
 @Environment(EnvType.CLIENT)
-public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRenderer {
+public class AtmosphericTridentModelRenderer<T> implements NoDataSpecialModelRenderer {
     public static final Identifier ID = AtmosphericAPI.id("trident");
-    private final Model model;
+    private final Model<T> model;
     private final Identifier texture;
 
-    public AtmosphericTridentModelRenderer(Model model, Identifier texture) {
+    public AtmosphericTridentModelRenderer(Model<T> model, Identifier texture) {
         this.model = model;
         this.texture = texture;
     }
@@ -89,7 +89,7 @@ public class AtmosphericTridentModelRenderer implements NoDataSpecialModelRender
         }
 
         public SpecialModelRenderer<?> bake(/*? >=1.21.9 {*/ BakingContext context /*?} else {*/ /*EntityModelSet modelSet *//*?}*/) {
-            return new AtmosphericTridentModelRenderer(new TridentModel(/*? >=1.21.9 {*/ context.entityModelSet() /*?} else {*/ /*modelSet *//*?}*/.bakeLayer(this.entityModelLayer)), this.texture);
+            return new AtmosphericTridentModelRenderer<>(new TridentModel(/*? >=1.21.9 {*/ context.entityModelSet() /*?} else {*/ /*modelSet *//*?}*/.bakeLayer(this.entityModelLayer)), this.texture);
         }
     }
 }

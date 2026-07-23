@@ -11,6 +11,5 @@ public class AtmosphericAPIClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-
     }
 }

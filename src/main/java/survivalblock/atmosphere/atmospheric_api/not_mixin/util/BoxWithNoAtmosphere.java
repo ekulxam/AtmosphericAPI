@@ -12,17 +12,20 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Contract;
 import org.joml.Vector3f;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * A(n) {@link AABB} with zero side length. This box does not intersect anything.
  * <p>
  * Using the operations of {@link AABB} on this class simply does nothing and does NOT
  * create a new instance. As such, all methods in this class should be annotated with
- * {@code @Contract(value = "_ -> this", pure = true)}. For example, see
+ * {@code @Contract(value = "_ -> this", pure = true)} or some equivalent according to
+ * the method in question. For example, see
  * {@link AABB#setMinX(double)} and {@link BoxWithNoAtmosphere#setMinX(double)}.
  */
 @SuppressWarnings("unused")
 public class BoxWithNoAtmosphere extends AABB {
-
     public static final BoxWithNoAtmosphere INSTANCE = new BoxWithNoAtmosphere(); // the default instance
     public final Vec3 zero = new Vec3(0.0, 0.0, 0.0); // creates another instance of the zero vector
 
@@ -66,19 +69,19 @@ public class BoxWithNoAtmosphere extends AABB {
         return this;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public double min(Direction.Axis axis) {
         return 0;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public double max(Direction.Axis axis) {
         return 0;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -98,7 +101,7 @@ public class BoxWithNoAtmosphere extends AABB {
         }
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public int hashCode() {
         int i = Double.hashCode(this.minX);
@@ -109,7 +112,7 @@ public class BoxWithNoAtmosphere extends AABB {
         return 31 * i + Double.hashCode(this.maxZ);
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(value = "_, _, _ -> this", pure = true)
     @Override
     public AABB contract(double x, double y, double z) {
         return this;
@@ -121,13 +124,13 @@ public class BoxWithNoAtmosphere extends AABB {
         return this;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(value = "_, _, _ -> this", pure = true)
     @Override
     public AABB expandTowards(double x, double y, double z) {
         return this;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(value = "_, _, _ -> this", pure = true)
     @Override
     public AABB inflate(double x, double y, double z) {
         return this;
@@ -151,7 +154,7 @@ public class BoxWithNoAtmosphere extends AABB {
         return this;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(value = "_, _, _ -> this", pure = true)
     @Override
     public AABB move(double x, double y, double z) {
         return this;
@@ -175,61 +178,67 @@ public class BoxWithNoAtmosphere extends AABB {
         return this;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public boolean intersects(AABB box) {
         return false;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public boolean intersects(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         return false;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public boolean intersects(Vec3 pos1, Vec3 pos2) {
         return false;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
+    @Override
+    public boolean intersects(BlockPos pos) {
+        return false;
+    }
+
+    @Contract(pure = true)
     @Override
     public boolean contains(Vec3 pos) {
         return false;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public boolean contains(double x, double y, double z) {
         return false;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public double getSize() {
         return 0;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public double getXsize() {
         return 0;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public double getYsize() {
         return 0;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public double getZsize() {
         return 0;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(value = "_, _, _ -> this", pure = true)
     @Override
     public AABB deflate(double x, double y, double z) {
         return this;
@@ -241,27 +250,41 @@ public class BoxWithNoAtmosphere extends AABB {
         return this;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public Vec3 getCenter() {
         return this.zero;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public Vec3 getBottomCenter() {
         return this.zero;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public Vec3 getMinPosition() {
         return this.zero;
     }
 
-    @Contract(value = "_ -> this", pure = true)
+    @Contract(pure = true)
     @Override
     public Vec3 getMaxPosition() {
         return this.zero;
     }
+
+    //? if >=1.21.2 {
+    @Contract(pure = true)
+    @Override
+    public boolean collidedAlongVector(Vec3 vector, List<AABB> aabbs) {
+        return false;
+    }
+    
+    @Contract(pure = true)
+    @Override
+    public Optional<Vec3> clip(Vec3 from, Vec3 to) {
+        return Optional.empty();
+    }
+    //?}
 }

@@ -16,7 +16,9 @@ import net.minecraft.resources.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import survivalblock.atmosphere.atmospheric_api.not_mixin.datafixer.AtmosphericCodecs;
 
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 @SuppressWarnings("unused")
 public abstract class MatrixStackOperation implements Consumer<PoseStack> {
@@ -39,6 +41,45 @@ public abstract class MatrixStackOperation implements Consumer<PoseStack> {
                     });
     // why do I need to separate these (I love generics)
     public static final Codec<MatrixStackOperation> CODEC = NESTED_CODEC.dispatch(MatrixStackOperation::getCodec, codec -> codec);
+    public static final Codec<List<MatrixStackOperation>> LIST_CODEC = CODEC.listOf();
+    public static final Codec<List<MatrixStackOperation>> SAFE_LIST_CODEC = constructSafeListCodec(16);
+
+    public static Codec<List<MatrixStackOperation>> constructSafeListCodec(int pushPopLimit) {
+        return LIST_CODEC.validate(
+                list -> {
+                    int pushes = 0;
+                    int pops = 0;
+                    for (var operation : list) {
+                        if (operation instanceof Push) {
+                            pushes++;
+                        } else if (operation instanceof Pop) {
+                            pops++;
+                        }
+
+                        if (pops > pushes) {
+                            String aboveAllowed = "Popped too many times (pushes was " + pushes + ", while pops was " + pops + ")!";
+                            return DataResult.error(() -> aboveAllowed);
+                        }
+
+                        if (pushes > pushPopLimit) {
+                            String tooManyPushes = "Too many push calls were found (" + pushes + " > " + pushPopLimit + ")!";
+                            return DataResult.error(() -> tooManyPushes);
+                        } else if (pops > pushPopLimit) {
+                            String tooManyPops = "Too many pop calls were found (" + pops + " > " + pushPopLimit + ")!";
+                            return DataResult.error(() -> tooManyPops);
+                        }
+                    }
+
+                    if (pushes == pops) {
+                        return DataResult.success(list);
+                    }
+
+                    String somehowYouFailed = "You must have an equal number of push and pop calls (pushes was " + pushes + " and pops was " + pops + ")!";
+
+                    return DataResult.error(() -> somehowYouFailed);
+                }
+        );
+    }
 
     @ApiStatus.Internal
     public static void register(String name, MapCodec<? extends MatrixStackOperation> codec) {
