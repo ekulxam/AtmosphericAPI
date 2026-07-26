@@ -6,19 +6,23 @@
 package survivalblock.atmosphere.atmospheric_api.not_mixin.util;
 
 import org.jetbrains.annotations.Nullable;
-import survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static survivalblock.atmosphere.atmospheric_api.not_mixin.AtmosphericAPI.LOGGER;
+
 @SuppressWarnings("unused")
 public final class Reflector {
+    private static final int MAX_FIELD_SEARCH_DEPTH = 100;
 
     private Reflector() {
     }
@@ -35,8 +39,57 @@ public final class Reflector {
                     ? desc.clazz.getDeclaredField(desc.name)
                     : desc.clazz.getField(desc.name);
         } catch (NoSuchFieldException e) {
-            AtmosphericAPI.LOGGER.error("Error while using reflection to get the field {}.{}", desc.clazz.getName(), desc.name, e);
+            LOGGER.error("Error while using reflection to get the field {}.{}", desc.clazz.getName(), desc.name, e);
             return null;
+        }
+    }
+
+    @Nullable
+    public static Field fieldRecursive(FieldDescription desc) {
+        if (!desc.explicit) {
+            throw new IllegalStateException("FieldDescription " + desc + " (passed as parameter to fieldRecursive) must be marked as explicit!");
+        }
+        String name = desc.name;
+        Class<?> maybeSuper = desc.clazz;
+        List<String> searchedThrough = new ArrayList<>();
+        while (maybeSuper != null) {
+            try {
+                return maybeSuper.getDeclaredField(name);
+            } catch (NoSuchFieldException e) {
+                searchedThrough.add(maybeSuper.getName());
+                if (searchedThrough.size() > MAX_FIELD_SEARCH_DEPTH) {
+                    LOGGER.error("Error while using reflection to get the field {}.{} (exceeded the maximum depth of {} while searching through (super)classes: {})", desc.clazz.getName(), desc.name, MAX_FIELD_SEARCH_DEPTH, searchedThrough);
+                    return null;
+                }
+                maybeSuper = maybeSuper.getSuperclass();
+            }
+        }
+        //noinspection DataFlowIssue
+        LOGGER.error("Error while using reflection to get the field {}.{} (searched through the following (super)classes and found nothing: {})", desc.clazz.getName(), desc.name, searchedThrough);
+        return null;
+    }
+
+    @Nullable
+    private static Field fieldRecursive(FieldDescription desc, String original, int depth, String... searchedThrough) {
+        try {
+            return desc.clazz.getDeclaredField(desc.name);
+        } catch (NoSuchFieldException e) {
+            if (depth - 1 >= MAX_FIELD_SEARCH_DEPTH) {
+                return null;
+            }
+
+            if (searchedThrough[0] == null) {
+                searchedThrough[0] = original;
+            }
+            searchedThrough[depth] = desc.clazz.getName();
+            depth++;
+
+            Class<?> other = desc.clazz.getSuperclass();
+            if (other == null) {
+                return null;
+            }
+
+            return fieldRecursive(desc.copyWithClass(other), original, depth, searchedThrough);
         }
     }
 
@@ -50,7 +103,7 @@ public final class Reflector {
         try {
             return desc.clazz.getMethod(desc.name, desc.parameterTypes);
         } catch (NoSuchMethodException e) {
-            AtmosphericAPI.LOGGER.error("Error while using reflection to get the method {}.{}", desc.clazz.getName(), desc.name, e);
+            LOGGER.error("Error while using reflection to get the method {}.{}", desc.clazz.getName(), desc.name, e);
             return null;
         }
     }
@@ -80,7 +133,7 @@ public final class Reflector {
                     MethodType.methodType(Objects.requireNonNull(desc.returnType), desc.parameterTypes)
             );
         } catch (NoSuchMethodException | IllegalAccessException e) {
-            AtmosphericAPI.LOGGER.error("Error while using MethodHandles to get {}.{}", desc.clazz.getName(), desc.name, e);
+            LOGGER.error("Error while using MethodHandles to get {}.{}", desc.clazz.getName(), desc.name, e);
             return null;
         }
     }
@@ -136,6 +189,14 @@ public final class Reflector {
      * @param explicit set this to true to obtain the field by {@link Class#getDeclaredField(String)} rather than {@link Class#getField(String)}
      */
     public record FieldDescription(Class<?> clazz, String name, boolean explicit) {
+        public FieldDescription(Class<?> clazz, String name) {
+            this(clazz, name, false);
+        }
+
+        public FieldDescription copyWithClass(Class<?> other) {
+            return new FieldDescription(other, this.name, this.explicit);
+        }
+
         @Override
         public boolean equals(Object o) {
             if (o == null || this.getClass() != o.getClass()) return false;
